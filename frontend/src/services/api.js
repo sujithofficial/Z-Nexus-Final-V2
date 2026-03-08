@@ -72,4 +72,11 @@ export const countdownService = {
     delete: (id) => API.delete(`/countdown/${id}`),
 };
 
+export const paymentQRService = {
+    get: () => API.get('/payment-qr'),
+    save: (formData) => API.post('/payment-qr', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+};
+
 export default API;

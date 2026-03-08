@@ -17,6 +17,7 @@ import AdminGallery from './pages/admin/AdminGallery';
 import AdminAssociation from './pages/admin/AdminAssociation';
 import AdminStaff from './pages/admin/AdminStaff';
 import AdminCountdown from './pages/admin/AdminCountdown';
+import AdminPaymentQR from './pages/admin/AdminPaymentQR';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                         <Route path="/admin/association" element={<AdminAssociation />} />
                         <Route path="/admin/staff" element={<AdminStaff />} />
                         <Route path="/admin/countdown" element={<AdminCountdown />} />
+                        <Route path="/admin/payment" element={<AdminPaymentQR />} />
                     </Route>
                 </Routes>
             </main>

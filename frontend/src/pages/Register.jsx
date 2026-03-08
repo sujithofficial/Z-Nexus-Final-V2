@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { eventService, registrationService } from '../services/api';
+import { eventService, registrationService, paymentQRService } from '../services/api';
 import { User, Mail, Phone, School, BookOpen, GraduationCap, Trophy, Plus, Trash2, Upload, CheckCircle2, Users } from 'lucide-react';
 
 const Register = () => {
@@ -15,6 +15,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState('');
+    const [paymentQR, setPaymentQR] = useState(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -40,6 +41,16 @@ const Register = () => {
                 if (preSelectedEventId) {
                     const event = data.find(e => e._id === preSelectedEventId);
                     setSelectedEvent(event);
+                }
+
+                try {
+                    const qrRes = await paymentQRService.get();
+                    // Only use dynamic QR if a real image path was stored
+                    if (qrRes.data && qrRes.data.image) {
+                        setPaymentQR(qrRes.data);
+                    }
+                } catch (qrErr) {
+                    console.error("Failed to fetch payment QR:", qrErr);
                 }
             } catch (err) {
                 console.error(err);
@@ -323,9 +334,13 @@ const Register = () => {
                             <div className="p-6 bg-white/5 rounded-2xl space-y-4 border-2 border-dashed border-white/10">
                                 <p className="text-sm font-bold text-gray-400">SCAN & PAY</p>
                                 <div className="w-48 h-48 bg-white mx-auto flex items-center justify-center rounded-xl p-2">
-                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=znexus2026@upi&pn=ZNexus" alt="QR Code" className="w-full h-full" />
+                                    {paymentQR && paymentQR.image ? (
+                                        <img src={`http://localhost:5000${paymentQR.image}`} alt="Payment QR" className="w-full h-full object-contain" />
+                                    ) : (
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=znexus2026@upi&pn=ZNexus" alt="QR Code" className="w-full h-full" />
+                                    )}
                                 </div>
-                                <p className="text-center font-bold text-electricBlue">UPI ID: znexus2026@upi</p>
+                                <p className="text-center font-bold text-electricBlue">UPI ID: {paymentQR && paymentQR.text ? paymentQR.text : 'znexus2026@upi'}</p>
                             </div>
 
                             <div className="space-y-2">

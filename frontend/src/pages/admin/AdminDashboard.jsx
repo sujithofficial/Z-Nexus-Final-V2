@@ -45,6 +45,7 @@ const AdminDashboard = () => {
         { name: 'Association', path: '/admin/association', icon: <Shield size={24} />, color: 'bg-electricBlue' },
         { name: 'Staff', path: '/admin/staff', icon: <GraduationCap size={24} />, color: 'bg-orangeSplash' },
         { name: 'Countdown', path: '/admin/countdown', icon: <Clock size={24} />, color: 'bg-white/20' },
+        { name: 'Payment QR', path: '/admin/payment', icon: <Image size={24} />, color: 'bg-orangeSplash' },
     ];
 
     if (loading) return <div className="min-h-screen py-40 text-center font-black graffiti-text text-4xl">LOADING...</div>;
