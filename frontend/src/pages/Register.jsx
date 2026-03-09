@@ -344,9 +344,9 @@ const Register = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400">YOUR UPI ID (USED FOR PAYMENT)</label>
+                                <label className="text-sm font-bold text-gray-400">TRANSACTION ID</label>
                                 <input
-                                    type="text" required className="w-full" placeholder="e.g. user@okaxis"
+                                    type="text" required className="w-full" placeholder="e.g. TXN8945723165"
                                     value={formData.upiId} onChange={(e) => setFormData({ ...formData, upiId: e.target.value })}
                                 />
                             </div>

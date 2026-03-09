@@ -1,58 +1,84 @@
 import AssociationMember from '../models/AssociationMember.js';
+import mongoose from 'mongoose';
 
 export const getMembers = async (req, res) => {
     try {
         const members = await AssociationMember.find({});
         res.json(members);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Get Members Error:", error);
+        res.status(500).json({ message: 'Failed to fetch members', error: error.message });
     }
 };
 
 export const addMember = async (req, res) => {
     try {
+        if (!req.body) {
+            return res.status(400).json({ message: 'Request body is missing' });
+        }
         const { name, role, contact } = req.body;
+        if (!name || !role) {
+            return res.status(400).json({ message: 'Name and role are required' });
+        }
         const photo = req.file ? `/uploads/${req.file.filename}` : '';
 
         const member = new AssociationMember({ name, role, contact, photo });
         const createdMember = await member.save();
         res.status(201).json(createdMember);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Add Member Error:", error);
+        res.status(500).json({ message: 'Failed to add member', error: error.message });
     }
 };
 
 export const updateMember = async (req, res) => {
     try {
-        const member = await AssociationMember.findById(req.params.id);
-        if (member) {
-            const { name, role, contact } = req.body;
-            member.name = name || member.name;
-            member.role = role || member.role;
-            member.contact = contact || member.contact;
-            if (req.file) {
-                member.photo = `/uploads/${req.file.filename}`;
-            }
-            const updatedMember = await member.save();
-            res.json(updatedMember);
-        } else {
-            res.status(404).json({ message: 'Member not found' });
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid member ID format' });
         }
+
+        const member = await AssociationMember.findById(id);
+        if (!member) {
+            return res.status(404).json({ message: 'Member not found' });
+        }
+
+        if (req.body) {
+            if (req.body.name) member.name = req.body.name;
+            if (req.body.role) member.role = req.body.role;
+            if (req.body.contact !== undefined) member.contact = req.body.contact;
+        }
+
+        if (req.file) {
+            member.photo = `/uploads/${req.file.filename}`;
+        }
+
+        const updatedMember = await member.save();
+        res.json(updatedMember);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Update Member Error:", error);
+        res.status(500).json({ message: 'Failed to update member', error: error.message });
     }
 };
 
 export const deleteMember = async (req, res) => {
     try {
-        const member = await AssociationMember.findById(req.params.id);
-        if (member) {
-            await member.deleteOne();
-            res.json({ message: 'Member removed' });
-        } else {
-            res.status(404).json({ message: 'Member not found' });
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid member ID format' });
         }
+
+        const member = await AssociationMember.findById(id);
+        if (!member) {
+            return res.status(404).json({ message: 'Member not found' });
+        }
+
+        await member.deleteOne();
+        res.json({ message: 'Member removed successfully' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Delete Member Error:", error);
+        res.status(500).json({ message: 'Failed to delete member', error: error.message });
     }
 };

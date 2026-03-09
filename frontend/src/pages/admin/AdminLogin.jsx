@@ -20,7 +20,7 @@ const AdminLogin = () => {
         try {
             const { data } = await authService.login({ username, password });
             localStorage.setItem('adminInfo', JSON.stringify(data));
-            navigate('/admin');
+            navigate('/admin/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || 'Invalid credentials');
         } finally {

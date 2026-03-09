@@ -35,7 +35,7 @@ const AdminDashboard = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('adminInfo');
-        navigate('/admin/login');
+        navigate('/system-access');
     };
 
     const menuItems = [
@@ -47,6 +47,7 @@ const AdminDashboard = () => {
         { name: 'Countdown', path: '/admin/countdown', icon: <Clock size={24} />, color: 'bg-white/20' },
         { name: 'Payment QR', path: '/admin/payment', icon: <Image size={24} />, color: 'bg-orangeSplash' },
         { name: 'Partners', path: '/admin/partners', icon: <LinkIcon size={24} />, color: 'bg-electricBlue' },
+        { name: 'Contacts', path: '/admin/contacts', icon: <Users size={24} />, color: 'bg-neonPurple' },
     ];
 
     if (loading) return <div className="min-h-screen py-40 text-center font-black graffiti-text text-4xl">LOADING...</div>;

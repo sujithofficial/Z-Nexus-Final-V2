@@ -90,4 +90,15 @@ export const partnerService = {
     delete: (id) => API.delete(`/partners/${id}`),
 };
 
+export const contactService = {
+    getAll: () => API.get('/contacts'),
+    create: (formData) => API.post('/contacts', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    update: (id, formData) => API.put(`/contacts/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    delete: (id) => API.delete(`/contacts/${id}`),
+};
+
 export default API;

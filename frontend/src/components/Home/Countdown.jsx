@@ -3,17 +3,19 @@ import { motion } from 'framer-motion';
 import { countdownService } from '../../services/api';
 
 const Countdown = () => {
-    const [targetDate, setTargetDate] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [countdownData, setCountdownData] = useState(null);
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCountdown = async () => {
             try {
                 const { data } = await countdownService.get();
-                setTargetDate(data.targetDate);
+                if (data && data.targetDate) {
+                    setCountdownData({ date: data.targetDate });
+                }
             } catch (error) {
-                setTargetDate(null);
+                console.error('Error fetching countdown:', error);
             } finally {
                 setLoading(false);
             }
@@ -21,33 +23,27 @@ const Countdown = () => {
         fetchCountdown();
     }, []);
 
+    const targetDate = countdownData ? new Date(countdownData.date).getTime() : null;
+
     useEffect(() => {
         if (!targetDate) return;
 
-        const calculateTimeLeft = () => {
-            const difference = +new Date(targetDate) - +new Date();
-            let newTimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-
-            if (difference > 0) {
-                newTimeLeft = {
-                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                    minutes: Math.floor((difference / 1000 / 60) % 60),
-                    seconds: Math.floor((difference / 1000) % 60),
-                };
-            }
-            return newTimeLeft;
-        };
-
-        setTimeLeft(calculateTimeLeft());
-
         const timer = setInterval(() => {
-            const newTime = calculateTimeLeft();
-            setTimeLeft(newTime);
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-            if (newTime.days === 0 && newTime.hours === 0 && newTime.minutes === 0 && newTime.seconds === 0) {
+            if (distance <= 0) {
                 clearInterval(timer);
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                return;
             }
+
+            setTimeLeft({
+                days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((distance / (1000 * 60)) % 60),
+                seconds: Math.floor((distance / 1000) % 60)
+            });
         }, 1000);
 
         return () => clearInterval(timer);
@@ -55,7 +51,7 @@ const Countdown = () => {
 
     if (loading) return null;
 
-    if (!targetDate) {
+    if (!targetDate || isNaN(targetDate)) {
         return (
             <section className="py-20 relative">
                 <div className="container mx-auto px-6 text-center">

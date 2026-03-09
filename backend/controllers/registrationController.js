@@ -1,8 +1,23 @@
 import Registration from '../models/Registration.js';
+import mongoose from 'mongoose';
 
 export const registerForEvent = async (req, res) => {
     try {
-        const registrationData = JSON.parse(req.body.data);
+        if (!req.body) {
+            return res.status(400).json({ message: 'Request body is missing' });
+        }
+
+        if (!req.body.data) {
+            return res.status(400).json({ message: 'Registration data is missing' });
+        }
+
+        let registrationData;
+        try {
+            registrationData = JSON.parse(req.body.data);
+        } catch (parseErr) {
+            return res.status(400).json({ message: 'Invalid registration data format' });
+        }
+
         const paymentScreenshot = req.file ? `/uploads/${req.file.filename}` : '';
 
         if (!paymentScreenshot) {
@@ -17,7 +32,8 @@ export const registerForEvent = async (req, res) => {
         const createdRegistration = await registration.save();
         res.status(201).json(createdRegistration);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Registration Error:", error);
+        res.status(500).json({ message: error.message || 'Registration failed' });
     }
 };
 
@@ -26,24 +42,36 @@ export const getRegistrations = async (req, res) => {
         const registrations = await Registration.find({}).populate('eventId', 'title');
         res.json(registrations);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Get Registrations Error:", error);
+        res.status(500).json({ message: 'Failed to fetch registrations', error: error.message });
     }
 };
 
 export const updateRegistrationStatus = async (req, res) => {
     try {
-        const { status } = req.body;
-        const registration = await Registration.findById(req.params.id);
+        const { id } = req.params;
 
-        if (registration) {
-            registration.paymentStatus = status;
-            const updatedRegistration = await registration.save();
-            res.json(updatedRegistration);
-        } else {
-            res.status(404).json({ message: 'Registration not found' });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid registration ID format' });
         }
+
+        if (!req.body || !req.body.status) {
+            return res.status(400).json({ message: 'Status is required' });
+        }
+
+        const { status } = req.body;
+        const registration = await Registration.findById(id);
+
+        if (!registration) {
+            return res.status(404).json({ message: 'Registration not found' });
+        }
+
+        registration.paymentStatus = status;
+        const updatedRegistration = await registration.save();
+        res.json(updatedRegistration);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Update Registration Status Error:", error);
+        res.status(500).json({ message: 'Failed to update status', error: error.message });
     }
 };
 
@@ -52,9 +80,9 @@ export const getStats = async (req, res) => {
         const totalRegistrations = await Registration.countDocuments();
         const pendingRegistrations = await Registration.countDocuments({ paymentStatus: 'Pending' });
         const approvedRegistrations = await Registration.countDocuments({ paymentStatus: 'Approved' });
-        // Total events count is also needed but will be added in dashboard response
         res.json({ totalRegistrations, pendingRegistrations, approvedRegistrations });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Get Stats Error:", error);
+        res.status(500).json({ message: 'Failed to fetch stats', error: error.message });
     }
 };

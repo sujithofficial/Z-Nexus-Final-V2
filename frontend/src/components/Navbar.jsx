@@ -15,7 +15,6 @@ const Navbar = () => {
         { name: 'Association', path: '/association' },
         { name: 'Staff', path: '/staff' },
         { name: 'Gallery', path: '/gallery' },
-        { name: 'Admin', path: '/admin' },
     ];
 
     useEffect(() => {

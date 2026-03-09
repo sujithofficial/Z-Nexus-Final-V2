@@ -14,6 +14,7 @@ import galleryRoutes from './routes/galleryRoutes.js';
 import countdownRoutes from './routes/countdownRoutes.js';
 import paymentQRRoutes from './routes/paymentQRRoutes.js';
 import partnerRoutes from './routes/partnerRoutes.js';
+import contactRoutes from './routes/contactRoutes.js';
 
 // Load env vars
 dotenv.config();
@@ -41,9 +42,19 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/countdown', countdownRoutes);
 app.use('/api/payment-qr', paymentQRRoutes);
 app.use('/api/partners', partnerRoutes);
+app.use('/api/contacts', contactRoutes);
 
 app.get('/', (req, res) => {
     res.send('Z-NEXUS 2K26 API is running...');
+});
+
+// Global error handler — catches Multer errors and any other Express errors
+app.use((err, req, res, next) => {
+    console.error('Global Error Handler:', err.message);
+    const status = err.status || err.statusCode || 500;
+    res.status(status).json({
+        message: err.message || 'Internal Server Error'
+    });
 });
 
 const PORT = process.env.PORT || 5000;

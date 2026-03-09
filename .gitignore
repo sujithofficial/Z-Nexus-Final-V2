@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Environment variables — never commit secrets
+.env
+
+# Production builds
+dist/
+build/
+
+# Uploaded files — keep the folder but not its contents
+uploads/*
+!uploads/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/

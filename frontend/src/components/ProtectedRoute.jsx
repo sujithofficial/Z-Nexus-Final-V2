@@ -5,7 +5,7 @@ const ProtectedRoute = () => {
     const adminInfo = localStorage.getItem('adminInfo');
 
     if (!adminInfo) {
-        return <Navigate to="/admin/login" replace />;
+        return <Navigate to="/system-access" replace />;
     }
 
     return <Outlet />;

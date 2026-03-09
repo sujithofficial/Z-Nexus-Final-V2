@@ -1,41 +1,78 @@
 import Gallery from '../models/Gallery.js';
+import mongoose from 'mongoose';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getGallery = async (req, res) => {
     try {
         const galleryItems = await Gallery.find({}).sort({ createdAt: -1 });
         res.json(galleryItems);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Get Gallery Error:", error);
+        res.status(500).json({ message: 'Failed to fetch gallery', error: error.message });
     }
 };
 
 export const addGalleryImage = async (req, res) => {
     try {
+        if (!req.body) {
+            return res.status(400).json({ message: 'Request body is missing' });
+        }
+
         const { title } = req.body;
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
 
         if (!imageUrl) {
-            return res.status(400).json({ message: 'Image is required' });
+            return res.status(400).json({ message: 'Image file is required' });
         }
 
-        const galleryItem = new Gallery({ title, imageUrl });
+        if (!title || title.trim() === '') {
+            return res.status(400).json({ message: 'Image title is required' });
+        }
+
+        const galleryItem = new Gallery({ title: title.trim(), imageUrl });
         const createdItem = await galleryItem.save();
         res.status(201).json(createdItem);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Add Gallery Image Error:", error);
+        res.status(500).json({ message: 'Failed to upload image', error: error.message });
     }
 };
 
 export const deleteGalleryImage = async (req, res) => {
     try {
-        const item = await Gallery.findById(req.params.id);
-        if (item) {
-            await item.deleteOne();
-            res.json({ message: 'Image removed' });
-        } else {
-            res.status(404).json({ message: 'Image not found' });
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid image ID format' });
         }
+
+        const item = await Gallery.findById(id);
+        if (!item) {
+            return res.status(404).json({ message: 'Image not found' });
+        }
+
+        // Delete the actual file
+        if (item.imageUrl) {
+            try {
+                const relativeImagePath = item.imageUrl.startsWith('/') ? item.imageUrl.substring(1) : item.imageUrl;
+                const imagePath = path.join(__dirname, '..', relativeImagePath);
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                }
+            } catch (err) {
+                console.error("Error deleting gallery image file:", err);
+            }
+        }
+
+        await item.deleteOne();
+        res.json({ message: 'Image removed successfully' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Delete Gallery Image Error:", error);
+        res.status(500).json({ message: 'Failed to delete image', error: error.message });
     }
 };
