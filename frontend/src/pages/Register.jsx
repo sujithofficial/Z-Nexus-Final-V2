@@ -151,7 +151,9 @@ const Register = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6 max-w-4xl">
             <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold graffiti-text mb-4 neon-glow-purple">JOIN THE NEXUS</h1>
+                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+                    JOIN THE <span className="animated-gradient-text">NEXUS</span>
+                </h1>
                 <p className="text-gray-400">Lock in your spot and show what you're made of.</p>
             </div>
 

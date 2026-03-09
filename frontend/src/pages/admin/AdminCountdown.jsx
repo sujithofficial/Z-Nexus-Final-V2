@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { countdownService } from '../../services/api';
 import { Plus, Edit2, Trash2, X, Check, Timer } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminCountdown = () => {
     const [countdown, setCountdown] = useState(null);
@@ -15,7 +16,20 @@ const AdminCountdown = () => {
     });
 
     useEffect(() => {
-        fetchCountdown();
+        let isMounted = true;
+        const fetchData = async () => {
+            try {
+                const { data } = await countdownService.get();
+                if (isMounted) setCountdown(data);
+            } catch (error) {
+                console.error("Admin API error:", error);
+                if (isMounted) setCountdown(null);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        fetchData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchCountdown = async () => {
@@ -23,12 +37,7 @@ const AdminCountdown = () => {
             const { data } = await countdownService.get();
             setCountdown(data);
         } catch (error) {
-            if (error?.response?.status !== 404) {
-                console.error('Error fetching countdown:', error);
-            }
-            setCountdown(null);
-        } finally {
-            setLoading(false);
+            console.error(error);
         }
     };
 
@@ -79,7 +88,7 @@ const AdminCountdown = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">

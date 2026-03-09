@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { contactService } from '../../services/api';
 import { Plus, Edit2, Trash2, Camera, Link as LinkIcon } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminContacts = () => {
     const [contacts, setContacts] = useState([]);
@@ -18,17 +19,27 @@ const AdminContacts = () => {
     });
 
     useEffect(() => {
-        fetchContacts();
+        let isMounted = true;
+        const fetchData = async () => {
+            try {
+                const { data } = await contactService.getAll();
+                if (isMounted) setContacts(data || []);
+            } catch (error) {
+                console.error("Admin API error:", error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        fetchData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchContacts = async () => {
         try {
             const { data } = await contactService.getAll();
-            setContacts(data);
+            setContacts(data || []);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -87,7 +98,7 @@ const AdminContacts = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40 font-black graffiti-text text-4xl">LOADING...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
@@ -102,7 +113,7 @@ const AdminContacts = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {contacts.map((contact) => (
+                {Array.isArray(contacts) && contacts.map((contact) => (
                     <motion.div
                         key={contact._id} layout
                         className="sticker-card p-6 flex flex-col items-center text-center group"

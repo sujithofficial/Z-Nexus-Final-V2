@@ -1,21 +1,40 @@
-# Dependencies
+# Dependency directories
 node_modules/
+**/node_modules/
 
-# Environment variables — never commit secrets
+# Environment variables
 .env
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
 
 # Production builds
 dist/
 build/
+**/dist/
+**/build/
 
-# Uploaded files — keep the folder but not its contents
-uploads/*
-!uploads/.gitkeep
+# Uploads and temporary files
+**/uploads/*
+!**/uploads/.gitkeep
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS files
+# System files
 .DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Editor directories
+# IDE/Editor files
 .vscode/
 .idea/
+*.swp
+*.swo
+*.swn

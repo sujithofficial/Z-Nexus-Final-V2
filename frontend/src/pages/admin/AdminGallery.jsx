@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { galleryService } from '../../services/api';
 import { Plus, Trash2, Image as ImageIcon, Upload, X } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminGallery = () => {
     const [images, setImages] = useState([]);
@@ -13,17 +14,27 @@ const AdminGallery = () => {
     const [preview, setPreview] = useState(null);
 
     useEffect(() => {
-        fetchImages();
+        let isMounted = true;
+        const fetchData = async () => {
+            try {
+                const { data } = await galleryService.getAll();
+                if (isMounted) setImages(data || []);
+            } catch (error) {
+                console.error("Admin API error:", error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        fetchData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchImages = async () => {
         try {
             const { data } = await galleryService.getAll();
-            setImages(data);
+            setImages(data || []);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -70,7 +81,7 @@ const AdminGallery = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
@@ -131,7 +142,7 @@ const AdminGallery = () => {
                 {/* Image Grid */}
                 <div className="lg:col-span-2">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {images.map((img) => (
+                        {Array.isArray(images) && images.map((img) => (
                             <motion.div
                                 key={img._id} layout
                                 className="sticker-card p-0 overflow-hidden group relative"

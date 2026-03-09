@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { registrationService } from '../../services/api';
 import { Check, X, Eye, Clock, AlertCircle, Phone, Mail, Award, Download } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
@@ -17,7 +18,19 @@ const AdminRegistrations = () => {
     const [filterYear, setFilterYear] = useState('');
 
     useEffect(() => {
-        fetchRegistrations();
+        let isMounted = true;
+        const loadInitialData = async () => {
+            try {
+                const { data } = await registrationService.getAll();
+                if (isMounted) setRegistrations(data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        loadInitialData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchRegistrations = async () => {
@@ -26,8 +39,6 @@ const AdminRegistrations = () => {
             setRegistrations(data);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -72,7 +83,7 @@ const AdminRegistrations = () => {
         saveAs(data, 'registrations_export.xlsx');
     };
 
-    if (loading) return <div className="text-center py-40">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">

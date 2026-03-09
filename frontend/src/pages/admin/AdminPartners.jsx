@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { partnerService } from '../../services/api';
 import { Plus, Edit2, Trash2, Camera, LinkIcon } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminPartners = () => {
     const [partners, setPartners] = useState([]);
@@ -18,17 +19,27 @@ const AdminPartners = () => {
     });
 
     useEffect(() => {
-        fetchPartners();
+        let isMounted = true;
+        const fetchData = async () => {
+            try {
+                const { data } = await partnerService.getAll();
+                if (isMounted) setPartners(data || []);
+            } catch (error) {
+                console.error("Admin API error:", error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        fetchData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchPartners = async () => {
         try {
             const { data } = await partnerService.getAll();
-            setPartners(data);
+            setPartners(data || []);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -89,7 +100,7 @@ const AdminPartners = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
@@ -104,7 +115,7 @@ const AdminPartners = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {partners.map((partner) => (
+                {Array.isArray(partners) && partners.map((partner) => (
                     <motion.div
                         key={partner._id} layout
                         className="sticker-card p-6 flex flex-col items-center text-center group"

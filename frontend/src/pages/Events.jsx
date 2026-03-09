@@ -34,7 +34,9 @@ const Events = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold graffiti-text mb-4 neon-glow-purple">ALL EVENTS</h1>
+                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+                    ALL <span className="animated-gradient-text">EVENTS</span>
+                </h1>
                 <p className="text-gray-400 text-lg">Choose your arena and dominate the competition.</p>
             </div>
 

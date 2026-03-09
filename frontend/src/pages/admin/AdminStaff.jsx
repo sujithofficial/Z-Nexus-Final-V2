@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { staffService } from '../../services/api';
 import { Plus, Edit2, Trash2, X, GraduationCap, Camera } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminStaff = () => {
     const [staff, setStaff] = useState([]);
@@ -19,17 +20,27 @@ const AdminStaff = () => {
     });
 
     useEffect(() => {
-        fetchStaff();
+        let isMounted = true;
+        const fetchData = async () => {
+            try {
+                const { data } = await staffService.getAll();
+                if (isMounted) setStaff(data || []);
+            } catch (error) {
+                console.error("Admin API error:", error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        fetchData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchStaff = async () => {
         try {
             const { data } = await staffService.getAll();
-            setStaff(data);
+            setStaff(data || []);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -90,7 +101,7 @@ const AdminStaff = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
@@ -105,7 +116,7 @@ const AdminStaff = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {staff.map((member) => (
+                {Array.isArray(staff) && staff.map((member) => (
                     <motion.div
                         key={member._id} layout
                         className="sticker-card p-0 flex flex-col items-center text-center overflow-hidden group"

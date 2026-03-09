@@ -113,28 +113,28 @@ const Home = () => {
             )}
 
             {/* Call to Action */}
-            <section className="py-20 bg-gradient-to-r from-neonPurple/20 to-hotPink/20 relative">
+            <section className="cta-section">
                 <div className="container mx-auto px-6 text-center">
                     <motion.h2
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        className="text-4xl md:text-6xl font-bold graffiti-text mb-8 neon-glow-purple"
+                        className="cta-title mb-8"
                     >
                         BE PART OF THE FUTURE
                     </motion.h2>
-                    <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    <p className="cta-description">
                         Don't miss the chance to showcase your talent and innovate with the best minds.
                     </p>
-                    <div className="flex flex-wrap justify-center gap-6">
+                    <div className="flex flex-wrap justify-center gap-8 relative z-10">
                         <button
                             onClick={() => navigate('/register')}
-                            className="px-10 py-4 bg-neonPurple text-white font-bold rounded-full paint-btn shadow-neon-purple hover:scale-105"
+                            className="cta-register"
                         >
                             REGISTER NOW
                         </button>
                         <button
                             onClick={() => navigate('/events')}
-                            className="px-10 py-4 border-2 border-electricBlue text-electricBlue font-bold rounded-full hover:bg-electricBlue hover:text-white transition-all shadow-neon-blue"
+                            className="cta-events"
                         >
                             VIEW EVENTS
                         </button>

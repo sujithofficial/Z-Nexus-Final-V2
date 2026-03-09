@@ -55,7 +55,7 @@ const Countdown = () => {
         return (
             <section className="py-20 relative">
                 <div className="container mx-auto px-6 text-center">
-                    <h2 className="text-3xl md:text-5xl font-black uppercase text-gray-500 tracking-widest graffiti-text">Countdown will be announced soon.</h2>
+                    <h2 className="text-3xl md:text-5xl font-black uppercase section-title">COUNTDOWN WILL BE <span className="animated-gradient-text">ANNOUNCED</span> SOON.</h2>
                 </div>
             </section>
         );

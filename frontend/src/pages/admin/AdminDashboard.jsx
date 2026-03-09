@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { authService, eventService } from '../../services/api';
-import { LayoutDashboard, Users, Calendar, Image, Shield, GraduationCap, LogOut, CheckCircle, Clock, Link as LinkIcon } from 'lucide-react';
+import { Users, Calendar, Image, Shield, GraduationCap, LogOut, CheckCircle, Clock, Link as LinkIcon } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState({
@@ -16,21 +17,28 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        let isMounted = true;
         const fetchStats = async () => {
             try {
-                const statsRes = await authService.getStats();
-                const eventsRes = await eventService.getAll();
-                setStats({
-                    ...statsRes.data,
-                    totalEvents: eventsRes.data.length
-                });
+                const [statsRes, eventsRes] = await Promise.all([
+                    authService.getStats(),
+                    eventService.getAll()
+                ]);
+
+                if (isMounted) {
+                    setStats({
+                        ...statsRes.data || {},
+                        totalEvents: (eventsRes.data || []).length
+                    });
+                }
             } catch (error) {
                 console.error('Error fetching stats:', error);
             } finally {
-                setLoading(false);
+                if (isMounted) setLoading(false);
             }
         };
         fetchStats();
+        return () => { isMounted = false; };
     }, []);
 
     const handleLogout = () => {
@@ -50,50 +58,55 @@ const AdminDashboard = () => {
         { name: 'Contacts', path: '/admin/contacts', icon: <Users size={24} />, color: 'bg-neonPurple' },
     ];
 
-    if (loading) return <div className="min-h-screen py-40 text-center font-black graffiti-text text-4xl">LOADING...</div>;
+    if (loading) return <Loading />;
 
-    return (
-        <div className="min-h-screen py-24 container mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
-                <div>
-                    <h1 className="text-5xl font-black graffiti-text text-white neon-glow-purple">DASHBOARD</h1>
-                    <p className="text-gray-500 font-bold uppercase tracking-widest mt-2">Welcome back, Admin</p>
+    try {
+        return (
+            <div className="min-h-screen py-24 container mx-auto px-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
+                    <div>
+                        <h1 className="text-5xl font-black graffiti-text text-white neon-glow-purple">DASHBOARD</h1>
+                        <p className="text-gray-500 font-bold uppercase tracking-widest mt-2">Welcome back, Admin</p>
+                    </div>
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 px-6 py-3 bg-red-500/10 text-red-500 border border-red-500/50 rounded-xl font-bold hover:bg-red-500 hover:text-white transition-all"
+                    >
+                        <LogOut size={20} /> LOGOUT
+                    </button>
                 </div>
-                <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 px-6 py-3 bg-red-500/10 text-red-500 border border-red-500/50 rounded-xl font-bold hover:bg-red-500 hover:text-white transition-all"
-                >
-                    <LogOut size={20} /> LOGOUT
-                </button>
-            </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <StatCard title="TOTAL EVENTS" value={stats.totalEvents} icon={<Calendar />} color="border-neonPurple" />
-                <StatCard title="TOTAL REGISTRATIONS" value={stats.totalRegistrations} icon={<Users />} color="border-electricBlue" />
-                <StatCard title="PENDING" value={stats.pendingRegistrations} icon={<Clock />} color="border-hotPink" />
-                <StatCard title="APPROVED" value={stats.approvedRegistrations} icon={<CheckCircle />} color="border-limeGreen" />
-            </div>
+                {/* Stats Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <StatCard title="TOTAL EVENTS" value={stats.totalEvents} icon={<Calendar />} color="border-neonPurple" />
+                    <StatCard title="TOTAL REGISTRATIONS" value={stats.totalRegistrations} icon={<Users />} color="border-electricBlue" />
+                    <StatCard title="PENDING" value={stats.pendingRegistrations} icon={<Clock />} color="border-hotPink" />
+                    <StatCard title="APPROVED" value={stats.approvedRegistrations} icon={<CheckCircle />} color="border-limeGreen" />
+                </div>
 
-            {/* Navigation Menu */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                {menuItems.map((item) => (
-                    <Link key={item.name} to={item.path}>
-                        <motion.div
-                            whileHover={{ y: -5, scale: 1.02 }}
-                            className="sticker-card p-8 flex flex-col items-center justify-center text-center h-full border-b-8 border-transparent hover:border-white/20"
-                        >
-                            <div className={`${item.color} p-4 rounded-2xl mb-4 shadow-lg text-white`}>
-                                {item.icon}
-                            </div>
-                            <h3 className="text-xl font-black uppercase tracking-tight">{item.name}</h3>
-                            <p className="text-xs text-gray-500 mt-2 font-bold uppercase">Manage Content</p>
-                        </motion.div>
-                    </Link>
-                ))}
+                {/* Navigation Menu */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    {menuItems.map((item) => (
+                        <Link key={item.name} to={item.path}>
+                            <motion.div
+                                whileHover={{ y: -5, scale: 1.02 }}
+                                className="sticker-card p-8 flex flex-col items-center justify-center text-center h-full border-b-8 border-transparent hover:border-white/20"
+                            >
+                                <div className={`${item.color} p-4 rounded-2xl mb-4 shadow-lg text-white`}>
+                                    {item.icon}
+                                </div>
+                                <h3 className="text-xl font-black uppercase tracking-tight">{item.name}</h3>
+                                <p className="text-xs text-gray-500 mt-2 font-bold uppercase">Manage Content</p>
+                            </motion.div>
+                        </Link>
+                    ))}
+                </div>
             </div>
-        </div>
-    );
+        );
+    } catch (error) {
+        console.error("Admin Dashboard render error:", error);
+        return <div className="min-h-screen flex items-center justify-center text-white">Admin panel error occurred. Check console for details.</div>;
+    }
 };
 
 const StatCard = ({ title, value, icon, color }) => (

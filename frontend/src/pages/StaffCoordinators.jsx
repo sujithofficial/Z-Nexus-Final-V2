@@ -33,7 +33,9 @@ const StaffCoordinators = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold graffiti-text mb-4 text-electricBlue">FACULTY GUIDES</h1>
+                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+                    FACULTY <span className="animated-gradient-text">GUIDES</span>
+                </h1>
                 <p className="text-gray-400">The mentors guiding Z-NEXUS 2K26 to excellence.</p>
             </div>
 

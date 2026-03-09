@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { paymentQRService } from '../../services/api';
 import { Camera, Save } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminPaymentQR = () => {
     const [currentQR, setCurrentQR] = useState({ image: '', text: '' });
@@ -12,7 +13,26 @@ const AdminPaymentQR = () => {
     const [preview, setPreview] = useState(null);
 
     useEffect(() => {
-        loadQR();
+        let isMounted = true;
+        const fetchData = async () => {
+            try {
+                const { data } = await paymentQRService.get();
+                if (isMounted) {
+                    const safe = data && typeof data === 'object' ? data : { image: '', text: '' };
+                    setCurrentQR(safe);
+                    setUpiText(safe.text || '');
+                    if (safe.image) {
+                        setPreview(`http://localhost:5000${safe.image}`);
+                    }
+                }
+            } catch (err) {
+                console.error("Admin API error:", err);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        fetchData();
+        return () => { isMounted = false; };
     }, []);
 
     const loadQR = async () => {
@@ -25,9 +45,7 @@ const AdminPaymentQR = () => {
                 setPreview(`http://localhost:5000${safe.image}`);
             }
         } catch (err) {
-            console.error('Failed to load QR:', err.message);
-        } finally {
-            setLoading(false);
+            console.error(err);
         }
     };
 
@@ -65,7 +83,7 @@ const AdminPaymentQR = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40 font-black graffiti-text text-4xl">LOADING...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">

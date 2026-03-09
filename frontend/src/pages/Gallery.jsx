@@ -34,7 +34,9 @@ const Gallery = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold graffiti-text mb-4 text-limeGreen">WALL OF FAME</h1>
+                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+                    WALL OF <span className="animated-gradient-text">FAME</span>
+                </h1>
                 <p className="text-gray-400 text-lg">Capturing the intensity and innovation of Z-NEXUS.</p>
             </div>
 
@@ -94,7 +96,7 @@ const Gallery = () => {
                                 className="w-auto h-auto max-w-full max-h-[80vh] rounded-xl shadow-neon-blue border-4 border-white/10"
                             />
                             <div className="mt-6 text-center">
-                                <h3 className="text-3xl font-black graffiti-text text-electricBlue">{selectedImg.title}</h3>
+                                <h3 className="text-3xl font-black event-title text-electricBlue">{selectedImg.title}</h3>
                                 <p className="text-gray-400 font-bold">{new Date(selectedImg.uploadDate).toDateString()}</p>
                             </div>
                         </motion.div>

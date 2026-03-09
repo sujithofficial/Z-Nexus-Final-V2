@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { eventService } from '../../services/api';
 import { Plus, Edit2, Trash2, X, Check, AlertTriangle } from 'lucide-react';
+import Loading from '../../components/common/Loading';
 
 const AdminEvents = () => {
     const [events, setEvents] = useState([]);
@@ -23,7 +24,19 @@ const AdminEvents = () => {
     });
 
     useEffect(() => {
-        fetchEvents();
+        let isMounted = true;
+        const loadInitialData = async () => {
+            try {
+                const { data } = await eventService.getAll();
+                if (isMounted) setEvents(data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+        loadInitialData();
+        return () => { isMounted = false; };
     }, []);
 
     const fetchEvents = async () => {
@@ -32,8 +45,6 @@ const AdminEvents = () => {
             setEvents(data);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -95,7 +106,7 @@ const AdminEvents = () => {
         }
     };
 
-    if (loading) return <div className="text-center py-40">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">

@@ -13,8 +13,8 @@ const About = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         className="md:w-1/2"
                     >
-                        <h2 className="text-4xl md:text-5xl font-bold graffiti-text mb-8 neon-glow-purple">
-                            THE CONVERGENCE OF MINDS
+                        <h2 className="text-4xl md:text-5xl font-bold section-title mb-8">
+                            THE CONVERGENCE OF <span className="animated-gradient-text">MINDS</span>
                         </h2>
                         <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
                             <p>

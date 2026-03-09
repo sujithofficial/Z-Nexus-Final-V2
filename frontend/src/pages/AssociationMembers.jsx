@@ -120,13 +120,15 @@ const AssociationMembers = () => {
                 }
             `}</style>
             <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold graffiti-text mb-4 text-hotPink">THE CREW</h1>
+                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+                    THE <span className="animated-gradient-text">CREW</span>
+                </h1>
                 <p className="text-gray-400">The leaders behind the vision of Z-NEXUS 2K26.</p>
             </div>
 
             {leadershipMembers.length > 0 && (
                 <div className="mb-20">
-                    <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-white neon-glow-purple uppercase tracking-widest">Leadership</h2>
+                    <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-white section-title uppercase tracking-widest">Leadership</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
                         {leadershipMembers.map((member, index) => renderMemberCard(member, index))}
                     </div>
@@ -135,7 +137,7 @@ const AssociationMembers = () => {
 
             {mediaMembers.length > 0 && (
                 <div className="mb-20">
-                    <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-white neon-glow-blue uppercase tracking-widest">Media Team</h2>
+                    <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-white section-title uppercase tracking-widest">Media Team</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
                         {mediaMembers.map((member, index) => renderMemberCard(member, index))}
                     </div>
@@ -144,7 +146,7 @@ const AssociationMembers = () => {
 
             {eventCoordinators.length > 0 && (
                 <div className="mb-20">
-                    <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-white neon-glow-purple uppercase tracking-widest">Event Management</h2>
+                    <h2 className="text-3xl md:text-4xl font-black mb-12 text-center text-white section-title uppercase tracking-widest">Event Management</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
                         {eventCoordinators.map((member, index) => renderMemberCard(member, index))}
                     </div>
