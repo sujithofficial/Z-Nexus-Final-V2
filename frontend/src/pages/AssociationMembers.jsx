@@ -43,17 +43,16 @@ const AssociationMembers = () => {
         <motion.div
             key={member._id}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1 } }}
             className="sticker-card p-6 flex flex-col items-center text-center relative group"
         >
-            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white/10 mb-6 group-hover:border-hotPink transition-colors shadow-2xl relative">
+            <div className="w-48 h-48 rounded-full border-4 border-white/10 mb-6 shadow-2xl relative profile-img-container">
                 <img
                     src={member.photo ? `http://localhost:5000${member.photo}` : 'https://via.placeholder.com/200'}
                     alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover flex-shrink-0 rounded-full border-[3px] border-pink-500 profile-neon-ring"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-hotPink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-hotPink/40 to-transparent opacity-0"></div>
             </div>
 
             <h3 className="text-2xl font-black mb-2 uppercase tracking-tight">{member.name}</h3>
@@ -62,14 +61,14 @@ const AssociationMembers = () => {
             </span>
 
             {member.contact && (
-                <div className="flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                <div className="flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors duration-[350ms]">
                     <Phone size={16} className="text-hotPink" />
                     <span className="font-semibold">{member.contact}</span>
                 </div>
             )}
 
             {/* Graffiti Splatter Overlay */}
-            <div className="absolute top-0 right-0 w-16 h-16 opacity-10 group-hover:opacity-30 transition-opacity">
+            <div className="absolute top-0 right-0 w-16 h-16 opacity-10">
                 <svg viewBox="0 0 100 100" className="fill-hotPink">
                     <path d="M20,20 Q40,0 60,20 T100,20 L100,100 L0,100 Z" />
                 </svg>
@@ -79,6 +78,47 @@ const AssociationMembers = () => {
 
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
+            <style>{`
+                .sticker-card {
+                    transition: transform 0.25s ease, box-shadow 0.25s ease;
+                }
+                .sticker-card:hover {
+                    transform: translateY(-6px) !important;
+                    box-shadow:
+                        0 10px 25px rgba(0,0,0,0.4),
+                        0 0 18px rgba(255,0,150,0.35);
+                    animation: softGlow 2.5s ease-in-out infinite;
+                }
+
+                .profile-img-container {
+                    transition: box-shadow 0.25s ease;
+                }
+                .sticker-card:hover .profile-img-container {
+                    box-shadow: 0 0 12px rgba(255,0,150,0.4);
+                }
+
+                @keyframes softGlow {
+                    0% { filter: brightness(1); }
+                    50% { filter: brightness(1.1); }
+                    100% { filter: brightness(1); }
+                }
+
+                .profile-neon-ring {
+                    animation: neonPulse 2.5s ease-in-out infinite;
+                }
+                
+                @keyframes neonPulse {
+                    0% {
+                        box-shadow: 0 0 10px #ff0099;
+                    }
+                    50% {
+                        box-shadow: 0 0 22px #ff0099;
+                    }
+                    100% {
+                        box-shadow: 0 0 10px #ff0099;
+                    }
+                }
+            `}</style>
             <div className="mb-16 text-center">
                 <h1 className="text-5xl md:text-7xl font-bold graffiti-text mb-4 text-hotPink">THE CREW</h1>
                 <p className="text-gray-400">The leaders behind the vision of Z-NEXUS 2K26.</p>

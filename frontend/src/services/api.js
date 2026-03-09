@@ -79,4 +79,15 @@ export const paymentQRService = {
     }),
 };
 
+export const partnerService = {
+    getAll: () => API.get('/partners'),
+    create: (formData) => API.post('/partners', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    update: (id, formData) => API.put(`/partners/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+    delete: (id) => API.delete(`/partners/${id}`),
+};
+
 export default API;

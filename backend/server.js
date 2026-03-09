@@ -13,6 +13,7 @@ import staffRoutes from './routes/staffRoutes.js';
 import galleryRoutes from './routes/galleryRoutes.js';
 import countdownRoutes from './routes/countdownRoutes.js';
 import paymentQRRoutes from './routes/paymentQRRoutes.js';
+import partnerRoutes from './routes/partnerRoutes.js';
 
 // Load env vars
 dotenv.config();
@@ -39,6 +40,7 @@ app.use('/api/staff', staffRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/countdown', countdownRoutes);
 app.use('/api/payment-qr', paymentQRRoutes);
+app.use('/api/partners', partnerRoutes);
 
 app.get('/', (req, res) => {
     res.send('Z-NEXUS 2K26 API is running...');
