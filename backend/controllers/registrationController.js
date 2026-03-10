@@ -18,7 +18,7 @@ export const registerForEvent = async (req, res) => {
             return res.status(400).json({ message: 'Invalid registration data format' });
         }
 
-        const paymentScreenshot = req.file ? `/uploads/${req.file.filename}` : '';
+        const paymentScreenshot = req.file ? req.file.path : '';
 
         if (!paymentScreenshot) {
             return res.status(400).json({ message: 'Payment screenshot is required' });

@@ -20,7 +20,7 @@ export const addMember = async (req, res) => {
         if (!name || !role) {
             return res.status(400).json({ message: 'Name and role are required' });
         }
-        const photo = req.file ? `/uploads/${req.file.filename}` : '';
+        const photo = req.file ? req.file.path : '';
 
         const member = new AssociationMember({ name, role, contact, photo });
         const createdMember = await member.save();
@@ -51,7 +51,7 @@ export const updateMember = async (req, res) => {
         }
 
         if (req.file) {
-            member.photo = `/uploads/${req.file.filename}`;
+            member.photo = req.file.path;
         }
 
         const updatedMember = await member.save();

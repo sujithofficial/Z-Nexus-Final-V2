@@ -27,7 +27,7 @@ export const createContact = async (req, res) => {
         }
 
         const { name, link } = req.body;
-        const logoPath = req.file ? `/uploads/${req.file.filename}` : '';
+        const logoPath = req.file ? req.file.path : '';
 
         if (!logoPath) {
             return res.status(400).json({ message: 'Logo is required for new contacts' });
@@ -73,7 +73,7 @@ export const updateContact = async (req, res) => {
 
         // Handle file upload
         if (req.file) {
-            updateData.logo = `/uploads/${req.file.filename}`;
+            updateData.logo = req.file.path;
         }
 
         // Find and update
@@ -111,21 +111,7 @@ export const deleteContact = async (req, res) => {
             return res.status(404).json({ message: 'Contact not found' });
         }
 
-        // Delete logo file if it exists
-        if (contact.logo) {
-            try {
-                // Ensure we handle the leading slash in contact.logo correctly
-                const relativeLogoPath = contact.logo.startsWith('/') ? contact.logo.substring(1) : contact.logo;
-                const logoPath = path.join(__dirname, '..', relativeLogoPath);
-
-                if (fs.existsSync(logoPath)) {
-                    fs.unlinkSync(logoPath);
-                }
-            } catch (err) {
-                console.error("Error deleting logo file:", err);
-                // Continue with contact deletion even if file deletion fails
-            }
-        }
+        // No local file deletion needed for Cloudinary storage
 
         await contact.deleteOne();
         res.json({ message: 'Contact removed successfully' });

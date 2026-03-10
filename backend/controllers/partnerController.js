@@ -30,7 +30,7 @@ export const createPartner = async (req, res) => {
         }
 
         const { name, website } = req.body;
-        const logo = req.file ? `/uploads/${req.file.filename}` : '';
+        const logo = req.file ? req.file.path : '';
 
         if (!name || !logo) {
             return res.status(400).json({ message: 'Please provide name and logo' });
@@ -69,17 +69,7 @@ export const updatePartner = async (req, res) => {
         }
 
         if (req.file) {
-            // Delete old logo file
-            try {
-                const relativeOldLogo = partner.logo.startsWith('/') ? partner.logo.substring(1) : partner.logo;
-                const oldLogoPath = path.join(__dirname, '..', relativeOldLogo);
-                if (fs.existsSync(oldLogoPath)) {
-                    fs.unlinkSync(oldLogoPath);
-                }
-            } catch (err) {
-                console.error("Error deleting old partner logo:", err);
-            }
-            partner.logo = `/uploads/${req.file.filename}`;
+            partner.logo = req.file.path;
         }
 
         const updatedPartner = await partner.save();
@@ -107,18 +97,7 @@ export const deletePartner = async (req, res) => {
             return res.status(404).json({ message: 'Partner not found' });
         }
 
-        // Delete logo file
-        if (partner.logo) {
-            try {
-                const relativeLogoPath = partner.logo.startsWith('/') ? partner.logo.substring(1) : partner.logo;
-                const logoPath = path.join(__dirname, '..', relativeLogoPath);
-                if (fs.existsSync(logoPath)) {
-                    fs.unlinkSync(logoPath);
-                }
-            } catch (err) {
-                console.error("Error deleting partner logo file:", err);
-            }
-        }
+        // No local file deletion needed for Cloudinary storage
 
         await partner.deleteOne();
         res.json({ message: 'Partner removed successfully' });

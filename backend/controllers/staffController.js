@@ -20,7 +20,7 @@ export const addStaff = async (req, res) => {
         if (!name || !designation) {
             return res.status(400).json({ message: 'Name and designation are required' });
         }
-        const photo = req.file ? `/uploads/${req.file.filename}` : '';
+        const photo = req.file ? req.file.path : '';
 
         const staff = new StaffCoordinator({ name, designation, department, photo });
         const createdStaff = await staff.save();
@@ -51,7 +51,7 @@ export const updateStaff = async (req, res) => {
         }
 
         if (req.file) {
-            staff.photo = `/uploads/${req.file.filename}`;
+            staff.photo = req.file.path;
         }
 
         const updatedStaff = await staff.save();

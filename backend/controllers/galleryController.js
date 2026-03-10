@@ -24,7 +24,7 @@ export const addGalleryImage = async (req, res) => {
         }
 
         const { title } = req.body;
-        const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
+        const imageUrl = req.file ? req.file.path : '';
 
         if (!imageUrl) {
             return res.status(400).json({ message: 'Image file is required' });
@@ -56,18 +56,7 @@ export const deleteGalleryImage = async (req, res) => {
             return res.status(404).json({ message: 'Image not found' });
         }
 
-        // Delete the actual file
-        if (item.imageUrl) {
-            try {
-                const relativeImagePath = item.imageUrl.startsWith('/') ? item.imageUrl.substring(1) : item.imageUrl;
-                const imagePath = path.join(__dirname, '..', relativeImagePath);
-                if (fs.existsSync(imagePath)) {
-                    fs.unlinkSync(imagePath);
-                }
-            } catch (err) {
-                console.error("Error deleting gallery image file:", err);
-            }
-        }
+        // No local file deletion needed for Cloudinary storage
 
         await item.deleteOne();
         res.json({ message: 'Image removed successfully' });
