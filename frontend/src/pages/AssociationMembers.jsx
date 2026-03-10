@@ -119,11 +119,11 @@ const AssociationMembers = () => {
                     }
                 }
             `}</style>
-            <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+            <div className="mb-10 md:mb-16 text-center">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold section-title mb-4">
                     THE <span className="animated-gradient-text">CREW</span>
                 </h1>
-                <p className="text-gray-400">The leaders behind the vision of Z-NEXUS 2K26.</p>
+                <p className="text-gray-400 text-base md:text-lg px-4">The leaders behind the vision of Z-NEXUS 2K26.</p>
             </div>
 
             {leadershipMembers.length > 0 && (

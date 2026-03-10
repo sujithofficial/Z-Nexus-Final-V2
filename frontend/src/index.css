@@ -190,9 +190,9 @@ textarea:focus {
 /* Hero Typography & Energy System */
 .hero-title {
   font-family: 'Syncopate', sans-serif;
-  font-size: clamp(70px, 8vw, 110px);
-  letter-spacing: 3px;
-  line-height: 1;
+  font-size: clamp(40px, 8vw, 110px);
+  letter-spacing: 2px;
+  line-height: 1.1;
   font-weight: 900;
   position: relative;
   display: inline-block;

@@ -60,7 +60,7 @@ const Navbar = () => {
                         initial={{ opacity: 0, x: 200 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 200 }}
-                        className="fixed inset-0 top-[72px] bg-urbanDark/95 flex flex-col items-center justify-center gap-8 z-40 md:hidden"
+                        className="fixed inset-0 bg-urbanDark/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 z-40 md:hidden"
                     >
                         {navLinks.map((link) => (
                             <Link

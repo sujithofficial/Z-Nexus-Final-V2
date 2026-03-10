@@ -324,25 +324,25 @@ const Register = () => {
                 </AnimatePresence>
 
                 {/* Payment Section */}
-                <div className="sticker-card p-8 space-y-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 bg-orangeSplash text-white font-black skew-x-12 translate-x-4 -translate-y-2">PAYMENT</div>
+                <div className="sticker-card p-6 md:p-8 space-y-8 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-2 md:p-4 bg-orangeSplash text-white font-black skew-x-12 translate-x-2 md:translate-x-4 -translate-y-1 md:-translate-y-2 text-xs md:text-base">PAYMENT</div>
 
-                    <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-white/10 pb-4">
+                    <h2 className="text-xl md:text-2xl font-bold flex items-center gap-3 border-b border-white/10 pb-4">
                         VERIFICATION
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <div className="space-y-6">
                             <div className="p-6 bg-white/5 rounded-2xl space-y-4 border-2 border-dashed border-white/10">
                                 <p className="text-sm font-bold text-gray-400">SCAN & PAY</p>
-                                <div className="w-48 h-48 bg-white mx-auto flex items-center justify-center rounded-xl p-2">
+                                <div className="w-40 h-40 md:w-48 md:h-48 bg-white mx-auto flex items-center justify-center rounded-xl p-2">
                                     {paymentQR && paymentQR.image ? (
                                         <img src={`${import.meta.env.VITE_API_URL}${paymentQR.image}`} alt="Payment QR" className="w-full h-full object-contain" />
                                     ) : (
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=znexus2026@upi&pn=ZNexus" alt="QR Code" className="w-full h-full" />
                                     )}
                                 </div>
-                                <p className="text-center font-bold text-electricBlue">UPI ID: {paymentQR && paymentQR.text ? paymentQR.text : 'znexus2026@upi'}</p>
+                                <p className="text-center font-bold text-electricBlue text-sm md:text-base break-all">UPI ID: {paymentQR && paymentQR.text ? paymentQR.text : 'znexus2026@upi'}</p>
                             </div>
 
                             <div className="space-y-2">
@@ -354,11 +354,11 @@ const Register = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-4">
-                            <label className="text-sm font-bold text-gray-400">UPLOAD PAYMENT SCREENSHOT</label>
+                        <div className="space-y-4 text-center lg:text-left">
+                            <label className="text-sm font-bold text-gray-400 block">UPLOAD PAYMENT SCREENSHOT</label>
                             <div
                                 onClick={() => document.getElementById('screenshot').click()}
-                                className={`h-64 border-4 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer transition-all ${preview ? 'border-limeGreen/50 bg-limeGreen/5' : 'border-white/10 hover:border-neonPurple/50 hover:bg-white/5'}`}
+                                className={`h-48 md:h-64 border-4 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer transition-all ${preview ? 'border-limeGreen/50 bg-limeGreen/5' : 'border-white/10 hover:border-neonPurple/50 hover:bg-white/5'}`}
                             >
                                 {preview ? (
                                     <img src={preview} alt="Preview" className="h-full w-full object-contain p-4 rounded-3xl" />

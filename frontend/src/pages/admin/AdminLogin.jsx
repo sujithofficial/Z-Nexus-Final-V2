@@ -38,7 +38,7 @@ const AdminLogin = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="sticker-card p-12 w-full max-w-md bg-urbanDark/80 backdrop-blur-xl border-t-8 border-neonPurple"
+                className="sticker-card p-6 md:p-12 w-full max-w-md bg-urbanDark/80 backdrop-blur-xl border-t-8 border-neonPurple"
             >
                 <div className="text-center mb-10">
                     <h1 className="text-4xl font-black graffiti-text mb-2 text-neonPurple uppercase">CONTROL CENTER</h1>

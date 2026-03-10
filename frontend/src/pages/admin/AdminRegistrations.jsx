@@ -86,9 +86,9 @@ const AdminRegistrations = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="min-h-screen py-24 container mx-auto px-6">
-            <div className="mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-hotPink">EVENT REGISTRATIONS</h1>
+        <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6">
+            <div className="mb-10 md:mb-12">
+                <h1 className="text-3xl sm:text-4xl font-black graffiti-text text-hotPink">EVENT REGISTRATIONS</h1>
                 <p className="text-gray-500 font-bold uppercase tracking-widest mt-2">{filteredRegistrations.length} total entries</p>
             </div>
 

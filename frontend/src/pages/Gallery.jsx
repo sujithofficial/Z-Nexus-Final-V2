@@ -32,12 +32,12 @@ const Gallery = () => {
     }
 
     return (
-        <div className="min-h-screen py-24 container mx-auto px-6">
-            <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
+        <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6">
+            <div className="mb-10 md:mb-16 text-center">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold section-title mb-4">
                     WALL OF <span className="animated-gradient-text">FAME</span>
                 </h1>
-                <p className="text-gray-400 text-lg">Capturing the intensity and innovation of Z-NEXUS.</p>
+                <p className="text-gray-400 text-base md:text-lg px-4">Capturing the intensity and innovation of Z-NEXUS.</p>
             </div>
 
             {images.length === 0 ? (

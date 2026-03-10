@@ -62,7 +62,7 @@ const AdminDashboard = () => {
 
     try {
         return (
-            <div className="min-h-screen py-24 container mx-auto px-6">
+            <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
                     <div>
                         <h1 className="text-5xl font-black graffiti-text text-white neon-glow-purple">DASHBOARD</h1>

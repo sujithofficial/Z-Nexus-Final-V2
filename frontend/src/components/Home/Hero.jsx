@@ -64,16 +64,16 @@ const Hero = () => {
                             Where <span>Innovation</span> Converges
                         </p>
 
-                        <div className="flex flex-wrap justify-center gap-8">
+                        <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-8 px-4 sm:px-0">
                             <button
                                 onClick={() => navigate('/register')}
-                                className="cta-button register-btn text-lg"
+                                className="cta-button register-btn text-lg w-full sm:w-auto"
                             >
                                 REGISTER NOW
                             </button>
                             <button
                                 onClick={() => navigate('/events')}
-                                className="cta-button explore-btn text-lg"
+                                className="cta-button explore-btn text-lg w-full sm:w-auto"
                             >
                                 EXPLORE EVENTS
                             </button>
