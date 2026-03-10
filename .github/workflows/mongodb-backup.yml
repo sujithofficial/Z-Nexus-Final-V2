@@ -1,0 +1,39 @@
+name: MongoDB Daily Backup
+
+on:
+  schedule:
+    # Runs every day at 2:00 AM UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    # Allows manual trigger from GitHub Actions UI
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install MongoDB Database Tools
+        run: |
+          wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-database-tools
+
+      - name: Create backup directory
+        run: mkdir -p backup/$(date +%Y-%m-%d)
+
+      - name: Run MongoDB backup
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: |
+          mongodump --uri="$MONGO_URI" --out="backup/$(date +%Y-%m-%d)"
+
+      - name: Commit and push backup
+        run: |
+          git config --global user.email "backup-bot@znexus.com"
+          git config --global user.name "Z-Nexus Backup Bot"
+          git add backup/
+          git diff --cached --quiet && echo "No changes to commit" || (git commit -m "backup: automated MongoDB dump $(date +%Y-%m-%d)" && git push)
