@@ -77,7 +77,7 @@ const Home = () => {
                                         const logoElement = (
                                             <div className="w-full h-32 flex items-center justify-center overflow-hidden rounded-xl bg-white/5 border border-transparent hover:border-hotPink/50 transition-all duration-300">
                                                 <img
-                                                    src={`http://localhost:5000${partner.logo}`}
+                                                    src={`${import.meta.env.VITE_API_URL}${partner.logo}`}
                                                     alt={partner.name}
                                                     className="max-w-full max-h-full object-contain p-4 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.2)] hover:drop-shadow-[0_0_12px_rgba(255,0,120,0.5)] transition-all duration-300"
                                                 />

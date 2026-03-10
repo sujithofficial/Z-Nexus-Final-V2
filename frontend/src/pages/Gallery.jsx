@@ -56,7 +56,7 @@ const Gallery = () => {
                             className="relative group cursor-pointer break-inside-avoid rounded-2xl overflow-hidden border-4 border-white/5 shadow-xl hover:border-limeGreen transition-all"
                         >
                             <img
-                                src={`http://localhost:5000${img.imageUrl}`}
+                                src={`${import.meta.env.VITE_API_URL}${img.imageUrl}`}
                                 alt={img.title}
                                 className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                             />
@@ -91,7 +91,7 @@ const Gallery = () => {
                             className="max-w-6xl max-h-[90vh] relative"
                         >
                             <img
-                                src={`http://localhost:5000${selectedImg.imageUrl}`}
+                                src={`${import.meta.env.VITE_API_URL}${selectedImg.imageUrl}`}
                                 alt={selectedImg.title}
                                 className="w-auto h-auto max-w-full max-h-[80vh] rounded-xl shadow-neon-blue border-4 border-white/10"
                             />

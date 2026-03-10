@@ -337,7 +337,7 @@ const Register = () => {
                                 <p className="text-sm font-bold text-gray-400">SCAN & PAY</p>
                                 <div className="w-48 h-48 bg-white mx-auto flex items-center justify-center rounded-xl p-2">
                                     {paymentQR && paymentQR.image ? (
-                                        <img src={`http://localhost:5000${paymentQR.image}`} alt="Payment QR" className="w-full h-full object-contain" />
+                                        <img src={`${import.meta.env.VITE_API_URL}${paymentQR.image}`} alt="Payment QR" className="w-full h-full object-contain" />
                                     ) : (
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=znexus2026@upi&pn=ZNexus" alt="QR Code" className="w-full h-full" />
                                     )}

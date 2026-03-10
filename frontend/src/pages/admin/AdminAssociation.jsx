@@ -52,7 +52,7 @@ const AdminAssociation = () => {
             contact: member.contact || '',
             photo: null
         });
-        setPreview(`http://localhost:5000${member.photo}`);
+        setPreview(`${import.meta.env.VITE_API_URL}${member.photo}`);
         setShowModal(true);
     };
 
@@ -122,7 +122,7 @@ const AdminAssociation = () => {
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
                         <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white/10 group-hover:border-electricBlue transition-colors">
-                            <img src={`http://localhost:5000${member.photo}`} alt={member.name} className="w-full h-full object-cover" />
+                            <img src={`${import.meta.env.VITE_API_URL}${member.photo}`} alt={member.name} className="w-full h-full object-cover" />
                         </div>
                         <h3 className="font-bold uppercase tracking-tight">{member.name}</h3>
                         <p className="text-xs text-electricBlue font-black uppercase mb-4 tracking-widest">{member.role}</p>

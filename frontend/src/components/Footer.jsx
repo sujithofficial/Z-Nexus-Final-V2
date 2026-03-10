@@ -73,7 +73,7 @@ const Footer = () => {
                                     title={contact.name}
                                 >
                                     <img
-                                        src={`http://localhost:5000${contact.logo}`}
+                                        src={`${import.meta.env.VITE_API_URL}${contact.logo}`}
                                         alt={contact.name}
                                         className="w-6 h-6 object-contain"
                                     />

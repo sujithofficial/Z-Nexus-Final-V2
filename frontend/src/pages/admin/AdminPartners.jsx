@@ -50,7 +50,7 @@ const AdminPartners = () => {
             website: partner.website || '',
             logo: null
         });
-        setPreview(`http://localhost:5000${partner.logo}`);
+        setPreview(`${import.meta.env.VITE_API_URL}${partner.logo}`);
         setShowModal(true);
     };
 
@@ -121,7 +121,7 @@ const AdminPartners = () => {
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
                         <div className="w-full h-32 rounded-xl bg-white/5 overflow-hidden mb-4 border-2 border-transparent group-hover:border-hotPink transition-colors flex items-center justify-center p-2">
-                            <img src={`http://localhost:5000${partner.logo}`} alt={partner.name} className="max-w-full max-h-full object-contain" />
+                            <img src={`${import.meta.env.VITE_API_URL}${partner.logo}`} alt={partner.name} className="max-w-full max-h-full object-contain" />
                         </div>
                         <h3 className="font-bold uppercase tracking-tight mb-2">{partner.name}</h3>
                         {partner.website && (

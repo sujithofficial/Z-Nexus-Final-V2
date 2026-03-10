@@ -213,7 +213,7 @@ const AdminRegistrations = () => {
                             <div className="md:w-1/2 bg-black flex items-center justify-center p-8 border-r border-white/5 min-h-[400px]">
                                 <div className="relative group w-full h-full flex items-center justify-center">
                                     <img
-                                        src={`http://localhost:5000${selectedReg.paymentScreenshot}`}
+                                        src={`${import.meta.env.VITE_API_URL}${selectedReg.paymentScreenshot}`}
                                         alt="Payment Screenshot"
                                         className="max-w-full max-h-[70vh] rounded-lg shadow-2xl"
                                     />

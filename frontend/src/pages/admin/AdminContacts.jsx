@@ -50,7 +50,7 @@ const AdminContacts = () => {
             link: contact.link || '',
             logo: null
         });
-        setPreview(`http://localhost:5000${contact.logo}`);
+        setPreview(`${import.meta.env.VITE_API_URL}${contact.logo}`);
         setShowModal(true);
     };
 
@@ -119,7 +119,7 @@ const AdminContacts = () => {
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
                         <div className="w-full h-32 rounded-xl bg-white/5 overflow-hidden mb-4 border-2 border-transparent group-hover:border-neonPurple transition-colors flex items-center justify-center p-2">
-                            <img src={`http://localhost:5000${contact.logo}`} alt={contact.name} className="max-w-full max-h-full object-contain" />
+                            <img src={`${import.meta.env.VITE_API_URL}${contact.logo}`} alt={contact.name} className="max-w-full max-h-full object-contain" />
                         </div>
                         <h3 className="font-bold uppercase tracking-tight mb-2">{contact.name}</h3>
                         <div className="text-xs text-neonPurple mb-4 flex items-center justify-center gap-1 overflow-hidden max-w-full">

@@ -148,7 +148,7 @@ const AdminGallery = () => {
                                 className="sticker-card p-0 overflow-hidden group relative"
                             >
                                 <img
-                                    src={`http://localhost:5000${img.imageUrl}`}
+                                    src={`${import.meta.env.VITE_API_URL}${img.imageUrl}`}
                                     alt={img.title}
                                     className="w-full h-48 object-cover"
                                 />

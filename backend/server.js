@@ -25,9 +25,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://znexus2k26.netlify.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes

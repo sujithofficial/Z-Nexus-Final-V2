@@ -22,7 +22,7 @@ const AdminPaymentQR = () => {
                     setCurrentQR(safe);
                     setUpiText(safe.text || '');
                     if (safe.image) {
-                        setPreview(`http://localhost:5000${safe.image}`);
+                        setPreview(`${import.meta.env.VITE_API_URL}${safe.image}`);
                     }
                 }
             } catch (err) {
@@ -42,7 +42,7 @@ const AdminPaymentQR = () => {
             setCurrentQR(safe);
             setUpiText(safe.text || '');
             if (safe.image) {
-                setPreview(`http://localhost:5000${safe.image}`);
+                setPreview(`${import.meta.env.VITE_API_URL}${safe.image}`);
             }
         } catch (err) {
             console.error(err);
