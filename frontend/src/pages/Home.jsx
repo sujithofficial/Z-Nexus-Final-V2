@@ -5,7 +5,7 @@ import Countdown from '../components/Home/Countdown';
 import Hero from '../components/Home/Hero';
 import About from '../components/Home/About';
 import Highlights from '../components/Home/Highlights';
-import { partnerService } from '../services/api';
+import { partnerService, getImageUrl } from '../services/api';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -97,7 +97,7 @@ const Home = () => {
                                                 <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-30 pointer-events-none transition-opacity duration-1000" />
 
                                                 <img
-                                                    src={`${import.meta.env.VITE_API_URL}${partner.logo}`}
+                                                    src={getImageUrl(partner.logo)}
                                                     alt={partner.name}
                                                     className="max-w-full max-h-full object-contain grayscale opacity-20 contrast-125 group-hover/logo:grayscale-0 group-hover/logo:opacity-80 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] group-hover/logo:scale-110"
                                                 />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { associationService } from '../../services/api';
+import { associationService, getImageUrl } from '../../services/api';
 import { Plus, Edit2, Trash2, X, Shield, Camera } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 
@@ -52,7 +52,7 @@ const AdminAssociation = () => {
             contact: member.contact || '',
             photo: null
         });
-        setPreview(`${import.meta.env.VITE_API_URL}${member.photo}`);
+        setPreview(getImageUrl(member.photo));
         setShowModal(true);
     };
 
@@ -122,7 +122,7 @@ const AdminAssociation = () => {
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
                         <div className="w-24 h-24 rounded-full overflow-hidden mb-6 border-2 border-white/10 group-hover:border-white/30 transition-colors">
-                            <img src={`${import.meta.env.VITE_API_URL}${member.photo}`} alt={member.name} className="w-full h-full object-cover" />
+                            <img src={getImageUrl(member.photo)} alt={member.name} className="w-full h-full object-cover" />
                         </div>
                         <h3 className="font-bold uppercase tracking-tight text-white/80 group-hover:text-white transition-colors">{member.name}</h3>
                         <p className="text-[10px] text-white/20 font-black uppercase mb-6 tracking-[0.2em]">{member.role}</p>

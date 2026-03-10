@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { contactService } from '../services/api';
+import { contactService, getImageUrl } from '../services/api';
 // Converts an email address to a mailto: link; leaves other URLs untouched
 const resolveContactHref = (link) => {
     if (!link) return '#';
@@ -95,7 +95,7 @@ const Footer = () => {
                                         title={contact.name}
                                     >
                                         <img
-                                            src={`${import.meta.env.VITE_API_URL}${contact.logo}`}
+                                            src={getImageUrl(contact.logo)}
                                             alt={contact.name}
                                             className="w-5 h-5 object-contain grayscale invert"
                                         />

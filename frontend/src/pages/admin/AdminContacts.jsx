@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { contactService } from '../../services/api';
+import { contactService, getImageUrl } from '../../services/api';
 import { Plus, Edit2, Trash2, Camera, Link as LinkIcon } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 
@@ -50,7 +50,7 @@ const AdminContacts = () => {
             link: contact.link || '',
             logo: null
         });
-        setPreview(`${import.meta.env.VITE_API_URL}${contact.logo}`);
+        setPreview(getImageUrl(contact.logo));
         setShowModal(true);
     };
 
@@ -119,7 +119,7 @@ const AdminContacts = () => {
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
                         <div className="w-full h-32 rounded-xl bg-white/5 overflow-hidden mb-6 border-2 border-transparent group-hover:border-white/10 transition-colors flex items-center justify-center p-4">
-                            <img src={`${import.meta.env.VITE_API_URL}${contact.logo}`} alt={contact.name} className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
+                            <img src={getImageUrl(contact.logo)} alt={contact.name} className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
                         </div>
                         <h3 className="font-bold uppercase tracking-tight mb-2 text-white/80 group-hover:text-white transition-colors">{contact.name}</h3>
                         <div className="text-[10px] text-white/20 mb-6 flex items-center justify-center gap-1 overflow-hidden max-w-full font-black uppercase tracking-widest group-hover:text-white/40 transition-colors">

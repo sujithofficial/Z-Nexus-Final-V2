@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { partnerService } from '../../services/api';
+import { partnerService, getImageUrl } from '../../services/api';
 import { Plus, Edit2, Trash2, Camera, LinkIcon } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 
@@ -50,7 +50,7 @@ const AdminPartners = () => {
             website: partner.website || '',
             logo: null
         });
-        setPreview(`${import.meta.env.VITE_API_URL}${partner.logo}`);
+        setPreview(getImageUrl(partner.logo));
         setShowModal(true);
     };
 
@@ -121,7 +121,7 @@ const AdminPartners = () => {
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
                         <div className="w-full h-32 rounded-xl bg-white/5 overflow-hidden mb-6 border-2 border-transparent group-hover:border-white/10 transition-colors flex items-center justify-center p-4">
-                            <img src={`${import.meta.env.VITE_API_URL}${partner.logo}`} alt={partner.name} className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
+                            <img src={getImageUrl(partner.logo)} alt={partner.name} className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
                         </div>
                         <h3 className="font-bold uppercase tracking-tight mb-2 text-white/80 group-hover:text-white transition-colors">{partner.name}</h3>
                         {partner.website && (

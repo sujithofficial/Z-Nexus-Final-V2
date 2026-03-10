@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { staffService } from '../services/api';
+import { staffService, getImageUrl } from '../services/api';
 import { Award, BookOpen } from 'lucide-react';
 
 const StaffCoordinators = () => {
@@ -79,7 +79,7 @@ const StaffCoordinators = () => {
 
                         <div className="w-full h-96 relative overflow-hidden rounded-t-3xl">
                             <img
-                                src={member.photo ? `${import.meta.env.VITE_API_URL}${member.photo}` : 'https://via.placeholder.com/400x500'}
+                                src={member.photo ? getImageUrl(member.photo) : 'https://via.placeholder.com/400x500'}
                                 alt={member.name}
                                 className="w-full h-full object-cover grayscale brightness-75 contrast-125 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000 ease-[0.16, 1, 0.3, 1]"
                             />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { galleryService } from '../../services/api';
+import { galleryService, getImageUrl } from '../../services/api';
 import { Plus, Trash2, Image as ImageIcon, Upload, X } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 
@@ -148,7 +148,7 @@ const AdminGallery = () => {
                                 className="sticker-card p-0 overflow-hidden group relative"
                             >
                                 <img
-                                    src={`${import.meta.env.VITE_API_URL}${img.imageUrl}`}
+                                    src={getImageUrl(img.imageUrl)}
                                     alt={img.title}
                                     className="w-full h-48 object-cover"
                                 />

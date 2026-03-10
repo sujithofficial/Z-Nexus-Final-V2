@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { paymentQRService } from '../../services/api';
+import { paymentQRService, getImageUrl } from '../../services/api';
 import { Camera, Save } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 
@@ -22,7 +22,7 @@ const AdminPaymentQR = () => {
                     setCurrentQR(safe);
                     setUpiText(safe.text || '');
                     if (safe.image) {
-                        setPreview(`${import.meta.env.VITE_API_URL}${safe.image}`);
+                        setPreview(getImageUrl(safe.image));
                     }
                 }
             } catch (err) {
@@ -42,7 +42,7 @@ const AdminPaymentQR = () => {
             setCurrentQR(safe);
             setUpiText(safe.text || '');
             if (safe.image) {
-                setPreview(`${import.meta.env.VITE_API_URL}${safe.image}`);
+                setPreview(getImageUrl(safe.image));
             }
         } catch (err) {
             console.error(err);

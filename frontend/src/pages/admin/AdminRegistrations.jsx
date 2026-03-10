@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { registrationService } from '../../services/api';
+import { registrationService, getImageUrl } from '../../services/api';
 import { Check, X, Eye, Clock, AlertCircle, Phone, Mail, Award, Download } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 import * as XLSX from 'xlsx';
@@ -213,7 +213,7 @@ const AdminRegistrations = () => {
                             <div className="md:w-1/2 bg-black flex items-center justify-center p-8 border-r border-white/5 min-h-[400px]">
                                 <div className="relative group w-full h-full flex items-center justify-center">
                                     <img
-                                        src={`${import.meta.env.VITE_API_URL}${selectedReg.paymentScreenshot}`}
+                                        src={getImageUrl(selectedReg.paymentScreenshot)}
                                         alt="Payment Screenshot"
                                         className="max-w-full max-h-[70vh] rounded-lg shadow-2xl"
                                     />

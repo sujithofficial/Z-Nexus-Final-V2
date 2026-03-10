@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { staffService } from '../../services/api';
+import { staffService, getImageUrl } from '../../services/api';
 import { Plus, Edit2, Trash2, X, GraduationCap, Camera } from 'lucide-react';
 import Loading from '../../components/common/Loading';
 
@@ -52,7 +52,7 @@ const AdminStaff = () => {
             department: member.department,
             photo: null
         });
-        setPreview(`${import.meta.env.VITE_API_URL}${member.photo}`);
+        setPreview(getImageUrl(member.photo));
         setShowModal(true);
     };
 
@@ -122,7 +122,7 @@ const AdminStaff = () => {
                         className="sticker-card p-0 flex flex-col items-center text-center overflow-hidden group"
                     >
                         <div className="w-full h-48 relative overflow-hidden">
-                            <img src={`${import.meta.env.VITE_API_URL}${member.photo}`} alt={member.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                            <img src={getImageUrl(member.photo)} alt={member.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                             <div className="absolute top-2 right-2 flex gap-1">
                                 <button onClick={() => handleEdit(member)} className="p-2 bg-black/50 text-white rounded-lg hover:bg-orangeSplash transition-colors"><Edit2 size={14} /></button>
                                 <button onClick={() => handleDelete(member._id)} className="p-2 bg-black/50 text-white rounded-lg hover:bg-red-500 transition-colors"><Trash2 size={14} /></button>

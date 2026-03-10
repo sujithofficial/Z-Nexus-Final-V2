@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { galleryService } from '../services/api';
+import { galleryService, getImageUrl } from '../services/api';
 import { X, ZoomIn, Search } from 'lucide-react';
 
 const Gallery = () => {
@@ -74,7 +74,7 @@ const Gallery = () => {
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-1000 z-20 pointer-events-none" />
 
                             <img
-                                src={`${import.meta.env.VITE_API_URL}${img.imageUrl}`}
+                                src={getImageUrl(img.imageUrl)}
                                 alt={img.title}
                                 className="w-full h-auto grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-[0.16, 1, 0.3, 1]"
                             />
@@ -111,7 +111,7 @@ const Gallery = () => {
                         >
                             <div className="relative sticker-card p-2 rounded-[3.5rem] bg-white/[0.03] border border-white/5 shadow-3xl">
                                 <img
-                                    src={`${import.meta.env.VITE_API_URL}${selectedImg.imageUrl}`}
+                                    src={getImageUrl(selectedImg.imageUrl)}
                                     alt={selectedImg.title}
                                     className="w-auto h-auto max-w-full max-h-[70vh] rounded-[3rem] object-contain"
                                 />

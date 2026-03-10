@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { eventService, registrationService, paymentQRService } from '../services/api';
+import { eventService, registrationService, paymentQRService, getImageUrl } from '../services/api';
 import { User, Mail, Phone, School, BookOpen, GraduationCap, Trophy, Plus, Trash2, Upload, CheckCircle2, Users } from 'lucide-react';
 
 const Register = () => {
@@ -391,7 +391,7 @@ const Register = () => {
                                 <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">PAYMENT QR CODE</p>
                                 <div className="w-52 h-52 bg-white mx-auto flex items-center justify-center rounded-[2.5rem] p-6 shadow-3xl relative z-10 scale-100 group-hover/qr:scale-[1.03] transition-transform duration-700 ease-[0.16, 1, 0.3, 1]">
                                     {paymentQR && paymentQR.image ? (
-                                        <img src={`${import.meta.env.VITE_API_URL}${paymentQR.image}`} alt="Payment QR" className="w-full h-full object-contain" />
+                                        <img src={getImageUrl(paymentQR.image)} alt="Payment QR" className="w-full h-full object-contain" />
                                     ) : (
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=znexus2026@upi&pn=ZNexus" alt="QR Code" className="w-full h-full" />
                                     )}
