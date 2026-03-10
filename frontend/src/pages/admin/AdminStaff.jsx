@@ -106,10 +106,10 @@ const AdminStaff = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="flex justify-between items-center mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-orangeSplash uppercase">STAFF COORDINATORS</h1>
+                <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">STAFF COORDINATORS</h1>
                 <button
                     onClick={() => { setEditingStaff(null); setPreview(null); setFormData({ name: '', designation: '', department: '', photo: null }); setShowModal(true); }}
-                    className="flex items-center gap-2 px-6 py-3 bg-orangeSplash text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-all"
+                    className="flex items-center gap-2 px-6 py-4 bg-white text-black font-black rounded-xl shadow-2xl hover:scale-105 transition-all text-[10px] tracking-widest uppercase"
                 >
                     <Plus size={20} /> ADD STAFF
                 </button>
@@ -129,9 +129,9 @@ const AdminStaff = () => {
                             </div>
                         </div>
                         <div className="p-6">
-                            <h3 className="font-bold uppercase tracking-tight text-white mb-1">{member.name}</h3>
-                            <p className="text-[10px] text-orangeSplash font-black uppercase tracking-widest">{member.designation}</p>
-                            <p className="text-[10px] text-gray-500 font-bold uppercase mt-2">DEPT OF {member.department}</p>
+                            <h3 className="font-bold uppercase tracking-tight text-white/90 group-hover:text-white transition-colors mb-1">{member.name}</h3>
+                            <p className="text-[10px] text-white/30 font-black uppercase tracking-[0.2em]">{member.designation}</p>
+                            <p className="text-[9px] text-white/10 font-black uppercase mt-4 tracking-widest">DEPT OF {member.department}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -151,22 +151,22 @@ const AdminStaff = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            className="sticker-card w-full max-w-md bg-urbanDark p-8 relative border-t-8 border-orangeSplash"
+                            className="sticker-card w-full max-w-md bg-black p-8 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
-                            <h2 className="text-2xl font-black graffiti-text mb-8 text-orangeSplash uppercase">
-                                {editingStaff ? 'UPDATE STAFF' : 'ADD NEW STAFF'}
+                            <h2 className="text-2xl font-black mb-10 text-white uppercase red-gradient-animate tracking-tighter">
+                                {editingStaff ? 'UPDATE STAFF' : 'ADD STAFF'}
                             </h2>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="flex justify-center mb-6">
                                     <div
                                         onClick={() => document.getElementById('staff-photo-up').click()}
-                                        className="w-32 h-32 rounded-xl border-4 border-dashed border-white/10 flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-orangeSplash transition-colors"
+                                        className="w-32 h-32 rounded-xl border-4 border-dashed border-white/5 flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-white/20 transition-colors"
                                     >
                                         {preview ? (
                                             <img src={preview} className="w-full h-full object-cover" />
                                         ) : (
-                                            <Camera className="text-gray-600" />
+                                            <Camera className="text-white/10" />
                                         )}
                                     </div>
                                     <input id="staff-photo-up" type="file" hidden accept="image/*" onChange={handleFileChange} />
@@ -198,7 +198,7 @@ const AdminStaff = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full py-4 bg-orangeSplash text-white font-black rounded-xl shadow-lg mt-4"
+                                    className="w-full py-5 bg-white text-black font-black rounded-xl shadow-2xl mt-6 uppercase text-[10px] tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     SAVE STAFF
                                 </button>

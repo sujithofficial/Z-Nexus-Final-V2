@@ -88,15 +88,15 @@ const AdminPaymentQR = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-hotPink uppercase">PAYMENT QR MANAGEMENT</h1>
-                <p className="text-gray-500 font-bold uppercase tracking-widest mt-2">Upload QR code and UPI ID for the Register page</p>
+                <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">PAYMENT CONFIGURATION</h1>
+                <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">SET UP QR CODE AND UPI ID FOR REGISTRATIONS</p>
             </div>
 
             <div className="max-w-xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="sticker-card p-8 border-t-8 border-hotPink space-y-8"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="sticker-card p-8 sm:p-12 bg-black border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)] space-y-10"
                 >
                     <form onSubmit={handleSave} className="space-y-8">
                         {/* QR Image Upload */}
@@ -104,14 +104,16 @@ const AdminPaymentQR = () => {
                             <label className="text-xs font-black text-gray-500 uppercase tracking-widest">QR CODE IMAGE</label>
                             <div
                                 onClick={() => document.getElementById('qr-upload-input').click()}
-                                className="w-56 h-56 mx-auto bg-white/5 border-4 border-dashed border-white/20 rounded-2xl flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-hotPink transition-colors p-2"
+                                className="w-56 h-56 mx-auto bg-white/[0.02] border-4 border-dashed border-white/5 rounded-2xl flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-white/20 transition-all p-2"
                             >
                                 {preview ? (
-                                    <img src={preview} className="w-full h-full object-contain bg-white rounded-xl" alt="QR Preview" />
+                                    <div className="w-full h-full p-4">
+                                        <img src={preview} className="w-full h-full object-contain rounded-xl" alt="QR Preview" />
+                                    </div>
                                 ) : (
                                     <div className="text-center">
-                                        <Camera className="text-gray-500 mx-auto mb-2" size={40} />
-                                        <span className="text-xs font-bold text-gray-500">CLICK TO UPLOAD QR</span>
+                                        <Camera className="text-white/10 mx-auto mb-2" size={40} />
+                                        <span className="text-[10px] font-black text-white/20 uppercase tracking-widest">UPLOAD QR</span>
                                     </div>
                                 )}
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-xl">
@@ -143,17 +145,20 @@ const AdminPaymentQR = () => {
                         <button
                             type="submit"
                             disabled={saving}
-                            className="w-full py-4 bg-hotPink text-white font-black rounded-xl shadow-lg flex items-center justify-center gap-3 hover:scale-105 transition-all disabled:opacity-50"
+                            className="w-full py-5 bg-white text-black font-black rounded-xl shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 text-[10px] tracking-widest uppercase"
                         >
                             <Save size={20} />
-                            {saving ? 'SAVING...' : 'SAVE QR CONFIGURATION'}
+                            {saving ? 'UPLOADING...' : 'SAVE CONFIGURATION'}
                         </button>
                     </form>
 
                     {currentQR.text && (
-                        <div className="pt-6 border-t border-white/10">
-                            <p className="text-xs font-black text-gray-500 uppercase tracking-widest mb-3">CURRENTLY ACTIVE</p>
-                            <p className="font-bold text-electricBlue">UPI ID: {currentQR.text}</p>
+                        <div className="pt-8 border-t border-white/5">
+                            <p className="text-[10px] font-black text-white/10 uppercase tracking-[0.3em] mb-4">CURRENT CONFIGURATION</p>
+                            <div className="flex items-center gap-4">
+                                <div className="w-2 h-2 rounded-full bg-white/40 animate-pulse" />
+                                <p className="font-black text-white/40 uppercase text-xs tracking-widest">UPI: {currentQR.text}</p>
+                            </div>
                         </div>
                     )}
                 </motion.div>

@@ -106,10 +106,10 @@ const AdminAssociation = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="flex justify-between items-center mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-electricBlue uppercase">STUDENT ASSOCIATION</h1>
+                <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">STUDENT ASSOCIATION</h1>
                 <button
                     onClick={() => { setEditingMember(null); setPreview(null); setFormData({ name: '', role: '', contact: '', photo: null }); setShowModal(true); }}
-                    className="flex items-center gap-2 px-6 py-3 bg-electricBlue text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-all"
+                    className="flex items-center gap-2 px-6 py-4 bg-white text-black font-black rounded-xl shadow-2xl hover:scale-105 transition-all uppercase text-[10px] tracking-widest"
                 >
                     <Plus size={20} /> ADD MEMBER
                 </button>
@@ -121,11 +121,11 @@ const AdminAssociation = () => {
                         key={member._id} layout
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
-                        <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white/10 group-hover:border-electricBlue transition-colors">
+                        <div className="w-24 h-24 rounded-full overflow-hidden mb-6 border-2 border-white/10 group-hover:border-white/30 transition-colors">
                             <img src={`${import.meta.env.VITE_API_URL}${member.photo}`} alt={member.name} className="w-full h-full object-cover" />
                         </div>
-                        <h3 className="font-bold uppercase tracking-tight">{member.name}</h3>
-                        <p className="text-xs text-electricBlue font-black uppercase mb-4 tracking-widest">{member.role}</p>
+                        <h3 className="font-bold uppercase tracking-tight text-white/80 group-hover:text-white transition-colors">{member.name}</h3>
+                        <p className="text-[10px] text-white/20 font-black uppercase mb-6 tracking-[0.2em]">{member.role}</p>
                         <div className="flex gap-2">
                             <button onClick={() => handleEdit(member)} className="p-2 text-gray-500 hover:text-white transition-colors"><Edit2 size={16} /></button>
                             <button onClick={() => handleDelete(member._id)} className="p-2 text-gray-500 hover:text-red-500 transition-colors"><Trash2 size={16} /></button>
@@ -148,25 +148,25 @@ const AdminAssociation = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            className="sticker-card w-full max-w-md bg-urbanDark p-8 relative border-t-8 border-electricBlue"
+                            className="sticker-card w-full max-w-md bg-black p-8 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
-                            <h2 className="text-2xl font-black graffiti-text mb-8 text-electricBlue uppercase">
-                                {editingMember ? 'UPDATE MEMBER' : 'ADD NEW MEMBER'}
+                            <h2 className="text-2xl font-black mb-10 text-white uppercase red-gradient-animate tracking-tighter">
+                                {editingMember ? 'UPDATE MEMBER' : 'ADD MEMBER'}
                             </h2>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="flex justify-center mb-6">
                                     <div
                                         onClick={() => document.getElementById('photo-up').click()}
-                                        className="w-32 h-32 rounded-full border-4 border-dashed border-white/10 flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-electricBlue transition-colors"
+                                        className="w-32 h-32 rounded-full border-4 border-dashed border-white/5 flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-white/20 transition-colors"
                                     >
                                         {preview ? (
                                             <img src={preview} className="w-full h-full object-cover" />
                                         ) : (
-                                            <Camera className="text-gray-600" />
+                                            <Camera className="text-white/10" />
                                         )}
-                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                            <span className="text-[10px] font-bold">UPLOAD</span>
+                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                            <span className="text-[9px] font-black uppercase tracking-widest">UPLOAD</span>
                                         </div>
                                     </div>
                                     <input id="photo-up" type="file" hidden accept="image/*" onChange={handleFileChange} />
@@ -207,7 +207,7 @@ const AdminAssociation = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full py-4 bg-electricBlue text-white font-black rounded-xl shadow-lg mt-4"
+                                    className="w-full py-5 bg-white text-black font-black rounded-xl shadow-2xl mt-6 uppercase text-[10px] tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     SAVE MEMBER
                                 </button>

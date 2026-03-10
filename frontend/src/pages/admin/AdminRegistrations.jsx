@@ -87,9 +87,9 @@ const AdminRegistrations = () => {
 
     return (
         <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6">
-            <div className="mb-10 md:mb-12">
-                <h1 className="text-3xl sm:text-4xl font-black graffiti-text text-hotPink">EVENT REGISTRATIONS</h1>
-                <p className="text-gray-500 font-bold uppercase tracking-widest mt-2">{filteredRegistrations.length} total entries</p>
+            <div className="mb-10 md:mb-12 text-center md:text-left">
+                <h1 className="text-3xl sm:text-4xl font-black text-white red-gradient-animate uppercase">EVENT REGISTRATIONS</h1>
+                <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">{filteredRegistrations.length} TOTAL ENTRIES</p>
             </div>
 
             <div className="mb-8 flex flex-col md:flex-row gap-4">
@@ -132,20 +132,20 @@ const AdminRegistrations = () => {
                 </select>
                 <button
                     onClick={handleExport}
-                    className="flex items-center justify-center gap-2 px-6 py-3 bg-limeGreen text-black font-black rounded-xl hover:scale-105 transition-all shadow-lg whitespace-nowrap"
+                    className="flex items-center justify-center gap-2 px-6 py-4 bg-white text-black font-black rounded-xl hover:scale-105 transition-all shadow-2xl whitespace-nowrap text-[10px] tracking-widest uppercase"
                 >
-                    <Download size={20} /> <span className="hidden lg:inline">EXPORT TO EXCEL</span>
+                    <Download size={20} /> <span className="hidden lg:inline">EXPORT EXCEL</span>
                 </button>
             </div>
 
             <div className="overflow-x-auto sticker-card p-0 border-none rounded-2xl">
                 <table className="w-full text-left">
-                    <thead className="bg-concreteGray/50 border-b border-white/10">
+                    <thead className="bg-white/5 border-b border-white/10">
                         <tr>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">PARTICIPANT / EVENT</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">COLLEGE</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">PAYMENT STATUS</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500 text-center">ACTION</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">PARTICIPANT / EVENT</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">COLLEGE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">PAYMENT STATUS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20 text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -153,16 +153,16 @@ const AdminRegistrations = () => {
                             <tr key={reg._id} className="hover:bg-white/5 transition-colors group">
                                 <td className="p-6">
                                     <div className="font-bold text-lg uppercase tracking-tight">{reg.name}</div>
-                                    <div className="text-xs text-hotPink font-black tracking-widest uppercase">{reg.eventId?.title}</div>
+                                    <div className="text-[10px] text-white/40 font-black tracking-widest uppercase">{reg.eventId?.title}</div>
                                 </td>
                                 <td className="p-6">
                                     <div className="text-sm font-semibold">{reg.college}</div>
                                     <div className="text-xs text-gray-500">{reg.department} - Year {reg.year}</div>
                                 </td>
                                 <td className="p-6">
-                                    <span className={`flex items-center gap-1 text-xs font-black uppercase ${reg.paymentStatus === 'Approved' ? 'text-limeGreen' :
-                                        reg.paymentStatus === 'Rejected' ? 'text-red-500' :
-                                            'text-orange-500'
+                                    <span className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${reg.paymentStatus === 'Approved' ? 'text-white' :
+                                        reg.paymentStatus === 'Rejected' ? 'text-white/40' :
+                                            'text-white/60 animate-pulse'
                                         }`}>
                                         {reg.paymentStatus === 'Pending' && <Clock size={14} />}
                                         {reg.paymentStatus === 'Approved' && <Check size={14} />}
@@ -200,7 +200,7 @@ const AdminRegistrations = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            className="sticker-card w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-urbanDark p-0 border-none relative flex flex-col md:flex-row"
+                            className="sticker-card w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-black p-0 border-none relative flex flex-col md:flex-row shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
                             <button
                                 onClick={() => setSelectedReg(null)}
@@ -226,22 +226,20 @@ const AdminRegistrations = () => {
                             {/* Information Side */}
                             <div className="md:w-1/2 p-10 space-y-8 overflow-y-auto">
                                 <div>
-                                    <h2 className="text-3xl font-black uppercase tracking-tighter mb-1">{selectedReg.name}</h2>
-                                    <p className="text-gray-500 font-bold uppercase tracking-widest text-sm italic">Registration Details</p>
+                                    <h2 className="text-3xl font-black uppercase tracking-tighter mb-1 red-gradient-animate">{selectedReg.name}</h2>
+                                    <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[9px] italic">Registration Details</p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-8 text-sm">
                                     <div className="space-y-1">
-                                        <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">EVENT</p>
-                                        <p className="font-bold text-hotPink">{selectedReg.eventId?.title}</p>
+                                        <p className="font-black text-white/60 tracking-tight">{selectedReg.eventId?.title}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">TEAM TYPE</p>
                                         <p className="font-bold">{selectedReg.teamName ? 'TEAM' : 'INDIVIDUAL'}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">TRANSACTION ID</p>
-                                        <p className="font-bold text-electricBlue">{selectedReg.upiId}</p>
+                                        <p className="font-black text-white/40 tracking-widest">{selectedReg.upiId}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">STATUS</p>
@@ -252,11 +250,11 @@ const AdminRegistrations = () => {
                                 <div className="space-y-4">
                                     <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">CONTACT INFO</p>
                                     <div className="flex gap-4">
-                                        <a href={`tel:${selectedReg.phone}`} className="flex-1 flex items-center gap-2 p-3 bg-white/5 rounded-xl text-sm font-bold border border-white/5">
-                                            <Phone size={16} className="text-limeGreen" /> {selectedReg.phone}
+                                        <a href={`tel:${selectedReg.phone}`} className="flex-1 flex items-center justify-center gap-2 p-4 bg-white/5 rounded-xl text-[10px] font-black tracking-widest border border-white/5 uppercase hover:bg-white/10 transition-colors">
+                                            <Phone size={14} className="opacity-40" /> {selectedReg.phone}
                                         </a>
-                                        <a href={`mailto:${selectedReg.email}`} className="flex-1 flex items-center gap-2 p-3 bg-white/5 rounded-xl text-sm font-bold border border-white/5">
-                                            <Mail size={16} className="text-neonPurple" /> EMAIL
+                                        <a href={`mailto:${selectedReg.email}`} className="flex-1 flex items-center justify-center gap-2 p-4 bg-white/5 rounded-xl text-[10px] font-black tracking-widest border border-white/5 uppercase hover:bg-white/10 transition-colors">
+                                            <Mail size={14} className="opacity-40" /> EMAIL
                                         </a>
                                     </div>
                                 </div>
@@ -265,7 +263,7 @@ const AdminRegistrations = () => {
                                     <div className="space-y-4">
                                         <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">TEAM MEMBERS ({selectedReg.teamMembers.length + 1})</p>
                                         <div className="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar">
-                                            <div className="p-3 bg-hotPink/10 border border-hotPink/20 rounded-lg text-sm font-bold">
+                                            <div className="p-4 bg-white/10 border border-white/5 rounded-xl text-[10px] font-black tracking-widest uppercase">
                                                 LEAD: {selectedReg.name}
                                             </div>
                                             {selectedReg.teamMembers.map((m, i) => (
@@ -277,16 +275,16 @@ const AdminRegistrations = () => {
                                     </div>
                                 )}
 
-                                <div className="pt-8 mt-8 border-t border-white/5 flex gap-4">
+                                <div className="pt-8 mt-auto border-t border-white/5 flex gap-4">
                                     <button
                                         onClick={() => handleStatusUpdate(selectedReg._id, 'Rejected')}
-                                        className="flex-1 py-4 bg-red-500/10 text-red-500 p-2 rounded-xl font-black border border-red-500/20 hover:bg-red-500 hover:text-white transition-all"
+                                        className="flex-1 py-5 bg-white/5 text-white/20 rounded-2xl font-black border border-white/5 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all text-[10px] tracking-widest uppercase"
                                     >
-                                        REJECT PAYMENT
+                                        REJECT REGISTRATION
                                     </button>
                                     <button
                                         onClick={() => handleStatusUpdate(selectedReg._id, 'Approved')}
-                                        className="flex-1 py-4 bg-limeGreen text-black p-2 rounded-xl font-black hover:scale-105 transition-all shadow-lg"
+                                        className="flex-1 py-5 bg-white text-black rounded-2xl font-black hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl text-[10px] tracking-widest uppercase"
                                     >
                                         APPROVE REGISTRATION
                                     </button>

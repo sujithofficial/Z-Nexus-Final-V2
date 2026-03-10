@@ -9,12 +9,12 @@ const Navbar = () => {
     const location = useLocation();
 
     const navLinks = [
-        { name: 'Home', path: '/' },
-        { name: 'Events', path: '/events' },
-        { name: 'Register', path: '/register' },
-        { name: 'Association', path: '/association' },
-        { name: 'Staff', path: '/staff' },
-        { name: 'Gallery', path: '/gallery' },
+        { name: 'Home', path: '/', id: 'home-top' },
+        { name: 'Events', path: '/events', id: 'events-top' },
+        { name: 'Register', path: '/register', id: 'register-top' },
+        { name: 'Association', path: '/association', id: 'association-top' },
+        { name: 'Staff', path: '/staff', id: 'staff-top' },
+        { name: 'Gallery', path: '/gallery', id: 'gallery-top' },
     ];
 
     useEffect(() => {
@@ -25,57 +25,107 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isOpen]);
+
+    const handleMobileNavClick = (path, id) => {
+        // 1. Close the mobile menu immediately
+        setIsOpen(false);
+
+        // 2. Scroll to the very top of the page first
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+
+        // 3. After the scroll-to-top completes (~500ms), navigate to the target section
+        setTimeout(() => {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+            }
+        }, 500);
+    };
+
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-urbanDark/90 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'}`}>
-            <div className="container mx-auto px-6 flex justify-between items-center">
-                <Link to="/" className="text-2xl font-bold flex items-center gap-2 group">
-                    <span className="graffiti-text text-3xl neon-glow-purple group-hover:text-hotPink transition-colors">Z-NEXUS</span>
-                    <span className="text-electricBlue">2K26</span>
-                </Link>
+        <>
+            <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled ? 'bg-black/40 backdrop-blur-2xl border-b border-white/5 py-4 shadow-2xl' : 'bg-transparent py-8'}`}>
+                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none opacity-50" />
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-8">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.path}
-                            to={link.path}
-                            className={`text-sm font-semibold tracking-wider hover:text-neonPurple transition-colors relative group ${location.pathname === link.path ? 'text-neonPurple' : 'text-gray-300'}`}
-                        >
-                            {link.name}
-                            <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-hotPink transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
-                        </Link>
-                    ))}
-                </div>
+                <div className="container mx-auto px-6 flex justify-between items-center relative z-10">
+                    <Link to="/" className="group transition-all duration-500">
+                        <span className="text-2xl font-black text-white uppercase tracking-tighter group-hover:tracking-normal transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">Z-NEXUS</span>
+                        <span className="text-white/20 font-black ml-1 group-hover:text-white/60 transition-colors duration-700">2K26</span>
+                    </Link>
 
-                {/* Mobile Toggle */}
-                <button className="md:hidden text-gray-300 hover:text-white" onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </button>
-            </div>
-
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, x: 200 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 200 }}
-                        className="fixed inset-0 bg-urbanDark/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 z-40 md:hidden"
-                    >
+                    {/* Desktop Menu */}
+                    <div className="hidden md:flex items-center gap-10">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className="text-2xl font-bold graffiti-text hover:text-neonPurple transition-colors"
-                                onClick={() => setIsOpen(false)}
+                                className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 relative group ${location.pathname === link.path ? 'text-white' : 'text-white/30 hover:text-white'}`}
+                            >
+                                {link.name}
+                                <span className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
+                            </Link>
+                        ))}
+                    </div>
+
+                    {/* Mobile Toggle */}
+                    <button
+                        className="md:hidden text-white/40 hover:text-white transition-all duration-300 p-2 hover:bg-white/5 rounded-full active:scale-90"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                </div>
+            </nav>
+
+            {/* Mobile Menu — rendered outside <nav> so it always covers the full viewport */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="fixed inset-0 bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 z-[60] md:hidden shadow-2xl overflow-y-auto"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.path}
+                                to={link.path}
+                                className={`text-4xl font-black uppercase tracking-tighter transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95 ${location.pathname === link.path ? 'text-white' : 'text-white/20 hover:text-white'}`}
+                                onClick={() => handleMobileNavClick(link.path, link.id)}
                             >
                                 {link.name}
                             </Link>
                         ))}
+
+                        <button
+                            className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <X size={32} />
+                        </button>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </>
     );
 };
 

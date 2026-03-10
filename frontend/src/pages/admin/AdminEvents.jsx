@@ -111,24 +111,24 @@ const AdminEvents = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="flex justify-between items-center mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-neonPurple">MANAGE EVENTS</h1>
+                <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">MANAGE EVENTS</h1>
                 <button
                     onClick={() => { resetForm(); setShowModal(true); }}
-                    className="flex items-center gap-2 px-6 py-3 bg-neonPurple text-white font-bold rounded-xl shadow-neon-purple hover:scale-105 transition-all"
+                    className="flex items-center gap-2 px-6 py-3 bg-white text-black font-black rounded-xl shadow-2xl hover:scale-105 transition-all uppercase text-[10px] tracking-widest"
                 >
-                    <Plus size={20} /> CREATE NEW EVENT
+                    <Plus size={20} /> CREATE EVENT
                 </button>
             </div>
 
             <div className="overflow-x-auto sticker-card p-0 border-none rounded-2xl">
                 <table className="w-full text-left">
-                    <thead className="bg-concreteGray/50 border-b border-white/10">
+                    <thead className="bg-white/5 border-b border-white/10">
                         <tr>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">EVENT TITLE</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">TYPE</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">COORDINATOR</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">STATUS</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500 text-center">ACTIONS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">EVENT TITLE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">TYPE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">COORDINATOR</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">STATUS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20 text-center">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -139,7 +139,7 @@ const AdminEvents = () => {
                                     <div className="text-xs text-gray-500">{event.date} @ {event.venue}</div>
                                 </td>
                                 <td className="p-6">
-                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${event.eventType === 'Team' ? 'bg-hotPink/20 text-hotPink' : 'bg-electricBlue/20 text-electricBlue'}`}>
+                                    <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase border border-white/10 ${event.eventType === 'Team' ? 'bg-white/5 text-white/60' : 'bg-white/5 text-white/40'}`}>
                                         {event.eventType}
                                     </span>
                                 </td>
@@ -148,8 +148,8 @@ const AdminEvents = () => {
                                     <div className="text-xs text-gray-500">{event.coordinatorPhone}</div>
                                 </td>
                                 <td className="p-6">
-                                    <span className="flex items-center gap-1 text-limeGreen text-xs font-bold">
-                                        <Check size={14} /> ACTIVE
+                                    <span className="flex items-center gap-2 text-white/40 text-[10px] font-black uppercase tracking-widest">
+                                        <div className="w-1.5 h-1.5 bg-white/40 rounded-full animate-pulse" /> ACTIVE
                                     </span>
                                 </td>
                                 <td className="p-6">
@@ -188,7 +188,7 @@ const AdminEvents = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="sticker-card w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-urbanDark p-8 sm:p-12 relative border-t-8 border-neonPurple"
+                            className="sticker-card w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-black p-8 sm:p-12 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
                             <button
                                 onClick={() => setShowModal(false)}
@@ -197,15 +197,15 @@ const AdminEvents = () => {
                                 <X size={32} />
                             </button>
 
-                            <h2 className="text-3xl font-black graffiti-text mb-10 text-neonPurple uppercase">
-                                {editingEvent ? 'UPDATE EVENT' : 'CREATE NEW EVENT'}
+                            <h2 className="text-3xl font-black mb-10 text-white uppercase red-gradient-animate tracking-tighter">
+                                {editingEvent ? 'UPDATE EVENT' : 'CREATE EVENT'}
                             </h2>
 
                             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4 md:col-span-2">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">TITLE</label>
+                                    <label className="text-[10px] font-black text-white/20 uppercase tracking-widest">TITLE</label>
                                     <input
-                                        type="text" required className="w-full" placeholder="Event Name"
+                                        type="text" required className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-6 py-5 text-sm outline-none focus:border-white/20" placeholder="Event Name"
                                         value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                     />
                                 </div>
@@ -281,7 +281,7 @@ const AdminEvents = () => {
 
                                 <button
                                     type="submit"
-                                    className="md:col-span-2 py-4 bg-neonPurple text-white font-black rounded-xl shadow-lg mt-4"
+                                    className="md:col-span-2 py-6 bg-white text-black font-black rounded-2xl shadow-2xl mt-8 uppercase text-xs tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     {editingEvent ? 'UPDATE EVENT' : 'PUBLISH EVENT'}
                                 </button>

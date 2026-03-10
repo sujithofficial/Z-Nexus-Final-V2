@@ -93,13 +93,13 @@ const AdminCountdown = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="flex justify-between items-center mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-neonPurple flex items-center gap-4">
+                <h1 className="text-4xl font-black text-white red-gradient-animate flex items-center gap-4 uppercase">
                     <Timer size={40} /> MANAGE COUNTDOWN
                 </h1>
                 {!countdown && (
                     <button
                         onClick={() => { resetForm(); setShowModal(true); }}
-                        className="flex items-center gap-2 px-6 py-3 bg-neonPurple text-white font-bold rounded-xl shadow-neon-purple hover:scale-105 transition-all"
+                        className="flex items-center gap-2 px-6 py-4 bg-white text-black font-black rounded-xl shadow-2xl hover:scale-105 transition-all uppercase text-[10px] tracking-widest"
                     >
                         <Plus size={20} /> CREATE COUNTDOWN
                     </button>
@@ -108,12 +108,12 @@ const AdminCountdown = () => {
 
             <div className="overflow-x-auto sticker-card p-0 border-none rounded-2xl">
                 <table className="w-full text-left">
-                    <thead className="bg-concreteGray/50 border-b border-white/10">
+                    <thead className="bg-white/5 border-b border-white/10">
                         <tr>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">TITLE</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">TARGET DATE</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500">STATUS</th>
-                            <th className="p-6 font-black uppercase text-xs tracking-widest text-gray-500 text-center">ACTIONS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">TITLE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">TARGET DATE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">STATUS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20 text-center">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -126,8 +126,8 @@ const AdminCountdown = () => {
                                     <div className="text-sm font-semibold">{new Date(countdown.targetDate).toLocaleString()}</div>
                                 </td>
                                 <td className="p-6">
-                                    <span className="flex items-center gap-1 text-limeGreen text-xs font-bold uppercase">
-                                        <Check size={14} /> ACTIVE
+                                    <span className="flex items-center gap-2 text-white/40 text-[10px] font-black uppercase tracking-widest">
+                                        <div className="w-1.5 h-1.5 bg-white/40 rounded-full animate-pulse" /> ACTIVE
                                     </span>
                                 </td>
                                 <td className="p-6">
@@ -172,16 +172,16 @@ const AdminCountdown = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="sticker-card w-full max-w-2xl bg-urbanDark p-8 sm:p-12 relative border-t-8 border-neonPurple"
+                            className="sticker-card w-full max-w-2xl bg-black p-8 sm:p-12 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="absolute top-8 right-8 text-gray-500 hover:text-white"
+                                className="absolute top-8 right-8 text-white/20 hover:text-white"
                             >
                                 <X size={32} />
                             </button>
 
-                            <h2 className="text-3xl font-black graffiti-text mb-10 text-neonPurple uppercase">
+                            <h2 className="text-3xl font-black mb-10 text-white uppercase red-gradient-animate tracking-tighter">
                                 {editing ? 'UPDATE COUNTDOWN' : 'CREATE COUNTDOWN'}
                             </h2>
 
@@ -204,7 +204,7 @@ const AdminCountdown = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full py-4 bg-neonPurple text-white font-black rounded-xl shadow-lg mt-4 uppercase hover:bg-hotPink transition-colors"
+                                    className="w-full py-5 bg-white text-black font-black rounded-xl shadow-2xl mt-6 uppercase text-[10px] tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     {editing ? 'UPDATE TIMER' : 'START TIMER'}
                                 </button>

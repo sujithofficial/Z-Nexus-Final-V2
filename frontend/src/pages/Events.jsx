@@ -25,77 +25,95 @@ const Events = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-neonPurple border-t-transparent rounded-full animate-spin"></div>
+            <div className="min-h-screen flex items-center justify-center bg-black">
+                <div className="relative w-24 h-24">
+                    <div className="absolute inset-0 border-t-2 border-white rounded-full animate-spin"></div>
+                    <div className="absolute inset-4 border-b-2 border-white/20 rounded-full animate-spin-slow"></div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6">
-            <div className="mb-10 md:mb-16 text-center">
-                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold section-title mb-4">
-                    ALL <span className="animated-gradient-text">EVENTS</span>
-                </h1>
-                <p className="text-gray-400 text-base md:text-lg">Choose your arena and dominate the competition.</p>
+        <div id="events-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24">
+            {/* Atmosphere Layer */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.04),transparent_40%)]" />
+                <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.03),transparent_40%)]" />
+            </div>
+
+            <div className="mb-24 text-center relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 leading-none tracking-tighter fast-red-gradient uppercase">
+                        ALL EVENTS
+                    </h1>
+                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">JOIN OUR DIVERSE RANGE OF TECHNICAL COMPETITIONS AND SHOWCASE YOUR SKILLS.</p>
+                </motion.div>
             </div>
 
             {events.length === 0 ? (
-                <div className="text-center py-20 bg-white/5 rounded-2xl border-2 border-dashed border-white/10">
-                    <p className="text-2xl text-gray-500 font-bold">NO EVENTS DISCOVERED YET</p>
+                <div className="text-center py-32 liquid-glass rounded-[3rem] border border-white/5 relative z-10">
+                    <p className="text-xs text-white/20 font-black uppercase tracking-[0.4em]">NO EVENTS DISCOVERED YET</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
                     {events.map((event, index) => (
                         <motion.div
                             key={event._id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.1 }}
-                            className="sticker-card overflow-hidden flex flex-col h-full"
+                            initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            className="sticker-card overflow-hidden flex flex-col h-full bg-white/[0.02] border border-white/5 rounded-[2.5rem] group"
                         >
-                            <div className="h-48 bg-gradient-to-br from-neonPurple/40 to-electricBlue/40 relative flex items-center justify-center overflow-hidden">
-                                <span className="graffiti-text text-4xl opacity-20 absolute rotate-12 -right-4 -top-4">{event.title}</span>
-                                <div className="p-6 text-center z-10">
-                                    <h3 className="text-3xl font-black text-white drop-shadow-lg uppercase tracking-tighter">{event.title}</h3>
-                                    <div className="mt-4 flex gap-2 justify-center">
-                                        <span className="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-bold border border-white/10">
+                            <div className="h-48 bg-white/[0.01] relative flex items-center justify-center overflow-hidden border-b border-white/5">
+                                {/* Glass Reflection */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-1000" />
+
+                                <div className="p-8 text-center z-10 relative">
+                                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-tight group-hover:scale-105 transition-transform duration-1000 ease-[0.16, 1, 0.3, 1]">{event.title}</h3>
+                                    <div className="mt-6">
+                                        <span className="px-5 py-2 bg-white/5 rounded-full text-[9px] font-black tracking-[0.3em] text-white/40 border border-white/5 uppercase">
                                             {event.eventType}
                                         </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="p-8 flex flex-col flex-grow">
-                                <p className="text-gray-400 line-clamp-2 mb-8">{event.description}</p>
+                            <div className="p-10 flex flex-col flex-grow">
+                                <p className="text-white/30 text-xs leading-relaxed line-clamp-2 mb-10 font-bold uppercase tracking-widest">{event.description}</p>
 
-                                <div className="space-y-4 text-sm text-gray-300 mb-8">
-                                    <div className="flex items-center gap-3">
-                                        <Calendar size={18} className="text-hotPink" />
-                                        <span>{event.date}</span>
+                                <div className="space-y-5 text-[10px] font-black text-white/20 mb-12 uppercase tracking-[0.2em]">
+                                    <div className="flex items-center gap-4 group/item">
+                                        <Calendar size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
+                                        <span className="group-hover/item:text-white/60 transition-colors">{event.date}</span>
                                     </div>
-                                    <div className="flex items-center gap-3">
-                                        <MapPin size={18} className="text-electricBlue" />
-                                        <span>{event.venue}</span>
+                                    <div className="flex items-center gap-4 group/item">
+                                        <MapPin size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
+                                        <span className="group-hover/item:text-white/60 transition-colors">{event.venue}</span>
                                     </div>
-                                    <div className="flex items-center gap-3">
-                                        <User size={18} className="text-limeGreen" />
-                                        <span>{event.coordinatorName}</span>
+                                    <div className="flex items-center gap-4 group/item">
+                                        <User size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
+                                        <span className="group-hover/item:text-white/60 transition-colors">{event.coordinatorName}</span>
                                     </div>
                                 </div>
 
                                 <div className="mt-auto flex gap-4">
                                     <Link
                                         to={`/events/${event._id}`}
-                                        className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-center font-bold rounded-lg border border-white/10 transition-colors"
+                                        className="flex-1 py-5 bg-white/5 hover:bg-white/10 text-white text-[9px] font-black tracking-[0.2em] text-center rounded-2xl border border-white/5 transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:scale-[1.03] active:scale-[0.97]"
                                     >
-                                        DETAILS
+                                        VIEW DETAILS
                                     </Link>
                                     <Link
                                         to={`/register?eventId=${event._id}`}
-                                        className="flex-1 py-3 bg-neonPurple hover:bg-hotPink text-center font-bold rounded-lg transition-colors shadow-lg"
+                                        className="flex-1 py-5 bg-white text-black text-[9px] font-black tracking-[0.2em] text-center rounded-2xl hover:bg-white/90 transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:scale-[1.03] active:scale-[0.97] shadow-xl"
                                     >
-                                        REGISTER
+                                        REGISTER NOW
                                     </Link>
                                 </div>
                             </div>

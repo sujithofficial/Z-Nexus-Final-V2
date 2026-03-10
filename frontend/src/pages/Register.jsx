@@ -126,20 +126,26 @@ const Register = () => {
 
     if (submitted) {
         return (
-            <div className="min-h-screen py-40 flex items-center justify-center container mx-auto px-6">
+            <div className="min-h-screen py-40 flex items-center justify-center container mx-auto px-4 sm:px-6 bg-black">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="sticker-card p-12 text-center max-w-2xl bg-limeGreen/10 border-limeGreen/50"
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    className="sticker-card p-16 text-center max-w-2xl bg-white/[0.02] border border-white/5 rounded-[4rem] shadow-3xl relative"
                 >
-                    <CheckCircle2 size={80} className="text-limeGreen mx-auto mb-6" />
-                    <h2 className="text-4xl font-black mb-4 graffiti-text">REGISTRATION SUCCESSFUL!</h2>
-                    <p className="text-xl text-gray-300 mb-8">
-                        Your registration is pending verification. We will notify you once it's approved.
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-30 pointer-events-none" />
+
+                    <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-10">
+                        <CheckCircle2 size={48} className="text-white" />
+                    </div>
+                    <h2 className="text-4xl sm:text-5xl font-black mb-6 uppercase tracking-tighter text-white">REGISTRATION SUCCESSFUL!</h2>
+                    <p className="text-xs text-white/20 mb-12 font-black uppercase tracking-[0.4em] leading-relaxed">
+                        YOUR REGISTRATION HAS BEEN RECEIVED. <br />
+                        WE WILL VERIFY YOUR PAYMENT AND CONFIRM YOUR SPOT SOON.
                     </p>
                     <button
                         onClick={() => navigate('/events')}
-                        className="px-10 py-4 bg-limeGreen text-black font-bold rounded-xl"
+                        className="px-12 py-5 bg-white text-black font-black text-xs uppercase tracking-[0.3em] rounded-2xl hover:scale-[1.05] active:scale-[0.95] transition-all duration-700 ease-[0.16, 1, 0.3, 1] shadow-2xl"
                     >
                         GO TO EVENTS
                     </button>
@@ -149,174 +155,218 @@ const Register = () => {
     }
 
     return (
-        <div className="min-h-screen py-24 container mx-auto px-6 max-w-4xl">
-            <div className="mb-16 text-center">
-                <h1 className="text-5xl md:text-7xl font-bold section-title mb-4">
-                    JOIN THE <span className="animated-gradient-text">NEXUS</span>
-                </h1>
-                <p className="text-gray-400">Lock in your spot and show what you're made of.</p>
+        <div id="register-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 max-w-4xl relative overflow-hidden scroll-mt-24">
+            {/* Atmosphere Layer */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.04),transparent_40%)]" />
+                <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.03),transparent_40%)]" />
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="mb-24 text-center relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 leading-none tracking-tighter fast-red-gradient uppercase">
+                        REGISTRATION
+                    </h1>
+                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em]">SECURE YOUR SPOT IN THE UPCOMING TECHNICAL SYMPOSIUM.</p>
+                </motion.div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-12 relative z-10">
                 {/* Personal Details Card */}
-                <div className="sticker-card p-8 space-y-6">
-                    <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-white/10 pb-4">
-                        <User className="text-neonPurple" /> LEAD PARTICIPANT DETAILS
+                <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="sticker-card p-6 sm:p-12 space-y-12 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl group"
+                >
+                    <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em]">
+                        <User size={16} className="opacity-40" /> PARTICIPANT DETAILS
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400">FULL NAME</label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">FULL NAME</label>
                             <input
-                                type="text" required className="w-full" placeholder="Enter your full name"
+                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="John Doe"
                                 value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400">EMAIL ADDRESS</label>
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">EMAIL ADDRESS</label>
                             <input
-                                type="email" required className="w-full" placeholder="example@email.com"
+                                type="email" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="email@example.com"
                                 value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400">PHONE NUMBER</label>
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">PHONE NUMBER</label>
                             <input
-                                type="tel" required className="w-full" placeholder="10-digit number"
+                                type="tel" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="+91 00000 00000"
                                 value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400">COLLEGE NAME</label>
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">COLLEGE NAME</label>
                             <input
-                                type="text" required className="w-full" placeholder="Enter college name"
+                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="College Name"
                                 value={formData.college} onChange={(e) => setFormData({ ...formData, college: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400">DEPARTMENT</label>
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">DEPARTMENT</label>
                             <input
-                                type="text" required className="w-full" placeholder="e.g. CSE, IT"
+                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="e.g. CSBS, CSE"
                                 value={formData.department} onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400">YEAR OF STUDY</label>
-                            <select
-                                required className="w-full"
-                                value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                            >
-                                <option value="">Select Year</option>
-                                <option value="1">1st Year</option>
-                                <option value="2">2nd Year</option>
-                                <option value="3">3rd Year</option>
-                                <option value="4">4th Year</option>
-                            </select>
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">YEAR OF STUDY</label>
+                            <div className="relative">
+                                <select
+                                    required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
+                                    value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                                >
+                                    <option value="" className="bg-black">SELECT YEAR</option>
+                                    <option value="1" className="bg-black">1st Year</option>
+                                    <option value="2" className="bg-black">2nd Year</option>
+                                    <option value="3" className="bg-black">3rd Year</option>
+                                    <option value="4" className="bg-black">4th Year</option>
+                                </select>
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20 font-black">↓</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Event Selection Card */}
-                <div className="sticker-card p-8 space-y-6">
-                    <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-white/10 pb-4">
-                        <Trophy className="text-electricBlue" /> EVENT SELECTION
+                <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="sticker-card p-6 sm:p-12 space-y-12 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl group"
+                >
+                    <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em]">
+                        <Trophy size={16} className="opacity-40" /> CORE SELECTION
                     </h2>
 
                     <div className="space-y-4">
-                        <label className="text-sm font-bold text-gray-400">SELECT EVENT</label>
-                        <select
-                            required className="w-full"
-                            value={formData.eventId} onChange={handleEventChange}
-                        >
-                            <option value="">Choose an event</option>
-                            {events.map(ev => (
-                                <option key={ev._id} value={ev._id}>{ev.title} ({ev.eventType})</option>
-                            ))}
-                        </select>
+                        <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">SELECT EVENT</label>
+                        <div className="relative">
+                            <select
+                                required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
+                                value={formData.eventId} onChange={handleEventChange}
+                            >
+                                <option value="" className="bg-black">SELECT AN EVENT</option>
+                                {events.map(ev => (
+                                    <option key={ev._id} value={ev._id} className="bg-black">{ev.title.toUpperCase()} ({ev.eventType.toUpperCase()})</option>
+                                ))}
+                            </select>
+                            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20 font-black">↓</div>
+                        </div>
                     </div>
 
-                    {selectedEvent?.eventType === 'Team' && (
-                        <div className="pt-4">
-                            <label className="flex items-center gap-3 cursor-pointer group">
-                                <input
-                                    type="checkbox" className="w-5 h-5 accent-neonPurple"
-                                    checked={isTeam} onChange={(e) => setIsTeam(e.target.checked)}
-                                />
-                                <span className="font-bold text-lg group-hover:text-neonPurple transition-colors">REGISTER AS TEAM</span>
-                            </label>
-                        </div>
-                    )}
-                </div>
+                    <AnimatePresence>
+                        {selectedEvent?.eventType === 'Team' && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="pt-6"
+                            >
+                                <label className="flex items-center gap-6 cursor-pointer group w-fit">
+                                    <div className="relative">
+                                        <input
+                                            type="checkbox" className="sr-only"
+                                            checked={isTeam} onChange={(e) => setIsTeam(e.target.checked)}
+                                        />
+                                        <div className={`w-12 h-6 rounded-full transition-all duration-500 border border-white/10 ${isTeam ? 'bg-white' : 'bg-white/5'}`}>
+                                            <div className={`absolute top-1 w-4 h-4 rounded-full transition-all duration-500 ${isTeam ? 'left-7 bg-black' : 'left-1 bg-white/20'}`} />
+                                        </div>
+                                    </div>
+                                    <span className="text-xs font-black text-white uppercase tracking-[0.2em] group-hover:text-white/60 transition-colors">REGISTER AS A TEAM</span>
+                                </label>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
 
                 {/* Team Details (Conditional) */}
                 <AnimatePresence>
                     {isTeam && (
                         <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
+                            initial={{ height: 0, opacity: 0, scale: 0.97 }}
+                            animate={{ height: 'auto', opacity: 1, scale: 1 }}
+                            exit={{ height: 0, opacity: 0, scale: 0.97 }}
+                            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                             className="overflow-hidden"
                         >
-                            <div className="sticker-card p-8 space-y-8 mt-8 border-l-8 border-hotPink">
-                                <h2 className="text-2xl font-bold flex items-center gap-3 border-b border-white/10 pb-4">
-                                    <Users className="text-hotPink" /> TEAM COMPOSITION
+                            <div className="sticker-card p-6 sm:p-12 space-y-12 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl mb-12">
+                                <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em]">
+                                    <Users size={16} className="opacity-40" /> TEAM COMPOSITION
                                 </h2>
 
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-gray-400">TEAM NAME</label>
+                                <div className="space-y-4">
+                                    <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">TEAM NAME</label>
                                     <input
-                                        type="text" required className="w-full" placeholder="Enter team name"
+                                        type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="Team Name"
                                         value={formData.teamName} onChange={(e) => setFormData({ ...formData, teamName: e.target.value })}
                                     />
                                 </div>
 
-                                <div className="space-y-6">
-                                    <div className="flex justify-between items-center">
-                                        <h3 className="font-bold text-gray-400">ADDITIONAL MEMBERS ({teamMembers.length + 1}/{selectedEvent?.maxTeamSize})</h3>
+                                <div className="space-y-10">
+                                    <div className="flex justify-between items-center px-1">
+                                        <h3 className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">TEAM MEMBERS ({teamMembers.length + 1}/{selectedEvent?.maxTeamSize})</h3>
                                         {teamMembers.length + 1 < (selectedEvent?.maxTeamSize || 1) && (
                                             <button
                                                 type="button" onClick={addTeamMember}
-                                                className="flex items-center gap-2 text-hotPink hover:text-white transition-colors text-sm font-bold"
+                                                className="flex items-center gap-3 text-white text-[10px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all duration-300"
                                             >
-                                                <Plus size={18} /> ADD MEMBER
+                                                <Plus size={14} className="opacity-40" /> ADD MEMBER
                                             </button>
                                         )}
                                     </div>
 
-                                    {teamMembers.map((member, idx) => (
-                                        <motion.div
-                                            key={idx}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            className="p-6 bg-black/40 rounded-xl space-y-4 border border-white/5 relative group"
-                                        >
-                                            <button
-                                                type="button" onClick={() => removeTeamMember(idx)}
-                                                className="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition-colors"
+                                    <div className="space-y-8">
+                                        {teamMembers.map((member, idx) => (
+                                            <motion.div
+                                                key={idx}
+                                                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                className="p-10 bg-white/[0.01] rounded-[2rem] border border-white/5 relative group/member"
                                             >
-                                                <Trash2 size={20} />
-                                            </button>
-                                            <h4 className="font-bold text-hotPink">MEMBER #{idx + 2}</h4>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <input
-                                                    type="text" placeholder="Name" required className="text-sm"
-                                                    value={member.name} onChange={(e) => handleMemberChange(idx, 'name', e.target.value)}
-                                                />
-                                                <input
-                                                    type="text" placeholder="Department" required className="text-sm"
-                                                    value={member.department} onChange={(e) => handleMemberChange(idx, 'department', e.target.value)}
-                                                />
-                                                <input
-                                                    type="text" placeholder="College" required className="text-sm"
-                                                    value={member.college} onChange={(e) => handleMemberChange(idx, 'college', e.target.value)}
-                                                />
-                                                <input
-                                                    type="tel" placeholder="Phone" required className="text-sm"
-                                                    value={member.phone} onChange={(e) => handleMemberChange(idx, 'phone', e.target.value)}
-                                                />
-                                            </div>
-                                        </motion.div>
-                                    ))}
+                                                <button
+                                                    type="button" onClick={() => removeTeamMember(idx)}
+                                                    className="absolute top-8 right-8 text-white/10 hover:text-white transition-all active:scale-90"
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                                <h4 className="text-[9px] font-black text-white/10 mb-8 tracking-[0.5em] uppercase">TEAM MEMBER #{idx + 2}</h4>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                                    <input
+                                                        type="text" placeholder="NAME" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/10 rounded-xl px-5 py-4 text-xs text-white outline-none transition-all placeholder:text-white/5"
+                                                        value={member.name} onChange={(e) => handleMemberChange(idx, 'name', e.target.value)}
+                                                    />
+                                                    <input
+                                                        type="text" placeholder="DEPARTMENT" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/10 rounded-xl px-5 py-4 text-xs text-white outline-none transition-all placeholder:text-white/5"
+                                                        value={member.department} onChange={(e) => handleMemberChange(idx, 'department', e.target.value)}
+                                                    />
+                                                    <input
+                                                        type="text" placeholder="COLLEGE" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/10 rounded-xl px-5 py-4 text-xs text-white outline-none transition-all placeholder:text-white/5"
+                                                        value={member.college} onChange={(e) => handleMemberChange(idx, 'college', e.target.value)}
+                                                    />
+                                                    <input
+                                                        type="tel" placeholder="PHONE" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/10 rounded-xl px-5 py-4 text-xs text-white outline-none transition-all placeholder:text-white/5"
+                                                        value={member.phone} onChange={(e) => handleMemberChange(idx, 'phone', e.target.value)}
+                                                    />
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -324,50 +374,66 @@ const Register = () => {
                 </AnimatePresence>
 
                 {/* Payment Section */}
-                <div className="sticker-card p-6 md:p-8 space-y-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-2 md:p-4 bg-orangeSplash text-white font-black skew-x-12 translate-x-2 md:translate-x-4 -translate-y-1 md:-translate-y-2 text-xs md:text-base">PAYMENT</div>
-
-                    <h2 className="text-xl md:text-2xl font-bold flex items-center gap-3 border-b border-white/10 pb-4">
-                        VERIFICATION
+                <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="sticker-card p-6 sm:p-12 space-y-16 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden"
+                >
+                    <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em] relative z-10">
+                        <Upload size={16} className="opacity-40" /> PAYMENT VERIFICATION
                     </h2>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <div className="space-y-6">
-                            <div className="p-6 bg-white/5 rounded-2xl space-y-4 border-2 border-dashed border-white/10">
-                                <p className="text-sm font-bold text-gray-400">SCAN & PAY</p>
-                                <div className="w-40 h-40 md:w-48 md:h-48 bg-white mx-auto flex items-center justify-center rounded-xl p-2">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
+                        <div className="space-y-12">
+                            <div className="p-12 bg-white/3 rounded-[2.5rem] space-y-8 border border-white/5 text-center relative overflow-hidden group/qr">
+                                <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">PAYMENT QR CODE</p>
+                                <div className="w-52 h-52 bg-white mx-auto flex items-center justify-center rounded-[2.5rem] p-6 shadow-3xl relative z-10 scale-100 group-hover/qr:scale-[1.03] transition-transform duration-700 ease-[0.16, 1, 0.3, 1]">
                                     {paymentQR && paymentQR.image ? (
                                         <img src={`${import.meta.env.VITE_API_URL}${paymentQR.image}`} alt="Payment QR" className="w-full h-full object-contain" />
                                     ) : (
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=znexus2026@upi&pn=ZNexus" alt="QR Code" className="w-full h-full" />
                                     )}
                                 </div>
-                                <p className="text-center font-bold text-electricBlue text-sm md:text-base break-all">UPI ID: {paymentQR && paymentQR.text ? paymentQR.text : 'znexus2026@upi'}</p>
+                                <div className="space-y-3 relative z-10">
+                                    <p className="font-black text-white text-[10px] tracking-[0.2em] break-all cursor-pointer hover:text-white/60 transition-colors uppercase">
+                                        {paymentQR && paymentQR.text ? paymentQR.text : 'znexus2026@upi'}
+                                    </p>
+                                    <p className="text-[9px] font-black text-white/10 uppercase tracking-widest">CLICK TO COPY UPI ID</p>
+                                </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400">TRANSACTION ID</label>
+                            <div className="space-y-4">
+                                <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">UPI TRANSACTION ID</label>
                                 <input
-                                    type="text" required className="w-full" placeholder="e.g. TXN8945723165"
+                                    type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5 uppercase tracking-[0.2em]" placeholder="E.G. TXN8945723165"
                                     value={formData.upiId} onChange={(e) => setFormData({ ...formData, upiId: e.target.value })}
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-4 text-center lg:text-left">
-                            <label className="text-sm font-bold text-gray-400 block">UPLOAD PAYMENT SCREENSHOT</label>
+                        <div className="space-y-8">
+                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1 block">UPLOAD RECEIPT</label>
                             <div
                                 onClick={() => document.getElementById('screenshot').click()}
-                                className={`h-48 md:h-64 border-4 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer transition-all ${preview ? 'border-limeGreen/50 bg-limeGreen/5' : 'border-white/10 hover:border-neonPurple/50 hover:bg-white/5'}`}
+                                className={`h-96 border border-dashed rounded-[2.5rem] flex flex-col items-center justify-center cursor-pointer transition-all duration-1000 ease-[0.16, 1, 0.3, 1] overflow-hidden relative group ${preview ? 'border-white/20' : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10'}`}
                             >
                                 {preview ? (
-                                    <img src={preview} alt="Preview" className="h-full w-full object-contain p-4 rounded-3xl" />
-                                ) : (
                                     <>
-                                        <Upload size={48} className="text-gray-600 mb-4" />
-                                        <p className="text-gray-500 font-bold">CLICK TO UPLOAD</p>
-                                        <p className="text-xs text-gray-600">JPG, PNG allowed</p>
+                                        <img src={preview} alt="Preview" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center">
+                                            <p className="text-[10px] font-black text-white uppercase tracking-[0.3em] underline underline-offset-8">CHANGE FILE</p>
+                                        </div>
                                     </>
+                                ) : (
+                                    <div className="text-center p-12 relative z-10">
+                                        <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]">
+                                            <Upload size={24} className="text-white/20" />
+                                        </div>
+                                        <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">UPLOAD SCREENSHOT</p>
+                                        <p className="text-[9px] text-white/10 mt-4 uppercase tracking-[0.3em]">MAX_FILE_SIZE: 5.0MB</p>
+                                    </div>
                                 )}
                             </div>
                             <input
@@ -376,19 +442,23 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {error && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/50 text-red-500 rounded-lg text-center font-bold">
-                        {error}
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="p-8 bg-white text-black rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl"
+                    >
+                        REGISTRATION ERROR: {error}
+                    </motion.div>
                 )}
 
                 <button
                     type="submit" disabled={loading}
-                    className="w-full py-6 bg-neonPurple text-white font-black text-2xl rounded-2xl paint-btn shadow-neon-purple disabled:opacity-50 disabled:cursor-not-allowed group"
+                    className="w-full py-10 bg-white text-black font-black text-xl md:text-2xl rounded-3xl transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:scale-[1.02] active:scale-[0.98] shadow-[0_30px_60px_rgba(255,255,255,0.1)] hover:shadow-[0_40px_80px_rgba(255,255,255,0.15)] disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-tighter"
                 >
-                    {loading ? 'PROCESSING...' : 'COMPLETE REGISTRATION'}
+                    {loading ? 'PROCESSING...' : 'REGISTER NOW'}
                 </button>
             </form>
         </div>

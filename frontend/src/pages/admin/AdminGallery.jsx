@@ -86,16 +86,16 @@ const AdminGallery = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="mb-16">
-                <h1 className="text-4xl font-black graffiti-text text-limeGreen uppercase">GALLERY MANAGEMENT</h1>
-                <p className="text-gray-500 font-bold uppercase tracking-widest mt-2">{images.length} items on wall</p>
+                <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">GALLERY MANAGEMENT</h1>
+                <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">{images.length} TOTAL ITEMS</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 {/* Upload Form */}
                 <div className="lg:col-span-1">
-                    <div className="sticker-card p-8 border-t-8 border-limeGreen sticky top-32">
-                        <h2 className="text-xl font-black mb-8 flex items-center gap-2">
-                            <Plus size={20} className="text-limeGreen" /> UPLOAD TO WALL
+                    <div className="sticker-card p-8 border-t-8 border-white/10 sticky top-32">
+                        <h2 className="text-xl font-black mb-8 flex items-center gap-2 uppercase tracking-tight">
+                            <Plus size={20} className="text-white/40" /> UPLOAD IMAGE
                         </h2>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-2">
@@ -110,7 +110,7 @@ const AdminGallery = () => {
                                 <label className="text-xs font-black text-gray-500 tracking-widest uppercase">SELECT FILE</label>
                                 <div
                                     onClick={() => document.getElementById('gal-upload').click()}
-                                    className={`h-48 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group ${preview ? 'border-limeGreen' : 'border-white/10'}`}
+                                    className={`h-48 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group transition-all duration-500 ${preview ? 'border-white/20 bg-white/5' : 'border-white/5'}`}
                                 >
                                     {preview ? (
                                         <>
@@ -131,7 +131,7 @@ const AdminGallery = () => {
 
                             <button
                                 type="submit" disabled={uploading || !file}
-                                className="w-full py-4 bg-limeGreen text-black font-black rounded-xl hover:scale-105 transition-all shadow-lg disabled:opacity-50"
+                                className="w-full py-5 bg-white text-black font-black rounded-xl hover:scale-105 transition-all shadow-2xl disabled:opacity-50 text-[10px] tracking-widest uppercase"
                             >
                                 {uploading ? 'UPLOADING...' : 'POST TO GALLERY'}
                             </button>

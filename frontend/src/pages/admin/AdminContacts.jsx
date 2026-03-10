@@ -103,10 +103,10 @@ const AdminContacts = () => {
     return (
         <div className="min-h-screen py-24 container mx-auto px-6">
             <div className="flex justify-between items-center mb-12">
-                <h1 className="text-4xl font-black graffiti-text text-neonPurple uppercase">CONTACT ICONS</h1>
+                <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">CONTACT ICONS</h1>
                 <button
                     onClick={() => { setEditingContact(null); setPreview(null); setFormData({ name: '', link: '', logo: null }); setShowModal(true); }}
-                    className="flex items-center gap-2 px-6 py-3 bg-neonPurple text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-all"
+                    className="flex items-center gap-2 px-6 py-4 bg-white text-black font-black rounded-xl shadow-2xl hover:scale-105 transition-all text-[10px] tracking-widest uppercase"
                 >
                     <Plus size={20} /> ADD CONTACT
                 </button>
@@ -118,11 +118,11 @@ const AdminContacts = () => {
                         key={contact._id} layout
                         className="sticker-card p-6 flex flex-col items-center text-center group"
                     >
-                        <div className="w-full h-32 rounded-xl bg-white/5 overflow-hidden mb-4 border-2 border-transparent group-hover:border-neonPurple transition-colors flex items-center justify-center p-2">
-                            <img src={`${import.meta.env.VITE_API_URL}${contact.logo}`} alt={contact.name} className="max-w-full max-h-full object-contain" />
+                        <div className="w-full h-32 rounded-xl bg-white/5 overflow-hidden mb-6 border-2 border-transparent group-hover:border-white/10 transition-colors flex items-center justify-center p-4">
+                            <img src={`${import.meta.env.VITE_API_URL}${contact.logo}`} alt={contact.name} className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
                         </div>
-                        <h3 className="font-bold uppercase tracking-tight mb-2">{contact.name}</h3>
-                        <div className="text-xs text-neonPurple mb-4 flex items-center justify-center gap-1 overflow-hidden max-w-full">
+                        <h3 className="font-bold uppercase tracking-tight mb-2 text-white/80 group-hover:text-white transition-colors">{contact.name}</h3>
+                        <div className="text-[10px] text-white/20 mb-6 flex items-center justify-center gap-1 overflow-hidden max-w-full font-black uppercase tracking-widest group-hover:text-white/40 transition-colors">
                             <LinkIcon size={12} className="flex-shrink-0" />
                             <a href={contact.link} target="_blank" rel="noopener noreferrer" className="hover:underline truncate">{contact.link}</a>
                         </div>
@@ -148,10 +148,10 @@ const AdminContacts = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            className="sticker-card w-full max-w-md bg-urbanDark p-8 relative border-t-8 border-neonPurple max-h-[90vh] overflow-y-auto"
+                            className="sticker-card w-full max-w-md bg-black p-8 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)] max-h-[90vh] overflow-y-auto"
                         >
-                            <h2 className="text-2xl font-black graffiti-text mb-8 text-neonPurple uppercase">
-                                {editingContact ? 'UPDATE CONTACT' : 'ADD NEW CONTACT'}
+                            <h2 className="text-2xl font-black mb-10 text-white uppercase red-gradient-animate tracking-tighter">
+                                {editingContact ? 'UPDATE CONTACT' : 'ADD CONTACT'}
                             </h2>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
@@ -159,15 +159,15 @@ const AdminContacts = () => {
                                     <label className="text-xs font-black text-gray-500 uppercase tracking-widest mb-2">CONTACT LOGO</label>
                                     <div
                                         onClick={() => document.getElementById('logo-up').click()}
-                                        className="w-full h-32 rounded-xl border-4 border-dashed border-white/10 flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-neonPurple transition-colors"
+                                        className="w-full h-32 rounded-xl border-4 border-dashed border-white/5 flex items-center justify-center cursor-pointer overflow-hidden relative group hover:border-white/20 transition-colors"
                                     >
                                         {preview ? (
                                             <img src={preview} className="max-w-full max-h-full object-contain p-2" />
                                         ) : (
-                                            <Camera className="text-gray-600" />
+                                            <Camera className="text-white/10" />
                                         )}
-                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                            <span className="text-xs font-bold text-white uppercase">Upload Logo</span>
+                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                            <span className="text-[9px] font-black text-white uppercase tracking-widest">Upload Icon</span>
                                         </div>
                                     </div>
                                     <input id="logo-up" type="file" hidden accept="image/*" onChange={handleFileChange} />
@@ -193,7 +193,7 @@ const AdminContacts = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full py-4 bg-neonPurple text-white font-black rounded-xl shadow-lg mt-4 uppercase hover:scale-105 transition-all"
+                                    className="w-full py-5 bg-white text-black font-black rounded-xl shadow-2xl mt-6 uppercase text-[10px] tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
                                 >
                                     {editingContact ? 'SAVE CHANGES' : 'CREATE CONTACT'}
                                 </button>
