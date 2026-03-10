@@ -1,6 +1,10 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+console.log("Mongo URI:", process.env.MONGO_URI ? "LOADED" : "UNDEFINED");
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
@@ -15,12 +19,6 @@ import countdownRoutes from './routes/countdownRoutes.js';
 import paymentQRRoutes from './routes/paymentQRRoutes.js';
 import partnerRoutes from './routes/partnerRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
-
-// Load env vars
-dotenv.config();
-
-// Connect to database
-connectDB();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,6 +56,8 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+connectDB();
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

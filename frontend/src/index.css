@@ -193,9 +193,21 @@ textarea:focus {
   font-size: clamp(70px, 8vw, 110px);
   letter-spacing: 3px;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 900;
   position: relative;
   display: inline-block;
+  background: linear-gradient(90deg,
+      #ffffff 0%,
+      #ff3b3b 25%,
+      #ff8a00 50%,
+      #ff3b3b 75%,
+      #ffffff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heroGradient 6s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 60, 60, 0.4));
 }
 
 .hero-title span {
@@ -203,77 +215,25 @@ textarea:focus {
   margin: 0 6px;
 }
 
-.hero-z {
-  color: white;
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(255, 255, 255, 0.6);
-}
-
-.nexus {
-  position: relative;
-  background: linear-gradient(90deg, #ff1a1a, #ff4d4d, #ff1a1a);
-  background-size: 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation:
-    redFlow 4s linear infinite,
-    pulseGlow 2.5s ease-in-out infinite;
-  display: inline-block;
-  text-shadow:
-    0 0 6px rgba(255, 60, 60, 0.6),
-    0 0 18px rgba(255, 60, 60, 0.4);
-}
-
-@keyframes redFlow {
+@keyframes heroGradient {
   0% {
-    background-position: 0%
+    background-position: 0% center;
   }
 
   100% {
-    background-position: 300%
+    background-position: 200% center;
   }
 }
 
-@keyframes pulseGlow {
-  0% {
-    text-shadow:
-      0 0 8px rgba(255, 60, 60, 0.6),
-      0 0 20px rgba(255, 60, 60, 0.5);
-  }
-
-  50% {
-    text-shadow:
-      0 0 16px rgba(255, 60, 60, 0.9),
-      0 0 40px rgba(255, 60, 60, 0.8);
-  }
-
-  100% {
-    text-shadow:
-      0 0 8px rgba(255, 60, 60, 0.6),
-      0 0 20px rgba(255, 60, 60, 0.5);
-  }
-}
-
+.hero-z,
+.nexus,
 .year {
-  background: linear-gradient(90deg, #00e5ff, #4ddfff, #00e5ff);
-  background-size: 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: blueFlow 5s linear infinite;
-  display: inline-block;
-}
-
-@keyframes blueFlow {
-  0% {
-    background-position: 0%
-  }
-
-  100% {
-    background-position: 300%
-  }
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+  animation: none !important;
 }
 
 .tagline {
