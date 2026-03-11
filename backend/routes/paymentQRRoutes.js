@@ -12,38 +12,39 @@ router.post('/', upload.single('image'), async (req, res) => {
         let imageUrl = '';
 
         if (req.file) {
-            console.log("File detected for upload:", req.file.path);
             try {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/payment'
                 });
 
                 if (!result || !result.secure_url) {
-                    throw new Error("Cloudinary upload failed to return a secure URL");
+                    return res.status(500).json({ message: "Cloudinary upload failed" });
                 }
 
-                console.log("Cloudinary upload success. Secure URL:", result.secure_url);
                 imageUrl = result.secure_url;
 
-                // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
-                    console.log("Local file deleted successfully.");
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'QR upload to Cloudinary failed: ' + uploadError.message });
+                return res.status(500).json({ message: 'QR upload failed: ' + uploadError.message });
             }
+        } else {
+            const existing = await PaymentQR.findOne();
+            if (existing) imageUrl = existing.image;
+        }
+
+        if (!imageUrl) {
+            return res.status(400).json({ message: "QR image is required" });
         }
 
         const text = req.body.text || '';
-
         await PaymentQR.deleteMany({});
 
-        const qr = new PaymentQR({ image: imageUrl, text });
-        await qr.save();
+        const qr = await PaymentQR.create({ image: imageUrl, text });
 
-        console.log('PaymentQR saved:', { image: imageUrl, text });
+        console.log('PaymentQR created with Cloudinary URL:', imageUrl);
         res.json(qr);
     } catch (error) {
         console.error('PaymentQR save error:', error.message);

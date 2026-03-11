@@ -34,12 +34,11 @@ export const addGalleryImage = async (req, res) => {
                 });
 
                 if (!result || !result.secure_url) {
-                    throw new Error("Cloudinary upload failed to return a secure URL");
+                    return res.status(500).json({ message: "Cloudinary upload failed" });
                 }
 
                 imageUrl = result.secure_url;
 
-                // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
@@ -57,8 +56,11 @@ export const addGalleryImage = async (req, res) => {
             return res.status(400).json({ message: 'Image title is required' });
         }
 
-        const galleryItem = new Gallery({ title: title.trim(), imageUrl });
-        const createdItem = await galleryItem.save();
+        const createdItem = await Gallery.create({
+            title: title.trim(),
+            imageUrl
+        });
+
         res.status(201).json(createdItem);
     } catch (error) {
         console.error("Add Gallery Image Error:", error);

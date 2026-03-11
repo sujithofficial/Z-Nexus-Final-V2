@@ -42,12 +42,11 @@ export const createPartner = async (req, res) => {
                 });
 
                 if (!result || !result.secure_url) {
-                    throw new Error("Cloudinary upload failed to return a secure URL");
+                    return res.status(500).json({ message: "Cloudinary upload failed" });
                 }
 
                 logo = result.secure_url;
 
-                // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
@@ -61,8 +60,12 @@ export const createPartner = async (req, res) => {
             return res.status(400).json({ message: 'Please provide partner name' });
         }
 
-        const partner = new Partner({ name, logo, website });
-        const createdPartner = await partner.save();
+        const createdPartner = await Partner.create({
+            name,
+            logo,
+            website
+        });
+
         res.status(201).json(createdPartner);
     } catch (error) {
         console.error("Create Partner Error:", error);
@@ -108,12 +111,11 @@ export const updatePartner = async (req, res) => {
                 });
 
                 if (!result || !result.secure_url) {
-                    throw new Error("Cloudinary update failed to return a secure URL");
+                    return res.status(500).json({ message: "Cloudinary update failed" });
                 }
 
                 partner.logo = result.secure_url;
 
-                // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
