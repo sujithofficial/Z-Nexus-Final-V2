@@ -170,6 +170,10 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.2);
 }
 
+.modal-content {
+  -webkit-overflow-scrolling: touch;
+}
+
 .hero-section {
   position: relative;
   min-height: 100vh;

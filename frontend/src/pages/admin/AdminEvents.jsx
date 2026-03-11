@@ -177,7 +177,7 @@ const AdminEvents = () => {
             {/* Modal */}
             <AnimatePresence>
                 {showModal && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-12 overflow-y-auto">
+                    <div className="fixed inset-0 z-[100] flex items-start justify-center p-6 sm:p-12 overflow-y-auto overflow-x-hidden">
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             onClick={() => setShowModal(false)}
@@ -188,18 +188,19 @@ const AdminEvents = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="sticker-card w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-black p-8 sm:p-12 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
+                            className="modal-content sticker-card w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-black p-8 sm:p-12 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
-                            <button
-                                onClick={() => setShowModal(false)}
-                                className="absolute top-8 right-8 text-gray-500 hover:text-white"
-                            >
-                                <X size={32} />
-                            </button>
-
-                            <h2 className="text-3xl font-black mb-10 text-white uppercase red-gradient-animate tracking-tighter">
-                                {editingEvent ? 'UPDATE EVENT' : 'CREATE EVENT'}
-                            </h2>
+                            <div className="sticky -top-8 -mx-8 sm:-top-12 sm:-mx-12 px-8 sm:px-12 py-6 bg-black z-20 flex justify-between items-center border-b border-white/5 mb-8">
+                                <h2 className="text-2xl sm:text-3xl font-black text-white uppercase red-gradient-animate tracking-tighter">
+                                    {editingEvent ? 'UPDATE EVENT' : 'CREATE EVENT'}
+                                </h2>
+                                <button
+                                    onClick={() => setShowModal(false)}
+                                    className="text-gray-500 hover:text-white transition-colors"
+                                >
+                                    <X size={32} />
+                                </button>
+                            </div>
 
                             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4 md:col-span-2">
