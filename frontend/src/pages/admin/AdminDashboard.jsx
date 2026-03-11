@@ -66,7 +66,7 @@ const AdminDashboard = () => {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
                     <div>
                         <h1 className="text-5xl font-black text-white red-gradient-animate uppercase">DASHBOARD</h1>
-                        <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">Authorized Admin Access</p>
+                        <p className="text-gray-300 font-black uppercase tracking-[0.4em] text-[10px] mt-4">Authorized Admin Access</p>
                     </div>
                     <button
                         onClick={handleLogout}
@@ -95,8 +95,8 @@ const AdminDashboard = () => {
                                 <div className={`${item.color} p-4 rounded-2xl mb-4 shadow-lg text-white/40 group-hover:text-white transition-colors`}>
                                     {item.icon}
                                 </div>
-                                <h3 className="text-xl font-black uppercase tracking-tight text-white/60 group-hover:text-white transition-colors">{item.name}</h3>
-                                <p className="text-[9px] text-white/10 mt-3 font-black uppercase tracking-widest">Manage Content</p>
+                                <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:red-gradient-animate transition-colors">{item.name}</h3>
+                                <p className="text-[9px] text-white/40 mt-3 font-black uppercase tracking-widest">Manage Content</p>
                             </motion.div>
                         </Link>
                     ))}
@@ -112,7 +112,7 @@ const AdminDashboard = () => {
 const StatCard = ({ title, value, icon, color }) => (
     <div className={`sticker-card p-8 border-l-8 ${color}`}>
         <div className="flex justify-between items-center mb-4">
-            <span className="text-[9px] font-black text-white/20 tracking-[0.3em] uppercase">{title}</span>
+            <span className="text-[9px] font-black text-gray-300 tracking-[0.3em] uppercase">{title}</span>
             <div className="text-white/10">{icon}</div>
         </div>
         <div className="text-5xl font-black">{value}</div>

@@ -51,13 +51,13 @@ const Events = () => {
                     <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 leading-none tracking-tighter fast-red-gradient uppercase">
                         ALL EVENTS
                     </h1>
-                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">JOIN OUR DIVERSE RANGE OF TECHNICAL COMPETITIONS AND SHOWCASE YOUR SKILLS.</p>
+                    <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">JOIN OUR DIVERSE RANGE OF TECHNICAL COMPETITIONS AND SHOWCASE YOUR SKILLS.</p>
                 </motion.div>
             </div>
 
             {events.length === 0 ? (
                 <div className="text-center py-32 liquid-glass rounded-[3rem] border border-white/5 relative z-10">
-                    <p className="text-xs text-white/20 font-black uppercase tracking-[0.4em]">NO EVENTS DISCOVERED YET</p>
+                    <p className="text-xs text-white/40 font-black uppercase tracking-[0.4em]">NO EVENTS DISCOVERED YET</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
@@ -77,7 +77,7 @@ const Events = () => {
                                 <div className="p-8 text-center z-10 relative">
                                     <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-tight group-hover:scale-105 transition-transform duration-1000 ease-[0.16, 1, 0.3, 1]">{event.title}</h3>
                                     <div className="mt-6">
-                                        <span className="px-5 py-2 bg-white/5 rounded-full text-[9px] font-black tracking-[0.3em] text-white/40 border border-white/5 uppercase">
+                                        <span className="px-5 py-2 bg-white/5 rounded-full text-[9px] font-black tracking-[0.3em] text-gray-300 border border-white/5 uppercase">
                                             {event.eventType}
                                         </span>
                                     </div>
@@ -85,9 +85,9 @@ const Events = () => {
                             </div>
 
                             <div className="p-10 flex flex-col flex-grow">
-                                <p className="text-white/30 text-xs leading-relaxed line-clamp-2 mb-10 font-bold uppercase tracking-widest">{event.description}</p>
+                                <p className="text-gray-300 text-xs leading-relaxed line-clamp-2 mb-10 font-bold uppercase tracking-widest">{event.description}</p>
 
-                                <div className="space-y-5 text-[10px] font-black text-white/20 mb-12 uppercase tracking-[0.2em]">
+                                <div className="space-y-5 text-[10px] font-black text-gray-300 mb-12 uppercase tracking-[0.2em]">
                                     <div className="flex items-center gap-4 group/item">
                                         <Calendar size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
                                         <span className="group-hover/item:text-white/60 transition-colors">{event.date}</span>

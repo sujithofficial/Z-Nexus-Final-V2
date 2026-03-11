@@ -133,10 +133,10 @@ const AdminEvents = () => {
                 <table className="w-full text-left">
                     <thead className="bg-white/5 border-b border-white/10">
                         <tr>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">EVENT TITLE</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">TYPE</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">COORDINATOR</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">STATUS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">EVENT TITLE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">TYPE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">COORDINATOR</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">STATUS</th>
                             <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20 text-center">ACTIONS</th>
                         </tr>
                     </thead>
@@ -157,7 +157,7 @@ const AdminEvents = () => {
                                     <div className="text-xs text-gray-500">{event.coordinatorPhone}</div>
                                 </td>
                                 <td className="p-6">
-                                    <span className="flex items-center gap-2 text-white/40 text-[10px] font-black uppercase tracking-widest">
+                                    <span className="flex items-center gap-2 text-gray-300 text-[10px] font-black uppercase tracking-widest">
                                         <div className="w-1.5 h-1.5 bg-white/40 rounded-full animate-pulse" /> ACTIVE
                                     </span>
                                 </td>
@@ -213,7 +213,7 @@ const AdminEvents = () => {
 
                             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4 md:col-span-2">
-                                    <label className="text-[10px] font-black text-white/20 uppercase tracking-widest">TITLE</label>
+                                    <label className="text-[10px] font-black text-gray-300 uppercase tracking-widest">TITLE</label>
                                     <input
                                         type="text" required className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-6 py-5 text-sm outline-none focus:border-white/20" placeholder="Event Name"
                                         value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -221,7 +221,7 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4 md:col-span-2">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">DESCRIPTION</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">DESCRIPTION</label>
                                     <textarea
                                         rows="3" required className="w-full" placeholder="Short description for card"
                                         value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -229,7 +229,7 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4 md:col-span-2">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">RULES (One per line)</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">RULES (One per line)</label>
                                     <textarea
                                         rows="5" required className="w-full" placeholder="Event rules and guidelines..."
                                         value={formData.rules} onChange={(e) => setFormData({ ...formData, rules: e.target.value })}
@@ -237,7 +237,7 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">DATE & TIME</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">DATE & TIME</label>
                                     <input
                                         type="text" required className="w-full" placeholder="e.g. 25th March, 10:00 AM"
                                         value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })}
@@ -245,7 +245,7 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">VENUE</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">VENUE</label>
                                     <input
                                         type="text" required className="w-full" placeholder="e.g. Lab 4, CSE Block"
                                         value={formData.venue} onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
@@ -253,7 +253,7 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">EVENT TYPE</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">EVENT TYPE</label>
                                     <select
                                         className="w-full bg-black text-white border border-white/5 rounded-xl px-6 py-5 text-sm outline-none focus:border-white/20 transition-all cursor-pointer"
                                         value={formData.eventType} onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
@@ -265,7 +265,7 @@ const AdminEvents = () => {
 
                                 {formData.eventType === 'Team' && (
                                     <div className="space-y-4">
-                                        <label className="text-xs font-black text-gray-500 uppercase tracking-widest">MAX TEAM SIZE</label>
+                                        <label className="text-xs font-black text-gray-300 uppercase tracking-widest">MAX TEAM SIZE</label>
                                         <input
                                             type="number" required className="w-full" min="1"
                                             value={formData.maxTeamSize} onChange={(e) => setFormData({ ...formData, maxTeamSize: parseInt(e.target.value) })}
@@ -274,7 +274,7 @@ const AdminEvents = () => {
                                 )}
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">COORDINATOR NAME</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">COORDINATOR NAME</label>
                                     <input
                                         type="text" required className="w-full"
                                         value={formData.coordinatorName} onChange={(e) => setFormData({ ...formData, coordinatorName: e.target.value })}
@@ -282,7 +282,7 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-black text-gray-500 uppercase tracking-widest">COORDINATOR PHONE</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">COORDINATOR PHONE</label>
                                     <input
                                         type="tel" required className="w-full"
                                         value={formData.coordinatorPhone} onChange={(e) => setFormData({ ...formData, coordinatorPhone: e.target.value })}

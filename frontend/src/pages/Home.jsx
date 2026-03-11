@@ -49,7 +49,7 @@ const Home = () => {
                                 <h1 className="text-4xl md:text-6xl font-black mb-8 leading-none tracking-tighter fast-red-gradient uppercase">
                                     INTERNAL PARTNERS
                                 </h1>
-                                <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.4em]">STRATEGIC COLLABORATORS DRIVING INNOVATION</p>
+                                <p className="text-gray-300 text-[10px] font-black uppercase tracking-[0.4em]">STRATEGIC COLLABORATORS DRIVING INNOVATION</p>
                             </motion.div>
                         </div>
 
@@ -106,7 +106,7 @@ const Home = () => {
 
                                         return (
                                             <div key={`partner-${index}`} className="flex flex-col items-center text-center w-[280px] shrink-0 group">
-                                                <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-white/10 mb-8 group-hover:text-white/40 transition-colors duration-700">{partner.name}</h3>
+                                                <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 mb-8 group-hover:text-white transition-colors duration-700">{partner.name}</h3>
 
                                                 {partner.website ? (
                                                     <a
@@ -149,7 +149,7 @@ const Home = () => {
                         <h2 className="text-5xl md:text-8xl font-black mb-10 leading-none tracking-tighter fast-red-gradient uppercase">
                             BE PART OF THE FUTURE
                         </h2>
-                        <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.5em] mb-16 max-w-2xl mx-auto leading-loose">
+                        <p className="text-gray-300 text-[10px] font-black uppercase tracking-[0.5em] mb-16 max-w-2xl mx-auto leading-loose">
                             SHOWCASE YOUR TALENT AND INNOVATE WITH THE BEST MINDS IN THE SYMPOSIUM.
                         </p>
                         <div className="flex flex-wrap justify-center gap-10 relative z-10">
@@ -161,7 +161,7 @@ const Home = () => {
                             </button>
                             <button
                                 onClick={() => navigate('/events')}
-                                className="px-12 py-6 bg-white/5 text-white/40 font-black text-xs uppercase tracking-[0.4em] rounded-2xl hover:bg-white/10 hover:text-white border border-white/5 transition-all duration-700 ease-[0.16, 1, 0.3, 1] active:scale-95"
+                                className="px-12 py-6 bg-white/5 text-gray-300 font-black text-xs uppercase tracking-[0.4em] rounded-2xl hover:bg-white/10 hover:text-white border border-white/5 transition-all duration-700 ease-[0.16, 1, 0.3, 1] active:scale-95"
                             >
                                 VIEW EVENTS
                             </button>
