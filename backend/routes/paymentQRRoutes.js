@@ -9,45 +9,57 @@ const router = express.Router();
 // POST — save image + text (replace any existing record)
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        let imageUrl = '';
-
         if (req.file) {
             try {
+                // 1. Upload the file from Multer to Cloudinary
                 const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/payment'
                 });
 
+                // 5. Add debugging logs to verify Cloudinary returns a URL
                 console.log("Cloudinary URL:", uploadResult.secure_url);
 
+                // 6. If the upload fails or the URL is missing, stop the database save
                 if (!uploadResult || !uploadResult.secure_url) {
-                    return res.status(500).json({ message: "Cloudinary upload failed" });
+                    return res.status(500).json({ message: "Image upload failed: Cloudinary did not return a URL" });
                 }
 
-                imageUrl = uploadResult.secure_url;
-
+                // 4. Delete the temporary Multer file after uploading
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
+
+                // Clear existing records
+                await PaymentQR.deleteMany({});
+
+                // 2 & 3. Save the Cloudinary secure URL in MongoDB ONLY after upload completes
+                const qr = await PaymentQR.create({
+                    image: uploadResult.secure_url,
+                    text: req.body.text || ''
+                });
+
+                return res.json(qr);
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
                 return res.status(500).json({ message: 'QR upload failed: ' + uploadError.message });
             }
-        } else {
-            const existing = await PaymentQR.findOne();
-            if (existing) imageUrl = existing.image;
         }
 
-        if (!imageUrl) {
-            return res.status(400).json({ message: "QR image is required" });
+        // Handle case where NO new image is uploaded (Update Text Only)
+        const existing = await PaymentQR.findOne();
+        if (!existing || !existing.image) {
+            return res.status(400).json({ message: "QR image is required. Please upload an image." });
         }
 
         const text = req.body.text || '';
         await PaymentQR.deleteMany({});
 
-        const qr = await PaymentQR.create({ image: imageUrl, text });
+        const updatedRecord = await PaymentQR.create({
+            image: existing.image,
+            text
+        });
 
-        console.log('PaymentQR created with Cloudinary URL:', imageUrl);
-        res.json(qr);
+        res.json(updatedRecord);
     } catch (error) {
         console.error('PaymentQR save error:', error.message);
         res.status(500).json({ message: 'Save failed: ' + error.message });

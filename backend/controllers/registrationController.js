@@ -50,12 +50,12 @@ export const registerForEvent = async (req, res) => {
             return res.status(400).json({ message: 'Payment screenshot is required' });
         }
 
-        const registration = new Registration({
+        // 2 & 3. Create database record ONLY after Cloudinary upload completes
+        const createdRegistration = await Registration.create({
             ...registrationData,
             paymentScreenshot,
         });
 
-        const createdRegistration = await registration.save();
         res.status(201).json(createdRegistration);
     } catch (error) {
         console.error("Registration Error:", error);

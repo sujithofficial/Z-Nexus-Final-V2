@@ -48,6 +48,10 @@ export const addMember = async (req, res) => {
             }
         }
 
+        if (!photo) {
+            return res.status(400).json({ message: 'Member photo is required' });
+        }
+
         const createdMember = await AssociationMember.create({
             name,
             role,

@@ -48,6 +48,10 @@ export const addStaff = async (req, res) => {
             }
         }
 
+        if (!photo) {
+            return res.status(400).json({ message: 'Staff photo is required' });
+        }
+
         const createdStaff = await StaffCoordinator.create({
             name,
             designation,
