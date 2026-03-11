@@ -86,7 +86,7 @@ const AdminRegistrations = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6">
+        <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6 overflow-x-hidden overflow-y-auto">
             <div className="mb-10 md:mb-12 text-center md:text-left">
                 <h1 className="text-3xl sm:text-4xl font-black text-white red-gradient-animate uppercase">EVENT REGISTRATIONS</h1>
                 <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">{filteredRegistrations.length} TOTAL ENTRIES</p>
@@ -189,7 +189,7 @@ const AdminRegistrations = () => {
             {/* Details Modal */}
             <AnimatePresence>
                 {selectedReg && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-12">
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-12 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             onClick={() => setSelectedReg(null)}

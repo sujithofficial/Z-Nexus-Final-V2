@@ -86,7 +86,7 @@ const AdminPaymentQR = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="min-h-screen py-24 container mx-auto px-6">
+        <div className="min-h-screen py-24 container mx-auto px-6 overflow-x-hidden overflow-y-auto">
             <div className="mb-12">
                 <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">PAYMENT CONFIGURATION</h1>
                 <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">SET UP QR CODE AND UPI ID FOR REGISTRATIONS</p>

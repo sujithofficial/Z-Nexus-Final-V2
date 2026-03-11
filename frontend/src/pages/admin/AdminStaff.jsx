@@ -104,7 +104,7 @@ const AdminStaff = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="min-h-screen py-24 container mx-auto px-6">
+        <div className="min-h-screen py-24 container mx-auto px-6 overflow-x-hidden overflow-y-auto">
             <div className="flex justify-between items-center mb-12">
                 <h1 className="text-4xl font-black text-white red-gradient-animate uppercase">STAFF COORDINATORS</h1>
                 <button
@@ -140,7 +140,7 @@ const AdminStaff = () => {
             {/* Modal */}
             <AnimatePresence>
                 {showModal && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             onClick={() => setShowModal(false)}

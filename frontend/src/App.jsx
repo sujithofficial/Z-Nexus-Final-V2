@@ -53,7 +53,7 @@ function App() {
     }
 
     return (
-        <div className="flex flex-col min-h-screen overflow-x-hidden selection:bg-white selection:text-black bg-black">
+        <div className="flex flex-col min-h-screen overflow-x-hidden overflow-y-auto selection:bg-white selection:text-black bg-black">
             <div className="atmosphere-overlay" />
 
             <Navbar />
