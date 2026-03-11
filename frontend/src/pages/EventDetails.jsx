@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { eventService } from '../services/api';
-import { Calendar, MapPin, User, Phone, ArrowLeft, Trophy, Info, List } from 'lucide-react';
+import { Calendar, MapPin, User, Phone, ArrowLeft, Trophy, Info, List, Clock } from 'lucide-react';
 
 const EventDetails = () => {
     const { id } = useParams();
@@ -79,6 +79,15 @@ const EventDetails = () => {
                                     <p className="text-base font-black text-white uppercase tracking-tighter transition-all">{event.date}</p>
                                 </div>
                             </div>
+                            {event.time && (
+                                <div className="flex items-center gap-6 group/item">
+                                    <div className="p-5 bg-white/3 rounded-[1.5rem] text-white/20 group-hover/item:text-white/60 transition-colors duration-500"><Clock size={20} /></div>
+                                    <div>
+                                        <p className="text-[10px] text-gray-300 font-black uppercase tracking-[0.2em] mb-2">TIME</p>
+                                        <p className="text-base font-black text-white uppercase tracking-tighter transition-all">{event.time}</p>
+                                    </div>
+                                </div>
+                            )}
                             <div className="flex items-center gap-6 group/item">
                                 <div className="p-5 bg-white/3 rounded-[1.5rem] text-white/20 group-hover/item:text-white/60 transition-colors duration-500"><MapPin size={20} /></div>
                                 <div>

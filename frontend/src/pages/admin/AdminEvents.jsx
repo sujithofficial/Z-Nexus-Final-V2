@@ -17,6 +17,7 @@ const AdminEvents = () => {
         rules: '',
         venue: '',
         date: '',
+        time: '',
         eventType: 'Individual',
         maxTeamSize: 1,
         coordinatorName: '',
@@ -65,6 +66,7 @@ const AdminEvents = () => {
             rules: '',
             venue: '',
             date: '',
+            time: '',
             eventType: 'Individual',
             maxTeamSize: 1,
             coordinatorName: '',
@@ -82,6 +84,7 @@ const AdminEvents = () => {
             rules: event.rules,
             venue: event.venue,
             date: event.date,
+            time: event.time || '',
             eventType: event.eventType,
             maxTeamSize: event.maxTeamSize,
             coordinatorName: event.coordinatorName,
@@ -149,7 +152,7 @@ const AdminEvents = () => {
                             <tr key={event._id} className="hover:bg-white/5 transition-colors group">
                                 <td className="p-6">
                                     <div className="font-bold text-lg">{event.title}</div>
-                                    <div className="text-xs text-gray-300">{event.date} @ {event.venue}</div>
+                                    <div className="text-xs text-gray-300">{event.date} {event.time ? `| ${event.time}` : ''} @ {event.venue}</div>
                                 </td>
                                 <td className="p-6">
                                     <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase border border-white/10 ${event.eventType === 'Team' ? 'bg-white/5 text-white/60' : 'bg-white/5 text-white/40'}`}>
@@ -246,10 +249,18 @@ const AdminEvents = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">DATE & TIME</label>
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">DATE</label>
                                     <input
                                         type="text" required className="w-full" placeholder="e.g. 25th March, 10:00 AM"
                                         value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="space-y-4">
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">TIME</label>
+                                    <input
+                                        type="text" required className="w-full" placeholder="e.g. 10:00 AM - 12:00 PM"
+                                        value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                                     />
                                 </div>
 

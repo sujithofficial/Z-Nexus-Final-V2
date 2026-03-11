@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { eventService } from '../services/api';
-import { MapPin, Calendar, Users, User, Phone } from 'lucide-react';
+import { MapPin, Calendar, Users, User, Phone, Clock } from 'lucide-react';
 
 const Events = () => {
     const [events, setEvents] = useState([]);
@@ -92,6 +92,12 @@ const Events = () => {
                                         <Calendar size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
                                         <span className="group-hover/item:text-white/60 transition-colors">{event.date}</span>
                                     </div>
+                                    {event.time && (
+                                        <div className="flex items-center gap-4 group/item">
+                                            <Clock size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
+                                            <span className="group-hover/item:text-white/60 transition-colors">{event.time}</span>
+                                        </div>
+                                    )}
                                     <div className="flex items-center gap-4 group/item">
                                         <MapPin size={14} className="opacity-40 group-hover/item:text-white transition-colors" />
                                         <span className="group-hover/item:text-white/60 transition-colors">{event.venue}</span>
