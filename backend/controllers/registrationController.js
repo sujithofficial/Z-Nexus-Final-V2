@@ -39,7 +39,9 @@ export const registerForEvent = async (req, res) => {
 
 export const getRegistrations = async (req, res) => {
     try {
-        const registrations = await Registration.find({}).populate('eventId', 'title');
+        const registrations = await Registration.find({})
+            .populate('technicalEventId', 'title')
+            .populate('nonTechnicalEventId', 'title');
         res.json(registrations);
     } catch (error) {
         console.error("Get Registrations Error:", error);

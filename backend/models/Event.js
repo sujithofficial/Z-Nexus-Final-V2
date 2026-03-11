@@ -7,6 +7,7 @@ const eventSchema = new mongoose.Schema({
     venue: { type: String, required: true },
     date: { type: String, required: true },
     eventType: { type: String, enum: ['Individual', 'Team'], required: true },
+    category: { type: String, enum: ['Technical', 'Non-Technical'], required: true },
     maxTeamSize: { type: Number, default: 1 },
     coordinatorName: { type: String, required: true },
     coordinatorPhone: { type: String, required: true },

@@ -65,20 +65,15 @@ const Home = () => {
                                     overflow: hidden;
                                     width: 100%;
                                     position: relative;
-                                }
-                                .partners-scroll::after {
-                                    content: '';
-                                    position: absolute;
-                                    inset: 0;
-                                    background: linear-gradient(90deg, #000 0%, transparent 20%, transparent 80%, #000 100%);
-                                    pointer-events: none;
-                                    z-index: 10;
+                                    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+                                    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
                                 }
                                 .partners-track {
                                     display: flex;
-                                    gap: 4rem;
+                                    gap: 5rem;
                                     width: max-content;
-                                    animation: partnerScroll 30s linear infinite;
+                                    animation: partnerScroll 40s linear infinite;
+                                    padding: 2rem 0;
                                 }
                                 .partners-scroll:hover .partners-track {
                                     animation-play-state: paused;
@@ -87,38 +82,139 @@ const Home = () => {
                                     from { transform: translateX(0); }
                                     to { transform: translateX(-50%); }
                                 }
+
+                                .futuristic-card {
+                                    position: relative;
+                                    width: 300px;
+                                    height: 180px;
+                                    background: rgba(255, 255, 255, 0.03);
+                                    backdrop-filter: blur(20px);
+                                    border: 1px solid rgba(255, 255, 255, 0.05);
+                                    border-radius: 40px 4px 40px 4px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+                                    overflow: hidden;
+                                    cursor: pointer;
+                                }
+
+                                .futuristic-card::before {
+                                    content: '';
+                                    position: absolute;
+                                    inset: 0;
+                                    background: linear-gradient(135deg, 
+                                        rgba(0, 255, 255, 0.1) 0%, 
+                                        rgba(255, 0, 255, 0.1) 100%
+                                    );
+                                    opacity: 0;
+                                    transition: opacity 0.7s ease;
+                                }
+
+                                .futuristic-card::after {
+                                    content: '';
+                                    position: absolute;
+                                    top: -50%;
+                                    left: -50%;
+                                    width: 200%;
+                                    height: 200%;
+                                    background: linear-gradient(
+                                        45deg,
+                                        transparent 45%,
+                                        rgba(255, 255, 255, 0.1) 50%,
+                                        transparent 55%
+                                    );
+                                    transform: translateX(-100%);
+                                    transition: transform 0.8s ease;
+                                    pointer-events: none;
+                                }
+
+                                .futuristic-card:hover {
+                                    transform: translateY(-10px) rotateX(10deg) rotateY(10deg) scale(1.05);
+                                    border-color: rgba(255, 255, 255, 0.2);
+                                    box-shadow: 
+                                        0 20px 40px rgba(0, 0, 0, 0.4),
+                                        0 0 20px rgba(0, 255, 255, 0.1),
+                                        0 0 40px rgba(255, 0, 255, 0.1);
+                                }
+
+                                .futuristic-card:hover::before {
+                                    opacity: 1;
+                                }
+
+                                .futuristic-card:hover::after {
+                                    transform: translateX(100%);
+                                }
+
+                                .logo-container {
+                                    position: relative;
+                                    z-index: 2;
+                                    width: 70%;
+                                    height: 70%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+
+                                .logo-glow {
+                                    position: absolute;
+                                    width: 80%;
+                                    height: 80%;
+                                    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+                                    filter: blur(20px);
+                                    opacity: 0.5;
+                                    transition: opacity 0.7s ease;
+                                }
+
+                                .futuristic-card:hover .logo-glow {
+                                    opacity: 0.8;
+                                    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+                                }
+
+                                .partner-logo {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                    object-fit: contain;
+                                    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+                                    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+                                }
+
+                                .futuristic-card:hover .partner-logo {
+                                    transform: scale(1.1) translateY(-5px);
+                                    filter: drop-shadow(0 10px 20px rgba(255, 255, 255, 0.3));
+                                }
                             `}</style>
                             <div className="partners-scroll py-10">
                                 <div className="partners-track">
                                     {[...partners, ...partners].map((partner, index) => {
                                         const logoElement = (
-                                            <div className="sticker-card card-lift w-full h-40 flex items-center justify-center overflow-hidden rounded-[4rem] bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.03] group-hover:border-white/10 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] shadow-2xl p-10 relative">
-                                                {/* Glass Reflection Component */}
-                                                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-30 pointer-events-none transition-opacity duration-1000" />
-
-                                                <img
-                                                    src={getImageUrl(partner.logo)}
-                                                    alt={partner.name}
-                                                    className="max-w-full max-h-full object-contain grayscale opacity-40 contrast-125 group-hover/logo:grayscale-0 group-hover/logo:opacity-90 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] group-hover/logo:scale-110"
-                                                />
+                                            <div className="futuristic-card group/card">
+                                                <div className="logo-glow" />
+                                                <div className="logo-container">
+                                                    <img
+                                                        src={getImageUrl(partner.logo)}
+                                                        alt={partner.name}
+                                                        className="partner-logo"
+                                                    />
+                                                </div>
                                             </div>
                                         );
 
                                         return (
-                                            <div key={`partner-${index}`} className="flex flex-col items-center text-center w-[280px] shrink-0 group">
-                                                <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 mb-8 group-hover:text-white transition-colors duration-700">{partner.name}</h3>
+                                            <div key={`partner-${index}`} className="flex flex-col items-center text-center group">
+                                                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-300 mb-8 group-hover:text-white transition-colors duration-700">{partner.name}</h3>
 
                                                 {partner.website ? (
                                                     <a
                                                         href={partner.website}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="w-full group outline-none"
+                                                        className="outline-none"
                                                     >
                                                         {logoElement}
                                                     </a>
                                                 ) : (
-                                                    <div className="w-full cursor-default">
+                                                    <div className="cursor-default">
                                                         {logoElement}
                                                     </div>
                                                 )}

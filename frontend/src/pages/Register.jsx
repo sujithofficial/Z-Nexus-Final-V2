@@ -10,7 +10,8 @@ const Register = () => {
     const navigate = useNavigate();
 
     const [events, setEvents] = useState([]);
-    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [selectedTechnicalEvent, setSelectedTechnicalEvent] = useState(null);
+    const [selectedNonTechnicalEvent, setSelectedNonTechnicalEvent] = useState(null);
     const [isTeam, setIsTeam] = useState(false);
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -24,7 +25,8 @@ const Register = () => {
         college: '',
         department: '',
         year: '',
-        eventId: preSelectedEventId || '',
+        technicalEventId: '',
+        nonTechnicalEventId: '',
         teamName: '',
         upiId: '',
     });
@@ -40,7 +42,13 @@ const Register = () => {
                 setEvents(data);
                 if (preSelectedEventId) {
                     const event = data.find(e => e._id === preSelectedEventId);
-                    setSelectedEvent(event);
+                    if (event?.category === 'Technical') {
+                        setSelectedTechnicalEvent(event);
+                        setFormData(prev => ({ ...prev, technicalEventId: preSelectedEventId }));
+                    } else if (event?.category === 'Non-Technical') {
+                        setSelectedNonTechnicalEvent(event);
+                        setFormData(prev => ({ ...prev, nonTechnicalEventId: preSelectedEventId }));
+                    }
                 }
 
                 try {
@@ -59,17 +67,37 @@ const Register = () => {
         fetchEvents();
     }, [preSelectedEventId]);
 
-    const handleEventChange = (e) => {
+    const handleTechnicalEventChange = (e) => {
         const id = e.target.value;
         const event = events.find(ev => ev._id === id);
-        setSelectedEvent(event);
-        setFormData({ ...formData, eventId: id });
-        setIsTeam(false);
-        setTeamMembers([]);
+        setSelectedTechnicalEvent(event);
+        setFormData({ ...formData, technicalEventId: id });
+        // Only reset team if neither event is team-based
+        if (event?.eventType !== 'Team' && selectedNonTechnicalEvent?.eventType !== 'Team') {
+            setIsTeam(false);
+            setTeamMembers([]);
+        }
     };
 
+    const handleNonTechnicalEventChange = (e) => {
+        const id = e.target.value;
+        const event = events.find(ev => ev._id === id);
+        setSelectedNonTechnicalEvent(event);
+        setFormData({ ...formData, nonTechnicalEventId: id });
+        // Only reset team if neither event is team-based
+        if (event?.eventType !== 'Team' && selectedTechnicalEvent?.eventType !== 'Team') {
+            setIsTeam(false);
+            setTeamMembers([]);
+        }
+    };
+
+    const maxTeamSize = Math.max(
+        selectedTechnicalEvent?.maxTeamSize || 1,
+        selectedNonTechnicalEvent?.maxTeamSize || 1
+    );
+
     const addTeamMember = () => {
-        if (teamMembers.length + 1 < (selectedEvent?.maxTeamSize || 1)) {
+        if (teamMembers.length + 1 < maxTeamSize) {
             setTeamMembers([...teamMembers, { name: '', college: '', department: '', phone: '' }]);
         }
     };
@@ -255,24 +283,42 @@ const Register = () => {
                         <Trophy size={16} className="opacity-75" /> CORE SELECTION
                     </h2>
 
-                    <div className="space-y-4">
-                        <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">SELECT EVENT</label>
-                        <div className="relative">
-                            <select
-                                required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
-                                value={formData.eventId} onChange={handleEventChange}
-                            >
-                                <option value="" className="bg-black">SELECT AN EVENT</option>
-                                {events.map(ev => (
-                                    <option key={ev._id} value={ev._id} className="bg-black">{ev.title.toUpperCase()} ({ev.eventType.toUpperCase()})</option>
-                                ))}
-                            </select>
-                            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20 font-black">↓</div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">SELECT TECHNICAL EVENT</label>
+                            <div className="relative">
+                                <select
+                                    required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
+                                    value={formData.technicalEventId} onChange={handleTechnicalEventChange}
+                                >
+                                    <option value="" className="bg-black">SELECT TECHNICAL EVENT</option>
+                                    {events.filter(ev => ev.category === 'Technical').map(ev => (
+                                        <option key={ev._id} value={ev._id} className="bg-black">{ev.title.toUpperCase()} ({ev.eventType.toUpperCase()})</option>
+                                    ))}
+                                </select>
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20 font-black">↓</div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">SELECT NON-TECHNICAL EVENT</label>
+                            <div className="relative">
+                                <select
+                                    required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
+                                    value={formData.nonTechnicalEventId} onChange={handleNonTechnicalEventChange}
+                                >
+                                    <option value="" className="bg-black">SELECT NON-TECHNICAL EVENT</option>
+                                    {events.filter(ev => ev.category === 'Non-Technical').map(ev => (
+                                        <option key={ev._id} value={ev._id} className="bg-black">{ev.title.toUpperCase()} ({ev.eventType.toUpperCase()})</option>
+                                    ))}
+                                </select>
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20 font-black">↓</div>
+                            </div>
                         </div>
                     </div>
 
                     <AnimatePresence>
-                        {selectedEvent?.eventType === 'Team' && (
+                        {(selectedTechnicalEvent?.eventType === 'Team' || selectedNonTechnicalEvent?.eventType === 'Team') && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -320,8 +366,8 @@ const Register = () => {
 
                                 <div className="space-y-10">
                                     <div className="flex justify-between items-center px-1">
-                                        <h3 className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">TEAM MEMBERS ({teamMembers.length + 1}/{selectedEvent?.maxTeamSize})</h3>
-                                        {teamMembers.length + 1 < (selectedEvent?.maxTeamSize || 1) && (
+                                        <h3 className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">TEAM MEMBERS ({teamMembers.length + 1}/{maxTeamSize})</h3>
+                                        {teamMembers.length + 1 < maxTeamSize && (
                                             <button
                                                 type="button" onClick={addTeamMember}
                                                 className="flex items-center gap-3 text-white text-[10px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all duration-300"

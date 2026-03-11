@@ -53,8 +53,12 @@ const AdminRegistrations = () => {
     };
 
     const filteredRegistrations = registrations.filter(reg => {
+        const technicalTitle = reg.technicalEventId?.title || '';
+        const nonTechnicalTitle = reg.nonTechnicalEventId?.title || '';
+        const combinedEvents = `${technicalTitle} ${nonTechnicalTitle}`.toLowerCase();
+
         return (
-            (filterEvent === '' || (reg.eventId?.title || '').toLowerCase().includes(filterEvent.toLowerCase())) &&
+            (filterEvent === '' || combinedEvents.includes(filterEvent.toLowerCase())) &&
             (filterCollege === '' || (reg.college || '').toLowerCase().includes(filterCollege.toLowerCase())) &&
             (filterStatus === '' || reg.paymentStatus === filterStatus) &&
             (filterYear === '' || String(reg.year) === filterYear)
@@ -69,7 +73,8 @@ const AdminRegistrations = () => {
             'College Name': reg.college,
             'Department': reg.department,
             'Year of Study': reg.year,
-            'Event Name': reg.eventId?.title || '',
+            'Technical Event': reg.technicalEventId?.title || '',
+            'Non-Technical Event': reg.nonTechnicalEventId?.title || '',
             'Team Name': reg.teamName || 'N/A',
             'Payment Status': reg.paymentStatus
         }));
@@ -153,7 +158,9 @@ const AdminRegistrations = () => {
                             <tr key={reg._id} className="hover:bg-white/5 transition-colors group">
                                 <td className="p-6">
                                     <div className="font-bold text-lg uppercase tracking-tight">{reg.name}</div>
-                                    <div className="text-[10px] text-gray-300 font-black tracking-widest uppercase">{reg.eventId?.title}</div>
+                                    <div className="text-[10px] text-gray-300 font-black tracking-widest uppercase">
+                                        {reg.technicalEventId?.title} / {reg.nonTechnicalEventId?.title}
+                                    </div>
                                 </td>
                                 <td className="p-6">
                                     <div className="text-sm font-semibold">{reg.college}</div>
@@ -232,7 +239,12 @@ const AdminRegistrations = () => {
 
                                 <div className="grid grid-cols-2 gap-8 text-sm">
                                     <div className="space-y-1">
-                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.eventId?.title}</p>
+                                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TECHNICAL EVENT</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.technicalEventId?.title}</p>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">NON-TECHNICAL EVENT</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.nonTechnicalEventId?.title}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TEAM TYPE</p>

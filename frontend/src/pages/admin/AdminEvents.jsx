@@ -20,7 +20,8 @@ const AdminEvents = () => {
         eventType: 'Individual',
         maxTeamSize: 1,
         coordinatorName: '',
-        coordinatorPhone: ''
+        coordinatorPhone: '',
+        category: 'Technical'
     });
 
     useEffect(() => {
@@ -67,7 +68,8 @@ const AdminEvents = () => {
             eventType: 'Individual',
             maxTeamSize: 1,
             coordinatorName: '',
-            coordinatorPhone: ''
+            coordinatorPhone: '',
+            category: 'Technical'
         });
         setEditingEvent(null);
     };
@@ -83,7 +85,8 @@ const AdminEvents = () => {
             eventType: event.eventType,
             maxTeamSize: event.maxTeamSize,
             coordinatorName: event.coordinatorName,
-            coordinatorPhone: event.coordinatorPhone
+            coordinatorPhone: event.coordinatorPhone,
+            category: event.category || 'Technical'
         });
         setShowModal(true);
     };
@@ -135,6 +138,7 @@ const AdminEvents = () => {
                         <tr>
                             <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">EVENT TITLE</th>
                             <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">TYPE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">CATEGORY</th>
                             <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">COORDINATOR</th>
                             <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">STATUS</th>
                             <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300 text-center">ACTIONS</th>
@@ -150,6 +154,11 @@ const AdminEvents = () => {
                                 <td className="p-6">
                                     <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase border border-white/10 ${event.eventType === 'Team' ? 'bg-white/5 text-white/60' : 'bg-white/5 text-white/40'}`}>
                                         {event.eventType}
+                                    </span>
+                                </td>
+                                <td className="p-6">
+                                    <span className="px-4 py-1.5 rounded-full text-[9px] font-black uppercase border border-white/10 bg-white/5 text-gray-300">
+                                        {event.category}
                                     </span>
                                 </td>
                                 <td className="p-6">
@@ -260,6 +269,16 @@ const AdminEvents = () => {
                                     >
                                         <option value="Individual" className="bg-black text-white">Individual</option>
                                         <option value="Team" className="bg-black text-white">Team</option>
+                                    </select>
+                                </div>
+                                <div className="space-y-4">
+                                    <label className="text-xs font-black text-gray-300 uppercase tracking-widest">CATEGORY</label>
+                                    <select
+                                        className="w-full bg-black text-white border border-white/5 rounded-xl px-6 py-5 text-sm outline-none focus:border-white/20 transition-all cursor-pointer"
+                                        value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                    >
+                                        <option value="Technical" className="bg-black text-white">Technical</option>
+                                        <option value="Non-Technical" className="bg-black text-white">Non-Technical</option>
                                     </select>
                                 </div>
 
