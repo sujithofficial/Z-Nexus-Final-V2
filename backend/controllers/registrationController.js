@@ -1,5 +1,7 @@
 import Registration from '../models/Registration.js';
 import mongoose from 'mongoose';
+import cloudinary from '../config/cloudinary.js';
+import fs from 'fs';
 
 export const registerForEvent = async (req, res) => {
     try {
@@ -18,7 +20,23 @@ export const registerForEvent = async (req, res) => {
             return res.status(400).json({ message: 'Invalid registration data format' });
         }
 
-        const paymentScreenshot = req.file ? req.file.path : '';
+        let paymentScreenshot = '';
+
+        if (req.file) {
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/registrations'
+                });
+                paymentScreenshot = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Screenshot upload to Cloudinary failed' });
+            }
+        }
 
         if (!paymentScreenshot) {
             return res.status(400).json({ message: 'Payment screenshot is required' });

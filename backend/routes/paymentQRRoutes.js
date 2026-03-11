@@ -1,41 +1,43 @@
 import express from 'express';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
 import PaymentQR from '../models/PaymentQR.js';
+import upload from '../middleware/uploadMiddleware.js';
+import cloudinary from '../config/cloudinary.js';
+import fs from 'fs';
 
 const router = express.Router();
-
-// Ensure uploads folder exists
-const uploadDir = 'uploads/';
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Self-contained multer config — no shared middleware
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({ storage });
 
 // POST — save image + text (replace any existing record)
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const image = req.file ? req.file.path : '';
+        let imageUrl = '';
+
+        if (req.file) {
+            console.log("File detected for upload:", req.file.path);
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/payment'
+                });
+                console.log("Cloudinary upload success. Secure URL:", result.secure_url);
+                imageUrl = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                    console.log("Local file deleted successfully.");
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'QR upload to Cloudinary failed' });
+            }
+        }
+
         const text = req.body.text || '';
 
         await PaymentQR.deleteMany({});
 
-        const qr = new PaymentQR({ image, text });
+        const qr = new PaymentQR({ image: imageUrl, text });
         await qr.save();
 
-        console.log('PaymentQR saved:', { image, text });
+        console.log('PaymentQR saved:', { image: imageUrl, text });
         res.json(qr);
     } catch (error) {
         console.error('PaymentQR save error:', error.message);

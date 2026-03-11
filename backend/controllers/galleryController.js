@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cloudinary from '../config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +25,23 @@ export const addGalleryImage = async (req, res) => {
         }
 
         const { title } = req.body;
-        const imageUrl = req.file ? req.file.path : '';
+        let imageUrl = '';
+
+        if (req.file) {
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/gallery'
+                });
+                imageUrl = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Image upload to Cloudinary failed' });
+            }
+        }
 
         if (!imageUrl) {
             return res.status(400).json({ message: 'Image file is required' });

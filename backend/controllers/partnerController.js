@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cloudinary from '../config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,7 +33,23 @@ export const createPartner = async (req, res) => {
         }
 
         const { name, website } = req.body;
-        const logo = req.file ? req.file.path : null;
+        let logo = '';
+
+        if (req.file) {
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/partners'
+                });
+                logo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Logo upload to Cloudinary failed' });
+            }
+        }
 
         if (!name) {
             return res.status(400).json({ message: 'Please provide partner name' });
@@ -79,7 +96,19 @@ export const updatePartner = async (req, res) => {
         }
 
         if (req.file && req.file.path) {
-            partner.logo = req.file.path;
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/partners'
+                });
+                partner.logo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Logo update to Cloudinary failed' });
+            }
         }
 
         await partner.save();

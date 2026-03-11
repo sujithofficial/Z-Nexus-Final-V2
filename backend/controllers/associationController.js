@@ -1,5 +1,7 @@
 import AssociationMember from '../models/AssociationMember.js';
 import mongoose from 'mongoose';
+import cloudinary from '../config/cloudinary.js';
+import fs from 'fs';
 
 export const getMembers = async (req, res) => {
     try {
@@ -20,7 +22,23 @@ export const addMember = async (req, res) => {
         if (!name || !role) {
             return res.status(400).json({ message: 'Name and role are required' });
         }
-        const photo = req.file ? req.file.path : '';
+        let photo = '';
+
+        if (req.file) {
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/association'
+                });
+                photo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Photo upload to Cloudinary failed' });
+            }
+        }
 
         const member = new AssociationMember({ name, role, contact, photo });
         const createdMember = await member.save();
@@ -51,7 +69,19 @@ export const updateMember = async (req, res) => {
         }
 
         if (req.file) {
-            member.photo = req.file.path;
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/association'
+                });
+                member.photo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Photo update to Cloudinary failed' });
+            }
         }
 
         const updatedMember = await member.save();

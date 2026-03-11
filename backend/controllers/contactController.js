@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cloudinary from '../config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,9 +28,25 @@ export const createContact = async (req, res) => {
         }
 
         const { name, link } = req.body;
-        const logoPath = req.file ? req.file.path : '';
+        let logo = '';
 
-        if (!logoPath) {
+        if (req.file) {
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/contacts'
+                });
+                logo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Logo upload to Cloudinary failed' });
+            }
+        }
+
+        if (!logo) {
             return res.status(400).json({ message: 'Logo is required for new contacts' });
         }
 
@@ -40,7 +57,7 @@ export const createContact = async (req, res) => {
         const contact = new Contact({
             name,
             link,
-            logo: logoPath
+            logo
         });
 
         const createdContact = await contact.save();
@@ -73,7 +90,19 @@ export const updateContact = async (req, res) => {
 
         // Handle file upload
         if (req.file) {
-            updateData.logo = req.file.path;
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/contacts'
+                });
+                updateData.logo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Logo update to Cloudinary failed' });
+            }
         }
 
         // Find and update

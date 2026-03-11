@@ -1,5 +1,7 @@
 import StaffCoordinator from '../models/StaffCoordinator.js';
 import mongoose from 'mongoose';
+import cloudinary from '../config/cloudinary.js';
+import fs from 'fs';
 
 export const getStaff = async (req, res) => {
     try {
@@ -20,7 +22,23 @@ export const addStaff = async (req, res) => {
         if (!name || !designation) {
             return res.status(400).json({ message: 'Name and designation are required' });
         }
-        const photo = req.file ? req.file.path : '';
+        let photo = '';
+
+        if (req.file) {
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/staff'
+                });
+                photo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Photo upload to Cloudinary failed' });
+            }
+        }
 
         const staff = new StaffCoordinator({ name, designation, department, photo });
         const createdStaff = await staff.save();
@@ -51,7 +69,19 @@ export const updateStaff = async (req, res) => {
         }
 
         if (req.file) {
-            staff.photo = req.file.path;
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'znexus/staff'
+                });
+                staff.photo = result.secure_url;
+                // Delete local file
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Cloudinary Upload Error:", uploadError);
+                return res.status(500).json({ message: 'Photo update to Cloudinary failed' });
+            }
         }
 
         const updatedStaff = await staff.save();
