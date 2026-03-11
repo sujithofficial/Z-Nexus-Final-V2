@@ -170,7 +170,8 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.modal-content {
+.modal-scroll {
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 

@@ -39,6 +39,15 @@ const AdminEvents = () => {
         return () => { isMounted = false; };
     }, []);
 
+    useEffect(() => {
+        if (showModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [showModal]);
+
     const fetchEvents = async () => {
         try {
             const { data } = await eventService.getAll();
@@ -188,7 +197,7 @@ const AdminEvents = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="modal-content sticker-card w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-black p-8 sm:p-12 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
+                            className="modal-scroll sticker-card w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-black p-8 sm:p-12 relative border-t-8 border-white/10 shadow-[0_40px_100px_rgba(255,255,255,0.05)]"
                         >
                             <div className="sticky -top-8 -mx-8 sm:-top-12 sm:-mx-12 px-8 sm:px-12 py-6 bg-black z-20 flex justify-between items-center border-b border-white/5 mb-8">
                                 <h2 className="text-2xl sm:text-3xl font-black text-white uppercase red-gradient-animate tracking-tighter">
