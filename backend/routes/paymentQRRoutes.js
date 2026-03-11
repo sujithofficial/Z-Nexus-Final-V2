@@ -17,8 +17,14 @@ router.post('/', upload.single('image'), async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/payment'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary upload failed to return a secure URL");
+                }
+
                 console.log("Cloudinary upload success. Secure URL:", result.secure_url);
                 imageUrl = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
@@ -26,7 +32,7 @@ router.post('/', upload.single('image'), async (req, res) => {
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'QR upload to Cloudinary failed' });
+                return res.status(500).json({ message: 'QR upload to Cloudinary failed: ' + uploadError.message });
             }
         }
 

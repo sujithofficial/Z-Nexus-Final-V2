@@ -29,14 +29,20 @@ export const addStaff = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/staff'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary upload failed to return a secure URL");
+                }
+
                 photo = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Photo upload to Cloudinary failed' });
+                return res.status(500).json({ message: 'Photo upload to Cloudinary failed: ' + uploadError.message });
             }
         }
 
@@ -73,14 +79,20 @@ export const updateStaff = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/staff'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary update failed to return a secure URL");
+                }
+
                 staff.photo = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Photo update to Cloudinary failed' });
+                return res.status(500).json({ message: 'Photo update to Cloudinary failed: ' + uploadError.message });
             }
         }
 

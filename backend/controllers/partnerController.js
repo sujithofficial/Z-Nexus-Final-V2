@@ -40,14 +40,20 @@ export const createPartner = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/partners'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary upload failed to return a secure URL");
+                }
+
                 logo = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Logo upload to Cloudinary failed' });
+                return res.status(500).json({ message: 'Logo upload to Cloudinary failed: ' + uploadError.message });
             }
         }
 
@@ -100,14 +106,20 @@ export const updatePartner = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/partners'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary update failed to return a secure URL");
+                }
+
                 partner.logo = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Logo update to Cloudinary failed' });
+                return res.status(500).json({ message: 'Logo update to Cloudinary failed: ' + uploadError.message });
             }
         }
 

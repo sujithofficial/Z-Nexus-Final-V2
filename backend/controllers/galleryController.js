@@ -32,14 +32,20 @@ export const addGalleryImage = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/gallery'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary upload failed to return a secure URL");
+                }
+
                 imageUrl = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Image upload to Cloudinary failed' });
+                return res.status(500).json({ message: 'Image upload to Cloudinary failed: ' + uploadError.message });
             }
         }
 

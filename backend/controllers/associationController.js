@@ -29,14 +29,20 @@ export const addMember = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/association'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary upload failed to return a secure URL");
+                }
+
                 photo = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Photo upload to Cloudinary failed' });
+                return res.status(500).json({ message: 'Photo upload to Cloudinary failed: ' + uploadError.message });
             }
         }
 
@@ -73,14 +79,20 @@ export const updateMember = async (req, res) => {
                 const result = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/association'
                 });
+
+                if (!result || !result.secure_url) {
+                    throw new Error("Cloudinary update failed to return a secure URL");
+                }
+
                 member.photo = result.secure_url;
+
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
             } catch (uploadError) {
                 console.error("Cloudinary Upload Error:", uploadError);
-                return res.status(500).json({ message: 'Photo update to Cloudinary failed' });
+                return res.status(500).json({ message: 'Photo update to Cloudinary failed: ' + uploadError.message });
             }
         }
 
