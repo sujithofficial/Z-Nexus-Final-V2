@@ -26,15 +26,17 @@ export const addStaff = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/staff'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary upload failed to return a secure URL");
                 }
 
-                photo = result.secure_url;
+                photo = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
@@ -46,8 +48,13 @@ export const addStaff = async (req, res) => {
             }
         }
 
-        const staff = new StaffCoordinator({ name, designation, department, photo });
-        const createdStaff = await staff.save();
+        const createdStaff = await StaffCoordinator.create({
+            name,
+            designation,
+            department,
+            photo
+        });
+
         res.status(201).json(createdStaff);
     } catch (error) {
         console.error("Add Staff Error:", error);
@@ -76,15 +83,17 @@ export const updateStaff = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/staff'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary update failed to return a secure URL");
                 }
 
-                staff.photo = result.secure_url;
+                staff.photo = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {

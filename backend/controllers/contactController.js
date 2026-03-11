@@ -32,15 +32,17 @@ export const createContact = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/contacts'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary upload failed to return a secure URL");
                 }
 
-                logo = result.secure_url;
+                logo = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
@@ -97,15 +99,17 @@ export const updateContact = async (req, res) => {
         // Handle file upload
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/contacts'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary update failed to return a secure URL");
                 }
 
-                updateData.logo = result.secure_url;
+                updateData.logo = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {

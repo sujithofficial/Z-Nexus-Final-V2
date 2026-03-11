@@ -37,15 +37,17 @@ export const createPartner = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/partners'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     return res.status(500).json({ message: "Cloudinary upload failed" });
                 }
 
-                logo = result.secure_url;
+                logo = uploadResult.secure_url;
 
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
@@ -106,15 +108,17 @@ export const updatePartner = async (req, res) => {
 
         if (req.file && req.file.path) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/partners'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     return res.status(500).json({ message: "Cloudinary update failed" });
                 }
 
-                partner.logo = result.secure_url;
+                partner.logo = uploadResult.secure_url;
 
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);

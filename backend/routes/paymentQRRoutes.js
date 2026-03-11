@@ -13,15 +13,17 @@ router.post('/', upload.single('image'), async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/payment'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     return res.status(500).json({ message: "Cloudinary upload failed" });
                 }
 
-                imageUrl = result.secure_url;
+                imageUrl = uploadResult.secure_url;
 
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);

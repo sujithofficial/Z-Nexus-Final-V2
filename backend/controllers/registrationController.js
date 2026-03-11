@@ -24,15 +24,17 @@ export const registerForEvent = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/registrations'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary upload failed to return a secure URL");
                 }
 
-                paymentScreenshot = result.secure_url;
+                paymentScreenshot = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {

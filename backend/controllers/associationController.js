@@ -26,15 +26,17 @@ export const addMember = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/association'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary upload failed to return a secure URL");
                 }
 
-                photo = result.secure_url;
+                photo = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
@@ -46,8 +48,13 @@ export const addMember = async (req, res) => {
             }
         }
 
-        const member = new AssociationMember({ name, role, contact, photo });
-        const createdMember = await member.save();
+        const createdMember = await AssociationMember.create({
+            name,
+            role,
+            contact,
+            photo
+        });
+
         res.status(201).json(createdMember);
     } catch (error) {
         console.error("Add Member Error:", error);
@@ -76,15 +83,17 @@ export const updateMember = async (req, res) => {
 
         if (req.file) {
             try {
-                const result = await cloudinary.uploader.upload(req.file.path, {
+                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/association'
                 });
 
-                if (!result || !result.secure_url) {
+                console.log("Cloudinary URL:", uploadResult.secure_url);
+
+                if (!uploadResult || !uploadResult.secure_url) {
                     throw new Error("Cloudinary update failed to return a secure URL");
                 }
 
-                member.photo = result.secure_url;
+                member.photo = uploadResult.secure_url;
 
                 // Delete local file
                 if (fs.existsSync(req.file.path)) {
