@@ -255,11 +255,11 @@ const AdminEvents = () => {
                                 <div className="space-y-4">
                                     <label className="text-xs font-black text-gray-500 uppercase tracking-widest">EVENT TYPE</label>
                                     <select
-                                        className="w-full"
+                                        className="w-full bg-black text-white border border-white/5 rounded-xl px-6 py-5 text-sm outline-none focus:border-white/20 transition-all cursor-pointer"
                                         value={formData.eventType} onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
                                     >
-                                        <option value="Individual">Individual</option>
-                                        <option value="Team">Team</option>
+                                        <option value="Individual" className="bg-black text-white">Individual</option>
+                                        <option value="Team" className="bg-black text-white">Team</option>
                                     </select>
                                 </div>
 

@@ -139,6 +139,11 @@ textarea:focus {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.02);
 }
 
+option {
+  background-color: #000;
+  color: #fff;
+}
+
 /* Premium Button Utils */
 .btn-premium {
   transition: all 0.4s var(--ease-premium);
