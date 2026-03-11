@@ -11,30 +11,31 @@ router.post('/', upload.single('image'), async (req, res) => {
     try {
         if (req.file) {
             try {
-                // 1. Upload the file from Multer to Cloudinary
-                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                // 1. Upload the temporary file to Cloudinary immediately after receiving it
+                // We use Multer diskStorage so the file is available at req.file.path
+                const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/payment'
                 });
 
-                // 5. Add debugging logs to verify Cloudinary returns a URL
-                console.log("Cloudinary URL:", uploadResult.secure_url);
+                // 6. Add logging to verify the Cloudinary URL before saving
+                console.log("Uploaded Image URL:", cloudinaryResult.secure_url);
 
-                // 6. If the upload fails or the URL is missing, stop the database save
-                if (!uploadResult || !uploadResult.secure_url) {
-                    return res.status(500).json({ message: "Image upload failed: Cloudinary did not return a URL" });
+                // Validation: Stop if Cloudinary didn't return a secure_url
+                if (!cloudinaryResult || !cloudinaryResult.secure_url) {
+                    return res.status(500).json({ message: "Image upload failed: Cloudinary did not return a secure URL" });
                 }
 
-                // 4. Delete the temporary Multer file after uploading
+                // 5. After uploading, delete the temporary Multer file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
 
-                // Clear existing records
+                // Clear existing records before creating new one
                 await PaymentQR.deleteMany({});
 
-                // 2 & 3. Save the Cloudinary secure URL in MongoDB ONLY after upload completes
+                // 3 & 4. Save the Cloudinary secure URL in MongoDB ONLY after the Cloudinary upload completes
                 const qr = await PaymentQR.create({
-                    image: uploadResult.secure_url,
+                    image: cloudinaryResult.secure_url,
                     text: req.body.text || ''
                 });
 
@@ -46,6 +47,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         }
 
         // Handle case where NO new image is uploaded (Update Text Only)
+        // Ensure we still have an image to save
         const existing = await PaymentQR.findOne();
         if (!existing || !existing.image) {
             return res.status(400).json({ message: "QR image is required. Please upload an image." });

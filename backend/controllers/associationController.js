@@ -26,19 +26,22 @@ export const addMember = async (req, res) => {
 
         if (req.file) {
             try {
-                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                // 1. Upload the temporary file to Cloudinary immediately after receiving it
+                const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/association'
                 });
 
-                console.log("Cloudinary URL:", uploadResult.secure_url);
+                // 6. Add logging to verify the Cloudinary URL before saving
+                console.log("Uploaded Image URL:", cloudinaryResult.secure_url);
 
-                if (!uploadResult || !uploadResult.secure_url) {
+                if (!cloudinaryResult || !cloudinaryResult.secure_url) {
                     throw new Error("Cloudinary upload failed to return a secure URL");
                 }
 
-                photo = uploadResult.secure_url;
+                // 3. Save the Cloudinary secure URL to MongoDB
+                photo = cloudinaryResult.secure_url;
 
-                // Delete local file
+                // 5. After uploading, delete the temporary Multer file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
@@ -87,19 +90,22 @@ export const updateMember = async (req, res) => {
 
         if (req.file) {
             try {
-                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                // 1. Upload the temporary file to Cloudinary immediately after receiving it
+                const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/association'
                 });
 
-                console.log("Cloudinary URL:", uploadResult.secure_url);
+                // 6. Add logging to verify the Cloudinary URL before saving
+                console.log("Uploaded Image URL:", cloudinaryResult.secure_url);
 
-                if (!uploadResult || !uploadResult.secure_url) {
+                if (!cloudinaryResult || !cloudinaryResult.secure_url) {
                     throw new Error("Cloudinary update failed to return a secure URL");
                 }
 
-                member.photo = uploadResult.secure_url;
+                // 3. Save the Cloudinary secure URL to MongoDB
+                member.photo = cloudinaryResult.secure_url;
 
-                // Delete local file
+                // 5. After uploading, delete the temporary Multer file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }

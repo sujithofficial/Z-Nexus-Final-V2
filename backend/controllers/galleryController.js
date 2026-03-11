@@ -29,18 +29,22 @@ export const addGalleryImage = async (req, res) => {
 
         if (req.file) {
             try {
-                const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+                // 1. Upload the temporary file to Cloudinary immediately after receiving it
+                const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
                     folder: 'znexus/gallery'
                 });
 
-                console.log("Cloudinary URL:", uploadResult.secure_url);
+                // 6. Add logging to verify the Cloudinary URL before saving
+                console.log("Uploaded Image URL:", cloudinaryResult.secure_url);
 
-                if (!uploadResult || !uploadResult.secure_url) {
+                if (!cloudinaryResult || !cloudinaryResult.secure_url) {
                     return res.status(500).json({ message: "Cloudinary upload failed" });
                 }
 
-                imageUrl = uploadResult.secure_url;
+                // 3. Save the Cloudinary secure URL to MongoDB
+                imageUrl = cloudinaryResult.secure_url;
 
+                // 5. After uploading, delete the temporary Multer file
                 if (fs.existsSync(req.file.path)) {
                     fs.unlinkSync(req.file.path);
                 }
