@@ -89,7 +89,7 @@ const AdminRegistrations = () => {
         <div className="min-h-screen py-16 md:py-24 container mx-auto px-4 md:px-6 overflow-x-hidden overflow-y-auto">
             <div className="mb-10 md:mb-12 text-center md:text-left">
                 <h1 className="text-3xl sm:text-4xl font-black text-white red-gradient-animate uppercase">EVENT REGISTRATIONS</h1>
-                <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px] mt-4">{filteredRegistrations.length} TOTAL ENTRIES</p>
+                <p className="text-gray-300 font-black uppercase tracking-[0.4em] text-[10px] mt-4">{filteredRegistrations.length} TOTAL ENTRIES</p>
             </div>
 
             <div className="mb-8 flex flex-col md:flex-row gap-4">
@@ -142,10 +142,10 @@ const AdminRegistrations = () => {
                 <table className="w-full text-left">
                     <thead className="bg-white/5 border-b border-white/10">
                         <tr>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">PARTICIPANT / EVENT</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">COLLEGE</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20">PAYMENT STATUS</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20 text-center">ACTION</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">PARTICIPANT / EVENT</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">COLLEGE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">PAYMENT STATUS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300 text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -153,11 +153,11 @@ const AdminRegistrations = () => {
                             <tr key={reg._id} className="hover:bg-white/5 transition-colors group">
                                 <td className="p-6">
                                     <div className="font-bold text-lg uppercase tracking-tight">{reg.name}</div>
-                                    <div className="text-[10px] text-white/40 font-black tracking-widest uppercase">{reg.eventId?.title}</div>
+                                    <div className="text-[10px] text-gray-300 font-black tracking-widest uppercase">{reg.eventId?.title}</div>
                                 </td>
                                 <td className="p-6">
                                     <div className="text-sm font-semibold">{reg.college}</div>
-                                    <div className="text-xs text-gray-500">{reg.department} - Year {reg.year}</div>
+                                    <div className="text-xs text-gray-300">{reg.department} - Year {reg.year}</div>
                                 </td>
                                 <td className="p-6">
                                     <span className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${reg.paymentStatus === 'Approved' ? 'text-white' :
@@ -227,41 +227,41 @@ const AdminRegistrations = () => {
                             <div className="md:w-1/2 p-10 space-y-8 overflow-y-auto">
                                 <div>
                                     <h2 className="text-3xl font-black uppercase tracking-tighter mb-1 red-gradient-animate">{selectedReg.name}</h2>
-                                    <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[9px] italic">Registration Details</p>
+                                    <p className="text-gray-300 font-black uppercase tracking-[0.4em] text-[9px] italic">Registration Details</p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-8 text-sm">
                                     <div className="space-y-1">
-                                        <p className="font-black text-white/60 tracking-tight">{selectedReg.eventId?.title}</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.eventId?.title}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">TEAM TYPE</p>
+                                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TEAM TYPE</p>
                                         <p className="font-bold">{selectedReg.teamName ? 'TEAM' : 'INDIVIDUAL'}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="font-black text-white/40 tracking-widest">{selectedReg.upiId}</p>
+                                        <p className="font-black text-gray-300 tracking-widest">{selectedReg.upiId}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">STATUS</p>
+                                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">STATUS</p>
                                         <p className="font-bold">{selectedReg.paymentStatus}</p>
                                     </div>
                                 </div>
 
                                 <div className="space-y-4">
-                                    <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">CONTACT INFO</p>
+                                    <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">CONTACT INFO</p>
                                     <div className="flex gap-4">
                                         <a href={`tel:${selectedReg.phone}`} className="flex-1 flex items-center justify-center gap-2 p-4 bg-white/5 rounded-xl text-[10px] font-black tracking-widest border border-white/5 uppercase hover:bg-white/10 transition-colors">
-                                            <Phone size={14} className="opacity-40" /> {selectedReg.phone}
+                                            <Phone size={14} className="opacity-75" /> {selectedReg.phone}
                                         </a>
                                         <a href={`mailto:${selectedReg.email}`} className="flex-1 flex items-center justify-center gap-2 p-4 bg-white/5 rounded-xl text-[10px] font-black tracking-widest border border-white/5 uppercase hover:bg-white/10 transition-colors">
-                                            <Mail size={14} className="opacity-40" /> EMAIL
+                                            <Mail size={14} className="opacity-75" /> EMAIL
                                         </a>
                                     </div>
                                 </div>
 
                                 {selectedReg.teamName && (
                                     <div className="space-y-4">
-                                        <p className="text-gray-600 font-black uppercase text-[10px] tracking-widest">TEAM MEMBERS ({selectedReg.teamMembers.length + 1})</p>
+                                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TEAM MEMBERS ({selectedReg.teamMembers.length + 1})</p>
                                         <div className="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar">
                                             <div className="p-4 bg-white/10 border border-white/5 rounded-xl text-[10px] font-black tracking-widest uppercase">
                                                 LEAD: {selectedReg.name}
@@ -278,7 +278,7 @@ const AdminRegistrations = () => {
                                 <div className="pt-8 mt-auto border-t border-white/5 flex gap-4">
                                     <button
                                         onClick={() => handleStatusUpdate(selectedReg._id, 'Rejected')}
-                                        className="flex-1 py-5 bg-white/5 text-white/20 rounded-2xl font-black border border-white/5 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all text-[10px] tracking-widest uppercase"
+                                        className="flex-1 py-5 bg-white/5 text-gray-300 rounded-2xl font-black border border-white/5 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all text-[10px] tracking-widest uppercase"
                                     >
                                         REJECT REGISTRATION
                                     </button>

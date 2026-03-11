@@ -13,7 +13,7 @@ body {
   --surface: rgba(255, 255, 255, 0.03);
   --border: rgba(255, 255, 255, 0.06);
   --text: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.4);
+  --text-muted: rgba(255, 255, 255, 0.65);
   --accent: rgba(255, 255, 255, 0.1);
 
   /* Premium Motion Tokens */
@@ -195,7 +195,7 @@ option {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #fff;
-  opacity: 0.8;
+  opacity: 0.95;
   margin-bottom: 1.5rem;
   position: relative;
 }
@@ -231,8 +231,8 @@ option {
   font-size: clamp(1rem, 3vw, 1.5rem);
   letter-spacing: 0.5em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 300;
+  color: #a3a3a3;
+  font-weight: 400;
 }
 
 .tagline span {
@@ -483,6 +483,34 @@ option {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 }
 
+/* Modern Card Interactions */
+.card-lift {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* Subtle Section Glows */
+.section-glow {
+  position: relative;
+}
+
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Premium Loader Style */
 .loader-overlay {
   position: fixed;
@@ -516,7 +544,7 @@ option {
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.5em;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
   animation: pulse 2s infinite;
 }

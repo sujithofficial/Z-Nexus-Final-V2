@@ -57,7 +57,7 @@ const AssociationMembers = () => {
                 e.currentTarget.style.setProperty("--x", `${x}px`);
                 e.currentTarget.style.setProperty("--y", `${y}px`);
             }}
-            className="max-w-lg mx-auto w-full rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_25px_70px_rgba(0,0,0,0.8)] group flex flex-col relative"
+            className="max-w-lg mx-auto w-full rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-300 card-lift group flex flex-col relative"
         >
             {/* Cursor Spotlight Overlay */}
             <div
@@ -78,13 +78,13 @@ const AssociationMembers = () => {
 
             <div className="p-8 w-full relative z-10 text-center flex flex-col items-center space-y-3">
                 <h3 className="text-2xl font-semibold uppercase tracking-tight text-white group-hover:text-red-500 transition-colors duration-500">{member.name}</h3>
-                <span className="px-6 py-2 bg-white/5 text-gray-400 font-bold rounded-full text-base tracking-wider border border-white/5 uppercase transition-all duration-700 group-hover:bg-white/10 group-hover:text-white">
+                <span className="px-6 py-2 bg-white/5 text-gray-300 font-bold rounded-full text-base tracking-wider border border-white/5 uppercase transition-all duration-700 group-hover:bg-white/10 group-hover:text-white">
                     {member.role}
                 </span>
 
                 {member.contact && (
-                    <div className="pt-3 flex items-center gap-3 text-white/20 font-black text-[10px] tracking-[0.2em] group-hover:text-white/40 transition-colors duration-700 uppercase">
-                        <Phone size={16} className="opacity-40" />
+                    <div className="pt-3 flex items-center gap-3 text-gray-300 font-black text-[10px] tracking-[0.2em] group-hover:text-white transition-colors duration-700 uppercase">
+                        <Phone size={16} className="opacity-75" />
                         <span>{member.contact}</span>
                     </div>
                 )}
@@ -93,7 +93,7 @@ const AssociationMembers = () => {
     );
 
     return (
-        <div id="association-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24">
+        <div id="association-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24 section-glow">
             {/* Atmosphere Layer */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.04),transparent_40%)]" />
@@ -109,7 +109,7 @@ const AssociationMembers = () => {
                     <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-10 leading-none tracking-tighter fast-red-gradient uppercase">
                         ASSOCIATION
                     </h1>
-                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">THE DEDICATED TEAM WORKING BEHIND THE SCENES TO MAKE THIS SYMPOSIUM A GRAND SUCCESS.</p>
+                    <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">THE DEDICATED TEAM WORKING BEHIND THE SCENES TO MAKE THIS SYMPOSIUM A GRAND SUCCESS.</p>
                 </motion.div>
             </div>
 
@@ -141,10 +141,10 @@ const AssociationMembers = () => {
 
             {eventCoordinators.length > 0 && (
                 <div className="pb-24 relative z-10">
-                    <h2 className="text-[10px] font-black mb-20 text-center text-white/10 uppercase tracking-[0.6em] flex items-center justify-center gap-8">
-                        <span className="w-12 h-[1px] bg-white/5"></span>
+                    <h2 className="text-[10px] font-black mb-20 text-center text-white/40 uppercase tracking-[0.6em] flex items-center justify-center gap-8">
+                        <span className="w-12 h-[1px] bg-white/10"></span>
                         EVENT COORDINATORS
-                        <span className="w-12 h-[1px] bg-white/5"></span>
+                        <span className="w-12 h-[1px] bg-white/10"></span>
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto px-6 justify-items-center">
                         {eventCoordinators.map((member, index) => renderMemberCard(member, index))}

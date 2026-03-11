@@ -25,15 +25,17 @@ export const getPartners = async (req, res) => {
 // @access  Private/Admin
 export const createPartner = async (req, res) => {
     try {
+        console.log("Uploaded file:", req.file);
+
         if (!req.body) {
             return res.status(400).json({ message: 'Request body is missing' });
         }
 
         const { name, website } = req.body;
-        const logo = req.file ? req.file.path : '';
+        const logo = req.file ? req.file.path : null;
 
-        if (!name || !logo) {
-            return res.status(400).json({ message: 'Please provide name and logo' });
+        if (!name) {
+            return res.status(400).json({ message: 'Please provide partner name' });
         }
 
         const partner = new Partner({ name, logo, website });
@@ -41,7 +43,7 @@ export const createPartner = async (req, res) => {
         res.status(201).json(createdPartner);
     } catch (error) {
         console.error("Create Partner Error:", error);
-        res.status(500).json({ message: 'Failed to create partner', error: error.message });
+        res.status(500).json({ message: 'Partner creation failed', error: error.message });
     }
 };
 
@@ -50,33 +52,55 @@ export const createPartner = async (req, res) => {
 // @access  Private/Admin
 export const updatePartner = async (req, res) => {
     try {
+
+        console.log("==== UPDATE PARTNER START ====");
+        console.log("Params:", req.params);
+        console.log("Body:", req.body);
+        console.log("File:", req.file);
+
         const { id } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: 'Invalid partner ID format' });
+        if (!id) {
+            return res.status(400).json({ message: "Partner ID missing" });
         }
 
         const partner = await Partner.findById(id);
 
         if (!partner) {
-            return res.status(404).json({ message: 'Partner not found' });
+            return res.status(404).json({ message: "Partner not found" });
         }
 
-        // Safely read body fields
-        if (req.body) {
-            if (req.body.name) partner.name = req.body.name;
-            if (req.body.website !== undefined) partner.website = req.body.website;
+        if (req.body.name !== undefined) {
+            partner.name = req.body.name;
         }
 
-        if (req.file) {
+        if (req.body.website !== undefined) {
+            partner.website = req.body.website;
+        }
+
+        if (req.file && req.file.path) {
             partner.logo = req.file.path;
         }
 
-        const updatedPartner = await partner.save();
-        res.json(updatedPartner);
+        await partner.save();
+
+        console.log("Partner updated successfully");
+
+        return res.status(200).json({
+            success: true,
+            message: "Partner updated",
+            partner
+        });
+
     } catch (error) {
-        console.error("Update Partner Error:", error);
-        res.status(500).json({ message: 'Failed to update partner', error: error.message });
+
+        console.error("UPDATE PARTNER ERROR:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Update failed",
+            error: error.message
+        });
     }
 };
 

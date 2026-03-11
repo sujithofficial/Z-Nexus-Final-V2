@@ -76,7 +76,7 @@ const Navbar = () => {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 relative group ${location.pathname === link.path ? 'text-white' : 'text-white/30 hover:text-white'}`}
+                                className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 relative group ${location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'}`}
                             >
                                 {link.name}
                                 <span className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
@@ -109,7 +109,7 @@ const Navbar = () => {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-4xl font-black uppercase tracking-tighter transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95 ${location.pathname === link.path ? 'text-white' : 'text-white/20 hover:text-white'}`}
+                                className={`text-4xl font-black uppercase tracking-tighter transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95 ${location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'}`}
                                 onClick={() => handleMobileNavClick(link.path, link.id)}
                             >
                                 {link.name}

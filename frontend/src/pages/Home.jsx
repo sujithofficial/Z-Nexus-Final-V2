@@ -32,7 +32,7 @@ const Home = () => {
 
             {/* Partners Section */}
             {partners.length > 0 && (
-                <section className="py-32 relative overflow-hidden">
+                <section className="py-32 relative overflow-hidden section-glow">
                     {/* Atmosphere Layer */}
                     <div className="absolute inset-0 pointer-events-none">
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.02),transparent_60%)]" />
@@ -92,21 +92,21 @@ const Home = () => {
                                 <div className="partners-track">
                                     {[...partners, ...partners].map((partner, index) => {
                                         const logoElement = (
-                                            <div className="group/logo w-full h-40 flex items-center justify-center overflow-hidden rounded-[4rem] bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.03] group-hover:border-white/10 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] shadow-2xl p-10 relative">
+                                            <div className="sticker-card card-lift w-full h-40 flex items-center justify-center overflow-hidden rounded-[4rem] bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.03] group-hover:border-white/10 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] shadow-2xl p-10 relative">
                                                 {/* Glass Reflection Component */}
                                                 <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-30 pointer-events-none transition-opacity duration-1000" />
 
                                                 <img
                                                     src={getImageUrl(partner.logo)}
                                                     alt={partner.name}
-                                                    className="max-w-full max-h-full object-contain grayscale opacity-20 contrast-125 group-hover/logo:grayscale-0 group-hover/logo:opacity-80 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] group-hover/logo:scale-110"
+                                                    className="max-w-full max-h-full object-contain grayscale opacity-40 contrast-125 group-hover/logo:grayscale-0 group-hover/logo:opacity-90 transition-all duration-1000 ease-[0.16, 1, 0.3, 1] group-hover/logo:scale-110"
                                                 />
                                             </div>
                                         );
 
                                         return (
                                             <div key={`partner-${index}`} className="flex flex-col items-center text-center w-[280px] shrink-0 group">
-                                                <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 mb-8 group-hover:text-white transition-colors duration-700">{partner.name}</h3>
+                                                <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 mb-8 group-hover:text-white transition-colors duration-700">{partner.name}</h3>
 
                                                 {partner.website ? (
                                                     <a
@@ -133,7 +133,7 @@ const Home = () => {
             )}
 
             {/* Call to Action */}
-            <section className="py-40 relative overflow-hidden">
+            <section className="py-40 relative overflow-hidden section-glow">
                 <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.98, y: 30 }}

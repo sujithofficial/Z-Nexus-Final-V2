@@ -35,7 +35,7 @@ const Gallery = () => {
     }
 
     return (
-        <div id="gallery-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24">
+        <div id="gallery-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24 section-glow">
             {/* Atmosphere Layer */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_60%)]" />
@@ -50,13 +50,13 @@ const Gallery = () => {
                     <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 leading-none tracking-tighter fast-red-gradient uppercase">
                         WALL OF FAME
                     </h1>
-                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">CAPTURING THE MEMORIES AND MILESTONES OF OUR TECHNICAL JOURNEY.</p>
+                    <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">CAPTURING THE MEMORIES AND MILESTONES OF OUR TECHNICAL JOURNEY.</p>
                 </motion.div>
             </div>
 
             {images.length === 0 ? (
                 <div className="text-center py-32 liquid-glass rounded-[3rem] border border-white/5 relative z-10">
-                    <p className="text-xs text-white/20 font-black uppercase tracking-[0.4em]">NO MEMORIES SAVED YET</p>
+                    <p className="text-xs text-white/40 font-black uppercase tracking-[0.4em]">NO MEMORIES SAVED YET</p>
                 </div>
             ) : (
                 <div className="columns-1 md:columns-2 lg:columns-3 gap-6 md:gap-10 space-y-6 md:space-y-10 relative z-10">
@@ -68,7 +68,7 @@ const Gallery = () => {
                             transition={{ duration: 1.2, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
                             viewport={{ once: true, margin: "-50px" }}
                             onClick={() => setSelectedImg(img)}
-                            className="relative group cursor-pointer break-inside-avoid rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl bg-white/[0.02]"
+                            className="relative group cursor-pointer break-inside-avoid rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl bg-white/[0.02] card-lift"
                         >
                             {/* Glass Reflection Component */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-1000 z-20 pointer-events-none" />
@@ -76,12 +76,12 @@ const Gallery = () => {
                             <img
                                 src={getImageUrl(img.imageUrl)}
                                 alt={img.title}
-                                className="w-full h-auto grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-[0.16, 1, 0.3, 1]"
+                                className="w-full h-auto grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-[0.16, 1, 0.3, 1]"
                             />
                             <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center p-8 text-center z-10">
                                 <Search size={24} className="text-white mb-6 translate-y-6 group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
                                 <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white underline underline-offset-8 mb-4">{img.title}</h3>
-                                <p className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em]">{new Date(img.uploadDate).toLocaleDateString()}</p>
+                                <p className="text-[10px] text-gray-300 font-black uppercase tracking-[0.2em]">{new Date(img.uploadDate).toLocaleDateString()}</p>
                             </div>
                         </motion.div>
                     ))}
@@ -119,7 +119,7 @@ const Gallery = () => {
                             </div>
                             <div className="mt-12 text-center">
                                 <h3 className="text-2xl font-black text-white uppercase tracking-tighter transition-all duration-300">{selectedImg.title}</h3>
-                                <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.4em] mt-4">{new Date(selectedImg.uploadDate).toDateString()}</p>
+                                <p className="text-gray-300 text-[10px] font-black uppercase tracking-[0.4em] mt-4">{new Date(selectedImg.uploadDate).toDateString()}</p>
                             </div>
                         </motion.div>
                     </motion.div>

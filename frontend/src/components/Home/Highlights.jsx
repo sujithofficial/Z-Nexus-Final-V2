@@ -29,7 +29,7 @@ const Highlights = () => {
     return (
         <section className="py-32 relative overflow-hidden">
             {/* Premium Atmosphere Layers */}
-            <div className="absolute inset-x-0 top-0 h-px bg-white/5 opacity-50" />
+            <div className="absolute inset-x-0 top-0 h-px bg-white/10 opacity-80" />
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_60%)]" />
             </div>
@@ -42,7 +42,7 @@ const Highlights = () => {
                     viewport={{ once: true, margin: "-50px" }}
                     className="mb-24"
                 >
-                    <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em] mb-6">WHY JOIN US?</p>
+                    <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.5em] mb-6">WHY JOIN US?</p>
                     <h3 className="text-4xl md:text-5xl font-black tracking-tighter fast-red-gradient uppercase">
                         SYMPOSIUM HIGHLIGHTS
                     </h3>
@@ -56,13 +56,13 @@ const Highlights = () => {
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             transition={{ duration: 0.9, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                             viewport={{ once: true, margin: "-50px" }}
-                            className="sticker-card p-12 flex flex-col items-center group relative overflow-hidden"
+                            className="sticker-card card-lift p-12 flex flex-col items-center group relative overflow-hidden"
                         >
                             <div className="mb-10 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
                                 {item.icon}
                             </div>
                             <h3 className="text-[10px] font-black mb-4 tracking-[0.3em] text-white/80 uppercase">{item.title}</h3>
-                            <p className="text-white/20 text-xs leading-relaxed font-bold uppercase tracking-widest">{item.desc}</p>
+                            <p className="text-gray-300 text-xs leading-relaxed font-bold uppercase tracking-widest group-hover:text-white transition-colors duration-700">{item.desc}</p>
 
                             {/* Reflexive Layer */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />

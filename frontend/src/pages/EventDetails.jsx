@@ -36,7 +36,7 @@ const EventDetails = () => {
         );
     }
 
-    if (!event) return <div className="text-center py-40 uppercase tracking-[0.5em] text-white/10 font-black">EVENT NOT FOUND</div>;
+    if (!event) return <div className="text-center py-40 uppercase tracking-[0.5em] text-white/40 font-black">EVENT NOT FOUND</div>;
 
     return (
         <div className="min-h-screen py-32 container mx-auto px-6 max-w-7xl relative overflow-hidden">
@@ -48,7 +48,7 @@ const EventDetails = () => {
 
             <button
                 onClick={() => navigate(-1)}
-                className="flex items-center gap-4 text-white/30 hover:text-white mb-20 group transition-all duration-700 ease-[0.16, 1, 0.3, 1] font-black text-[10px] uppercase tracking-[0.4em] relative z-10"
+                className="flex items-center gap-4 text-gray-300 hover:text-white mb-20 group transition-all duration-700 ease-[0.16, 1, 0.3, 1] font-black text-[10px] uppercase tracking-[0.4em] relative z-10"
             >
                 <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
                 BACK TO EVENTS
@@ -67,7 +67,7 @@ const EventDetails = () => {
                         <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-30 pointer-events-none" />
 
                         <h1 className="text-4xl md:text-6xl font-black mb-10 uppercase tracking-tighter text-white leading-[0.85] group-hover:scale-[1.02] transition-transform duration-1000 ease-[0.16, 1, 0.3, 1] red-gradient-animate">{event.title}</h1>
-                        <div className="inline-block px-6 py-2 bg-white/5 text-white/40 rounded-full font-black text-[9px] mb-16 tracking-[0.4em] border border-white/5 uppercase">
+                        <div className="inline-block px-6 py-2 bg-white/5 text-gray-300 rounded-full font-black text-[9px] mb-16 tracking-[0.4em] border border-white/5 uppercase">
                             {event.eventType} EVENT
                         </div>
 
@@ -75,23 +75,23 @@ const EventDetails = () => {
                             <div className="flex items-center gap-6 group/item">
                                 <div className="p-5 bg-white/3 rounded-[1.5rem] text-white/20 group-hover/item:text-white/60 transition-colors duration-500"><Calendar size={20} /></div>
                                 <div>
-                                    <p className="text-[10px] text-white/10 font-black uppercase tracking-[0.2em] mb-2">DATE</p>
-                                    <p className="text-base font-black text-white/70 uppercase tracking-tighter transition-all">{event.date}</p>
+                                    <p className="text-[10px] text-gray-300 font-black uppercase tracking-[0.2em] mb-2">DATE</p>
+                                    <p className="text-base font-black text-white uppercase tracking-tighter transition-all">{event.date}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-6 group/item">
                                 <div className="p-5 bg-white/3 rounded-[1.5rem] text-white/20 group-hover/item:text-white/60 transition-colors duration-500"><MapPin size={20} /></div>
                                 <div>
-                                    <p className="text-[10px] text-white/10 font-black uppercase tracking-[0.2em] mb-2">VENUE</p>
-                                    <p className="text-base font-black text-white/70 uppercase tracking-tighter transition-all">{event.venue}</p>
+                                    <p className="text-[10px] text-gray-300 font-black uppercase tracking-[0.2em] mb-2">VENUE</p>
+                                    <p className="text-base font-black text-white uppercase tracking-tighter transition-all">{event.venue}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-6 group/item">
                                 <div className="p-5 bg-white/3 rounded-[1.5rem] text-white/20 group-hover/item:text-white/60 transition-colors duration-500"><User size={20} /></div>
                                 <div>
-                                    <p className="text-[10px] text-white/10 font-black uppercase tracking-[0.2em] mb-2">COORDINATOR</p>
-                                    <p className="text-base font-black text-white/70 uppercase tracking-tighter transition-all">{event.coordinatorName}</p>
-                                    <p className="text-[10px] text-white/20 font-black mt-2 tracking-[0.2em] uppercase">{event.coordinatorPhone}</p>
+                                    <p className="text-[10px] text-gray-300 font-black uppercase tracking-[0.2em] mb-2">COORDINATOR</p>
+                                    <p className="text-base font-black text-white uppercase tracking-tighter transition-all">{event.coordinatorName}</p>
+                                    <p className="text-[10px] text-white/40 font-black mt-2 tracking-[0.2em] uppercase">{event.coordinatorPhone}</p>
                                 </div>
                             </div>
                         </div>
@@ -116,11 +116,11 @@ const EventDetails = () => {
                     <section>
                         <div className="flex items-center gap-6 mb-10">
                             <div className="w-1.5 h-6 bg-white opacity-20 rounded-full"></div>
-                            <h2 className="text-xs font-black text-white/40 uppercase tracking-[0.4em]">DESCRIPTION</h2>
+                            <h2 className="text-xs font-black text-white/60 uppercase tracking-[0.4em]">DESCRIPTION</h2>
                         </div>
                         <div className="bg-white/[0.02] p-12 rounded-[3.5rem] border border-white/5 shadow-xl relative overflow-hidden group">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.03),transparent_50%)]" />
-                            <p className="text-white/40 text-[15px] leading-loose whitespace-pre-wrap font-bold uppercase tracking-widest relative z-10 group-hover:text-white/60 transition-colors duration-1000">
+                            <p className="text-gray-300 text-[15px] leading-loose whitespace-pre-wrap font-bold uppercase tracking-widest relative z-10 group-hover:text-white transition-colors duration-1000">
                                 {event.description}
                             </p>
                         </div>
@@ -130,11 +130,11 @@ const EventDetails = () => {
                     <section>
                         <div className="flex items-center gap-6 mb-10">
                             <div className="w-1.5 h-6 bg-white opacity-20 rounded-full"></div>
-                            <h2 className="text-xs font-black text-white/40 uppercase tracking-[0.4em]">RULES & GUIDELINES</h2>
+                            <h2 className="text-xs font-black text-white/60 uppercase tracking-[0.4em]">RULES & GUIDELINES</h2>
                         </div>
                         <div className="bg-white/[0.02] p-12 rounded-[3.5rem] border border-white/5 shadow-xl relative overflow-hidden group">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,255,255,0.03),transparent_50%)]" />
-                            <div className="text-white/40 text-[13px] whitespace-pre-wrap leading-loose font-bold uppercase tracking-[0.15em] relative z-10 group-hover:text-white/60 transition-colors duration-1000">
+                            <div className="text-gray-300 text-[13px] whitespace-pre-wrap leading-loose font-bold uppercase tracking-[0.15em] relative z-10 group-hover:text-white transition-colors duration-1000">
                                 {event.rules}
                             </div>
                         </div>
@@ -152,8 +152,8 @@ const EventDetails = () => {
                                 <Trophy size={40} />
                             </div>
                             <div>
-                                <h3 className="text-xs font-black text-white/60 mb-2 uppercase tracking-[0.3em]">TEAM SIZE</h3>
-                                <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.4em]">MAX LIMIT: <span className="text-white opacity-80 ml-2 underline underline-offset-8">{event.maxTeamSize} MEMBERS</span></p>
+                                <h3 className="text-xs font-black text-white mb-2 uppercase tracking-[0.3em]">TEAM SIZE</h3>
+                                <p className="text-gray-300 text-[10px] font-black uppercase tracking-[0.4em]">MAX LIMIT: <span className="text-white opacity-80 ml-2 underline underline-offset-8">{event.maxTeamSize} MEMBERS</span></p>
                             </div>
                         </motion.section>
                     )}

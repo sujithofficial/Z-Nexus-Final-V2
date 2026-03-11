@@ -50,7 +50,7 @@ const StaffCoordinators = () => {
                     <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-10 leading-none tracking-tighter fast-red-gradient uppercase">
                         FACULTY COORDINATOR
                     </h1>
-                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">OUR FACULTY MEMBERS GUIDING THE SYMPOSIUM TO EXCELLENCE.</p>
+                    <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em] max-w-2xl mx-auto leading-relaxed">OUR FACULTY MEMBERS GUIDING THE SYMPOSIUM TO EXCELLENCE.</p>
                 </motion.div>
             </div>
 
@@ -91,10 +91,10 @@ const StaffCoordinators = () => {
 
                         <div className="p-8 w-full relative z-10 text-center flex flex-col items-center space-y-3">
                             <h3 className="text-2xl font-semibold uppercase tracking-tight text-white group-hover:text-red-500 transition-colors duration-500">{member.name}</h3>
-                            <p className="text-base text-gray-400 font-bold tracking-wider uppercase">{member.designation}</p>
+                            <p className="text-base text-gray-300 font-bold tracking-wider uppercase group-hover:text-white transition-colors duration-700">{member.designation}</p>
 
-                            <div className="pt-3 flex items-center justify-center gap-3 text-white/20 font-black text-[10px] tracking-[0.2em] group-hover:text-white/40 transition-colors duration-700 uppercase">
-                                <BookOpen size={16} className="opacity-40" />
+                            <div className="pt-3 flex items-center justify-center gap-3 text-white/40 font-black text-[10px] tracking-[0.2em] group-hover:text-white transition-colors duration-700 uppercase">
+                                <BookOpen size={16} className="opacity-75" />
                                 <span>DEPARTMENT OF {member.department}</span>
                             </div>
                         </div>

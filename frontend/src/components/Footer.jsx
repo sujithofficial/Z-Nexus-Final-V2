@@ -34,7 +34,7 @@ const Footer = () => {
             <div className="container mx-auto px-4 sm:px-8 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 mb-24">
                     <div className="space-y-8 text-center md:text-left flex flex-col items-center md:items-start">
-                        <h3 className="text-3xl font-black tracking-tighter text-white">Z-NEXUS <span className="text-white/20">2K26</span></h3>
+                        <h3 className="text-3xl font-black tracking-tighter text-white">Z-NEXUS <span className="text-white/40">2K26</span></h3>
                         <p className="text-gray-300 text-xs leading-relaxed max-w-sm font-black uppercase tracking-[0.2em] break-words">
                             NATIONAL LEVEL TECHNICAL SYMPOSIUM ORGANIZED BY THE DEPARTMENT OF COMPUTER SCIENCE AND BUSINESS SYSTEMS, KGiSL INSTITUTE OF TECHNOLOGY.
                         </p>
@@ -43,7 +43,7 @@ const Footer = () => {
                         </p>
                     </div>
                     <div className="text-center md:text-left flex flex-col items-center md:items-start">
-                        <h4 className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-10">QUICK LINKS</h4>
+                        <h4 className="text-[10px] font-black text-gray-300 uppercase tracking-[0.4em] mb-10">QUICK LINKS</h4>
                         <ul className="space-y-5 text-gray-300 font-black text-[10px] uppercase tracking-[0.3em]">
                             <li>
                                 <a href="/" className="hover:text-white transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:translate-x-2 inline-block">HOME</a>
@@ -60,13 +60,13 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div className="text-center md:text-left flex flex-col items-center md:items-start">
-                        <h4 className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-10">LOCATION</h4>
+                        <h4 className="text-[10px] font-black text-gray-300 uppercase tracking-[0.4em] mb-10">LOCATION</h4>
                         <div className="space-y-10">
                             <div className="space-y-4">
                                 <p className="text-gray-300 text-[10px] font-black uppercase tracking-[0.2em] leading-normal mb-8">
                                     KGiSL INSTITUTE OF TECHNOLOGY
                                     <br />
-                                    <span className="text-white/40 font-bold block mt-3 lowercase tracking-widest italic">
+                                    <span className="text-gray-300 font-bold block mt-3 lowercase tracking-widest italic">
                                         KGiSL Campus, 365, Thudiyalur Road
                                         <br />
                                         Saravanampatti, Coimbatore – 641035
@@ -85,27 +85,34 @@ const Footer = () => {
 
                             {/* Dynamic Contacts */}
                             <div className="flex gap-8 items-center justify-center md:justify-start pt-6">
-                                {contacts.map((contact) => (
-                                    <a
-                                        key={contact._id}
-                                        href={resolveContactHref(contact.link)}
-                                        target={contact.link && contact.link.includes('@') && !contact.link.startsWith('http') ? '_self' : '_blank'}
-                                        rel="noopener noreferrer"
-                                        className="opacity-40 hover:opacity-100 transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:scale-125 hover:-translate-y-1"
-                                        title={contact.name}
-                                    >
-                                        <img
-                                            src={getImageUrl(contact.logo)}
-                                            alt={contact.name}
-                                            className="w-5 h-5 object-contain grayscale invert"
-                                        />
-                                    </a>
-                                ))}
+                                {contacts.map((contact) => {
+                                    const isInstagram = contact.name.toLowerCase().includes('instagram');
+                                    const isWhatsApp = contact.name.toLowerCase().includes('whatsapp');
+
+                                    return (
+                                        <a
+                                            key={contact._id}
+                                            href={resolveContactHref(contact.link)}
+                                            target={contact.link && contact.link.includes('@') && !contact.link.startsWith('http') ? '_self' : '_blank'}
+                                            rel="noopener noreferrer"
+                                            className="opacity-75 hover:opacity-100 transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:scale-125 hover:-translate-y-1 group/contact"
+                                            title={contact.name}
+                                        >
+                                            <div className={`p-2 rounded-xl transition-all duration-500 ${isInstagram ? 'hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:shadow-[0_0_15px_rgba(238,42,123,0.3)]' : isWhatsApp ? 'hover:bg-[#25D366] hover:shadow-[0_0_15px_rgba(37,211,102,0.3)]' : 'hover:bg-white/10'}`}>
+                                                <img
+                                                    src={getImageUrl(contact.logo)}
+                                                    alt={contact.name}
+                                                    className={`w-5 h-5 object-contain transition-all duration-500 ${isInstagram || isWhatsApp ? 'grayscale-0 invert-0 group-hover/contact:brightness-200 group-hover/contact:grayscale-0 group-hover/contact:invert' : 'grayscale invert group-hover/contact:grayscale-0 group-hover/contact:invert-0'}`}
+                                                />
+                                            </div>
+                                        </a>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-center md:text-left text-white/40 text-[9px] font-black uppercase tracking-[0.5em] px-4 sm:px-0">
+                <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 text-center md:text-left text-gray-300 text-[9px] font-black uppercase tracking-[0.5em] px-4 sm:px-0">
                     <div className="flex flex-col md:flex-row items-center gap-2 md:gap-12">
                         <p className="break-words">© 2026 Z-NEXUS 2K26. ALL RIGHTS RESERVED.</p>
                         <p className="text-gray-300">DEPARTMENT OF CSBS, KGiSL</p>

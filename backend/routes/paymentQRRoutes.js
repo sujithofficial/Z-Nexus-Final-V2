@@ -27,7 +27,7 @@ const upload = multer({ storage });
 // POST — save image + text (replace any existing record)
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const image = req.file ? `/uploads/${req.file.filename}` : '';
+        const image = req.file ? req.file.path : '';
         const text = req.body.text || '';
 
         await PaymentQR.deleteMany({});

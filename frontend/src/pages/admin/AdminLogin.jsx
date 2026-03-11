@@ -45,13 +45,13 @@ const AdminLogin = () => {
 
                 <div className="text-center mb-12">
                     <h1 className="text-3xl font-black mb-2 text-white uppercase tracking-tighter red-gradient-animate">CONTROL</h1>
-                    <p className="text-white/20 font-black uppercase tracking-[0.4em] text-[10px]">AUTHORIZED ACCESS ONLY</p>
+                    <p className="text-gray-300 font-black uppercase tracking-[0.4em] text-[10px]">AUTHORIZED ACCESS ONLY</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="space-y-3">
-                        <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
-                            <User size={12} className="opacity-40" /> USERNAME
+                        <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
+                            <User size={12} className="opacity-75" /> USERNAME
                         </label>
                         <input
                             type="text" required
@@ -62,8 +62,8 @@ const AdminLogin = () => {
                     </div>
 
                     <div className="space-y-3">
-                        <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
-                            <Lock size={12} className="opacity-40" /> PASSWORD
+                        <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
+                            <Lock size={12} className="opacity-75" /> PASSWORD
                         </label>
                         <input
                             type="password" required

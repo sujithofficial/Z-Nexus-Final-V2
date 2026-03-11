@@ -139,7 +139,7 @@ const Register = () => {
                         <CheckCircle2 size={48} className="text-white" />
                     </div>
                     <h2 className="text-4xl sm:text-5xl font-black mb-6 uppercase tracking-tighter text-white">REGISTRATION SUCCESSFUL!</h2>
-                    <p className="text-xs text-white/20 mb-12 font-black uppercase tracking-[0.4em] leading-relaxed">
+                    <p className="text-xs text-gray-300 mb-12 font-black uppercase tracking-[0.4em] leading-relaxed">
                         YOUR REGISTRATION HAS BEEN RECEIVED. <br />
                         WE WILL VERIFY YOUR PAYMENT AND CONFIRM YOUR SPOT SOON.
                     </p>
@@ -171,7 +171,7 @@ const Register = () => {
                     <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 leading-none tracking-tighter fast-red-gradient uppercase">
                         REGISTRATION
                     </h1>
-                    <p className="text-white/20 text-xs font-black uppercase tracking-[0.3em]">SECURE YOUR SPOT IN THE UPCOMING TECHNICAL SYMPOSIUM.</p>
+                    <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em]">SECURE YOUR SPOT IN THE UPCOMING TECHNICAL SYMPOSIUM.</p>
                 </motion.div>
             </div>
 
@@ -184,60 +184,60 @@ const Register = () => {
                     viewport={{ once: true, margin: "-50px" }}
                     className="sticker-card p-6 sm:p-12 space-y-12 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl group"
                 >
-                    <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em]">
-                        <User size={16} className="opacity-40" /> PARTICIPANT DETAILS
+                    <h2 className="text-xs font-black flex items-center gap-5 text-gray-300 uppercase tracking-[0.3em]">
+                        <User size={16} className="opacity-75" /> PARTICIPANT DETAILS
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">FULL NAME</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">FULL NAME</label>
                             <input
-                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="John Doe"
+                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/20" placeholder="John Doe"
                                 value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             />
                         </div>
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">EMAIL ADDRESS</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">EMAIL ADDRESS</label>
                             <input
-                                type="email" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="email@example.com"
+                                type="email" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/20" placeholder="email@example.com"
                                 value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             />
                         </div>
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">PHONE NUMBER</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">PHONE NUMBER</label>
                             <input
-                                type="tel" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="+91 00000 00000"
+                                type="tel" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/20" placeholder="+91 00000 00000"
                                 value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             />
                         </div>
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">COLLEGE NAME</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">COLLEGE NAME</label>
                             <input
-                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="College Name"
+                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/20" placeholder="College Name"
                                 value={formData.college} onChange={(e) => setFormData({ ...formData, college: e.target.value })}
                             />
                         </div>
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">DEPARTMENT</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">DEPARTMENT</label>
                             <input
-                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="e.g. CSBS, CSE"
+                                type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/20" placeholder="e.g. CSBS, CSE"
                                 value={formData.department} onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                             />
                         </div>
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">YEAR OF STUDY</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">YEAR OF STUDY</label>
                             <div className="relative">
                                 <select
                                     required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
                                     value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })}
                                 >
-                                    <option value="" className="bg-black">SELECT YEAR</option>
+                                    <option value="" className="bg-black text-gray-300">SELECT YEAR</option>
                                     <option value="1" className="bg-black">1st Year</option>
                                     <option value="2" className="bg-black">2nd Year</option>
                                     <option value="3" className="bg-black">3rd Year</option>
                                     <option value="4" className="bg-black">4th Year</option>
                                 </select>
-                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20 font-black">↓</div>
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 font-black">↓</div>
                             </div>
                         </div>
                     </div>
@@ -251,12 +251,12 @@ const Register = () => {
                     viewport={{ once: true, margin: "-50px" }}
                     className="sticker-card p-6 sm:p-12 space-y-12 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl group"
                 >
-                    <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em]">
-                        <Trophy size={16} className="opacity-40" /> CORE SELECTION
+                    <h2 className="text-xs font-black flex items-center gap-5 text-gray-300 uppercase tracking-[0.3em]">
+                        <Trophy size={16} className="opacity-75" /> CORE SELECTION
                     </h2>
 
                     <div className="space-y-4">
-                        <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">SELECT EVENT</label>
+                        <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">SELECT EVENT</label>
                         <div className="relative">
                             <select
                                 required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all appearance-none cursor-pointer"
@@ -306,12 +306,12 @@ const Register = () => {
                             className="overflow-hidden"
                         >
                             <div className="sticker-card p-6 sm:p-12 space-y-12 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl mb-12">
-                                <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em]">
-                                    <Users size={16} className="opacity-40" /> TEAM COMPOSITION
+                                <h2 className="text-xs font-black flex items-center gap-5 text-gray-300 uppercase tracking-[0.3em]">
+                                    <Users size={16} className="opacity-75" /> TEAM COMPOSITION
                                 </h2>
 
                                 <div className="space-y-4">
-                                    <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">TEAM NAME</label>
+                                    <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">TEAM NAME</label>
                                     <input
                                         type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5" placeholder="Team Name"
                                         value={formData.teamName} onChange={(e) => setFormData({ ...formData, teamName: e.target.value })}
@@ -320,13 +320,13 @@ const Register = () => {
 
                                 <div className="space-y-10">
                                     <div className="flex justify-between items-center px-1">
-                                        <h3 className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">TEAM MEMBERS ({teamMembers.length + 1}/{selectedEvent?.maxTeamSize})</h3>
+                                        <h3 className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">TEAM MEMBERS ({teamMembers.length + 1}/{selectedEvent?.maxTeamSize})</h3>
                                         {teamMembers.length + 1 < (selectedEvent?.maxTeamSize || 1) && (
                                             <button
                                                 type="button" onClick={addTeamMember}
                                                 className="flex items-center gap-3 text-white text-[10px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all duration-300"
                                             >
-                                                <Plus size={14} className="opacity-40" /> ADD MEMBER
+                                                <Plus size={14} className="opacity-75" /> ADD MEMBER
                                             </button>
                                         )}
                                     </div>
@@ -381,14 +381,14 @@ const Register = () => {
                     viewport={{ once: true, margin: "-50px" }}
                     className="sticker-card p-6 sm:p-12 space-y-16 bg-white/[0.02] border border-white/5 rounded-[2rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden"
                 >
-                    <h2 className="text-xs font-black flex items-center gap-5 text-white/60 uppercase tracking-[0.3em] relative z-10">
-                        <Upload size={16} className="opacity-40" /> PAYMENT VERIFICATION
+                    <h2 className="text-xs font-black flex items-center gap-5 text-gray-300 uppercase tracking-[0.3em] relative z-10">
+                        <Upload size={16} className="opacity-75" /> PAYMENT VERIFICATION
                     </h2>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
                         <div className="space-y-12">
                             <div className="p-12 bg-white/3 rounded-[2.5rem] space-y-8 border border-white/5 text-center relative overflow-hidden group/qr">
-                                <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">PAYMENT QR CODE</p>
+                                <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">PAYMENT QR CODE</p>
                                 <div className="w-52 h-52 bg-white mx-auto flex items-center justify-center rounded-[2.5rem] p-6 shadow-3xl relative z-10 scale-100 group-hover/qr:scale-[1.03] transition-transform duration-700 ease-[0.16, 1, 0.3, 1]">
                                     {paymentQR && paymentQR.image ? (
                                         <img src={getImageUrl(paymentQR.image)} alt="Payment QR" className="w-full h-full object-contain" />
@@ -405,7 +405,7 @@ const Register = () => {
                             </div>
 
                             <div className="space-y-4">
-                                <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1">UPI TRANSACTION ID</label>
+                                <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">UPI TRANSACTION ID</label>
                                 <input
                                     type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5 uppercase tracking-[0.2em]" placeholder="E.G. TXN8945723165"
                                     value={formData.upiId} onChange={(e) => setFormData({ ...formData, upiId: e.target.value })}
@@ -414,7 +414,7 @@ const Register = () => {
                         </div>
 
                         <div className="space-y-8">
-                            <label className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] ml-1 block">UPLOAD RECEIPT</label>
+                            <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1 block">UPLOAD RECEIPT</label>
                             <div
                                 onClick={() => document.getElementById('screenshot').click()}
                                 className={`h-96 border border-dashed rounded-[2.5rem] flex flex-col items-center justify-center cursor-pointer transition-all duration-1000 ease-[0.16, 1, 0.3, 1] overflow-hidden relative group ${preview ? 'border-white/20' : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10'}`}
@@ -429,10 +429,10 @@ const Register = () => {
                                 ) : (
                                     <div className="text-center p-12 relative z-10">
                                         <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]">
-                                            <Upload size={24} className="text-white/20" />
+                                            <Upload size={24} className="text-white/40" />
                                         </div>
-                                        <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">UPLOAD SCREENSHOT</p>
-                                        <p className="text-[9px] text-white/10 mt-4 uppercase tracking-[0.3em]">MAX_FILE_SIZE: 5.0MB</p>
+                                        <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.2em]">UPLOAD SCREENSHOT</p>
+                                        <p className="text-[9px] text-white/20 mt-4 uppercase tracking-[0.3em]">MAX_FILE_SIZE: 5.0MB</p>
                                     </div>
                                 )}
                             </div>

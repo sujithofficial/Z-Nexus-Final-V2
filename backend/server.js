@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-console.log("Mongo URI:", process.env.MONGO_URI ? "LOADED" : "UNDEFINED");
-
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
@@ -31,9 +29,9 @@ app.use(cors({
         "http://localhost:5173",
         "https://znexus2k26.netlify.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
@@ -52,12 +50,11 @@ app.get('/', (req, res) => {
     res.send('Z-NEXUS 2K26 API is running...');
 });
 
-// Global error handler — catches Multer errors and any other Express errors
 app.use((err, req, res, next) => {
-    console.error('Global Error Handler:', err.message);
-    const status = err.status || err.statusCode || 500;
-    res.status(status).json({
-        message: err.message || 'Internal Server Error'
+    console.error("GLOBAL ERROR:", err);
+    res.status(err.status || 500).json({
+        success: false,
+        message: err.message || "Internal Server Error"
     });
 });
 

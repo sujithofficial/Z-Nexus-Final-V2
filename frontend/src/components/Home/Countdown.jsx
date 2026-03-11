@@ -92,9 +92,9 @@ const Countdown = () => {
                             <span className="text-3xl sm:text-5xl md:text-8xl font-black mb-2 sm:mb-6 text-white tabular-nums tracking-tighter group-hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
                                 {String(item.value).padStart(2, '0')}
                             </span>
-                            <span className="text-xs sm:text-sm md:text-[10px] font-black tracking-[0.4em] text-white/30 uppercase group-hover:text-white/60 transition-colors duration-1000">{item.label}</span>
+                            <span className="text-xs sm:text-sm md:text-[10px] font-black tracking-[0.4em] text-gray-300 uppercase group-hover:text-white transition-colors duration-1000">{item.label}</span>
 
-                            <div className="absolute inset-x-0 bottom-0 h-px bg-white/20 scale-x-0 group-hover:scale-x-50 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+                            <div className="absolute inset-x-0 bottom-0 h-px bg-white/40 scale-x-0 group-hover:scale-x-50 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
                         </motion.div>
                     ))}
                 </div>

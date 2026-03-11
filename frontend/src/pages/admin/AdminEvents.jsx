@@ -133,11 +133,11 @@ const AdminEvents = () => {
                 <table className="w-full text-left">
                     <thead className="bg-white/5 border-b border-white/10">
                         <tr>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">EVENT TITLE</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">TYPE</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">COORDINATOR</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/40">STATUS</th>
-                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-white/20 text-center">ACTIONS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">EVENT TITLE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">TYPE</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">COORDINATOR</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300">STATUS</th>
+                            <th className="p-6 font-black uppercase text-[10px] tracking-[0.3em] text-gray-300 text-center">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -145,7 +145,7 @@ const AdminEvents = () => {
                             <tr key={event._id} className="hover:bg-white/5 transition-colors group">
                                 <td className="p-6">
                                     <div className="font-bold text-lg">{event.title}</div>
-                                    <div className="text-xs text-gray-500">{event.date} @ {event.venue}</div>
+                                    <div className="text-xs text-gray-300">{event.date} @ {event.venue}</div>
                                 </td>
                                 <td className="p-6">
                                     <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase border border-white/10 ${event.eventType === 'Team' ? 'bg-white/5 text-white/60' : 'bg-white/5 text-white/40'}`}>
@@ -154,7 +154,7 @@ const AdminEvents = () => {
                                 </td>
                                 <td className="p-6">
                                     <div className="text-sm font-semibold">{event.coordinatorName}</div>
-                                    <div className="text-xs text-gray-500">{event.coordinatorPhone}</div>
+                                    <div className="text-xs text-gray-300">{event.coordinatorPhone}</div>
                                 </td>
                                 <td className="p-6">
                                     <span className="flex items-center gap-2 text-gray-300 text-[10px] font-black uppercase tracking-widest">

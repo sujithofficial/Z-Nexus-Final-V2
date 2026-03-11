@@ -35,7 +35,7 @@ const Events = () => {
     }
 
     return (
-        <div id="events-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24">
+        <div id="events-top" className="min-h-screen py-32 container mx-auto px-4 sm:px-6 relative overflow-hidden scroll-mt-24 section-glow">
             {/* Atmosphere Layer */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.04),transparent_40%)]" />
@@ -68,7 +68,7 @@ const Events = () => {
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                             viewport={{ once: true, margin: "-50px" }}
-                            className="sticker-card overflow-hidden flex flex-col h-full bg-white/[0.02] border border-white/5 rounded-[2.5rem] group"
+                            className="sticker-card card-lift overflow-hidden flex flex-col h-full bg-white/[0.02] border border-white/5 rounded-[2.5rem] group"
                         >
                             <div className="h-48 bg-white/[0.01] relative flex items-center justify-center overflow-hidden border-b border-white/5">
                                 {/* Glass Reflection */}
