@@ -16,6 +16,11 @@ export const registerForEvent = async (req, res) => {
         let registrationData;
         try {
             registrationData = JSON.parse(req.body.data);
+            console.log("Processing Registration Data:", {
+                name: registrationData.name,
+                tech: registrationData.technicalEvent,
+                nonTech: registrationData.nonTechnicalEvent
+            });
         } catch (parseErr) {
             return res.status(400).json({ message: 'Invalid registration data format' });
         }
@@ -84,7 +89,8 @@ export const getRegistrations = async (req, res) => {
         const registrations = await Registration.find({})
             .populate('eventId', 'title')
             .populate('technicalEventId', 'title')
-            .populate('nonTechnicalEventId', 'title');
+            .populate('nonTechnicalEventId', 'title')
+            .sort({ createdAt: -1 });
 
         // Transform data to flat structure for the frontend as requested
         const flattenedRegistrations = registrations.map(reg => {
@@ -95,6 +101,13 @@ export const getRegistrations = async (req, res) => {
                 nonTechnicalEvent: obj.nonTechnicalEvent || obj.nonTechnicalEventId?.title || "Non-Technical"
             };
         });
+
+        // Step 5: Debug logging to verify fields exist
+        console.log("Fetched Registrations with events:", flattenedRegistrations.map(r => ({
+            name: r.name,
+            tech: r.technicalEvent,
+            nonTech: r.nonTechnicalEvent
+        })));
 
         res.json(flattenedRegistrations);
     } catch (error) {

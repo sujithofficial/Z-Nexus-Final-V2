@@ -36,6 +36,7 @@ const AdminRegistrations = () => {
     const fetchRegistrations = async () => {
         try {
             const { data } = await registrationService.getAll();
+            console.log("Registrations API Response:", data);
             setRegistrations(data);
         } catch (error) {
             console.error(error);
