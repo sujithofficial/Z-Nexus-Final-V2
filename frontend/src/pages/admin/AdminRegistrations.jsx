@@ -159,7 +159,7 @@ const AdminRegistrations = () => {
                                 <td className="p-6">
                                     <div className="font-bold text-lg uppercase tracking-tight">{reg.name}</div>
                                     <div className="text-[10px] text-gray-300 font-black tracking-widest uppercase">
-                                        {reg.technicalEventId?.title} / {reg.nonTechnicalEventId?.title}
+                                        {reg.technicalEventId?.title || "Technical"} / {reg.nonTechnicalEventId?.title || "Non-Technical"}
                                     </div>
                                 </td>
                                 <td className="p-6">
@@ -240,11 +240,11 @@ const AdminRegistrations = () => {
                                 <div className="grid grid-cols-2 gap-8 text-sm">
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TECHNICAL EVENT</p>
-                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.technicalEventId?.title}</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.technicalEventId?.title || "Technical"}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">NON-TECHNICAL EVENT</p>
-                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.nonTechnicalEventId?.title}</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.nonTechnicalEventId?.title || "Non-Technical"}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TEAM TYPE</p>
