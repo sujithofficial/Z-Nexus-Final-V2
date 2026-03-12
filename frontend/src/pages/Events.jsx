@@ -52,6 +52,9 @@ const Events = () => {
                         ALL EVENTS
                     </h1>
                     <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">JOIN OUR DIVERSE RANGE OF TECHNICAL COMPETITIONS AND SHOWCASE YOUR SKILLS.</p>
+                    <p className="mt-2 text-sm md:text-base font-semibold tracking-wide text-gray-300">
+                        Participants must register for 1 Technical Event and 1 Non-Technical Event.
+                    </p>
                 </motion.div>
             </div>
 
@@ -76,9 +79,12 @@ const Events = () => {
 
                                 <div className="p-8 text-center z-10 relative">
                                     <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-tight group-hover:scale-105 transition-transform duration-1000 ease-[0.16, 1, 0.3, 1]">{event.title}</h3>
-                                    <div className="mt-6">
+                                    <div className="mt-6 flex flex-col items-center gap-2">
                                         <span className="px-5 py-2 bg-white/5 rounded-full text-[9px] font-black tracking-[0.3em] text-gray-300 border border-white/5 uppercase">
                                             {event.eventType}
+                                        </span>
+                                        <span className="text-[8px] font-black tracking-[0.2em] text-white/30 uppercase">
+                                            {event.category} Event
                                         </span>
                                     </div>
                                 </div>
