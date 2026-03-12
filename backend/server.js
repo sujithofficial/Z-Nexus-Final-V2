@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://znexus2k26.netlify.app"
+        "https://znexus2k26.vercel.app"
     ],
     credentials: true
 }));
