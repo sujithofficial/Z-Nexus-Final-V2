@@ -83,8 +83,8 @@ export const registerForEvent = async (req, res) => {
         const obj = populatedReg.toObject();
         const flattened = {
             ...obj,
-            technicalEvent: obj.technicalEvent || "Technical",
-            nonTechnicalEvent: obj.nonTechnicalEvent || "Non-Technical"
+            technicalEvent: obj.technicalEvent || "Not selected",
+            nonTechnicalEvent: obj.nonTechnicalEvent || "Not selected"
         };
 
         res.status(201).json(flattened);
@@ -105,8 +105,8 @@ export const getRegistrations = async (req, res) => {
             const obj = reg.toObject();
             return {
                 ...obj,
-                technicalEvent: obj.technicalEvent || "Technical",
-                nonTechnicalEvent: obj.nonTechnicalEvent || "Non-Technical"
+            technicalEvent: obj.technicalEvent || "Not selected",
+            nonTechnicalEvent: obj.nonTechnicalEvent || "Not selected"
             };
         });
 

@@ -138,6 +138,7 @@ const Register = () => {
             };
 
             const data = new FormData();
+            console.log("Submitting Registration Payload:", payload);
             data.append('data', JSON.stringify(payload));
             if (screenshot) {
                 data.append('screenshot', screenshot);
