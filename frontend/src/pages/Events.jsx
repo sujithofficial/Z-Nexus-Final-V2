@@ -53,7 +53,7 @@ const Events = () => {
                     </h1>
                     <p className="text-gray-300 text-xs font-black uppercase tracking-[0.3em] max-w-xl mx-auto">JOIN OUR DIVERSE RANGE OF TECHNICAL COMPETITIONS AND SHOWCASE YOUR SKILLS.</p>
                     <p className="mt-2 text-sm md:text-base font-semibold tracking-wide text-gray-300">
-                        Participants must register for 1 Technical Event and 1 Non-Technical Event.
+                        PARTICIPANTS MUST REGISTER FOR 1 TECHNICAL EVENT AND 1 NON-TECHNICAL EVENT.
                     </p>
                 </motion.div>
             </div>
