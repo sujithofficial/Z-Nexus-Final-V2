@@ -69,7 +69,7 @@ const AdminRegistrations = () => {
         return (
             (filterEvent === '' || combinedEvents.includes(filterEvent.toLowerCase())) &&
             (filterCollege === '' || (reg.college || '').toLowerCase().includes(filterCollege.toLowerCase())) &&
-            (filterStatus === '' || reg.paymentStatus === filterStatus) &&
+            (filterStatus === '' || reg.status === filterStatus) &&
             (filterYear === '' || String(reg.year) === filterYear)
         );
     });
@@ -85,7 +85,7 @@ const AdminRegistrations = () => {
             'Technical Event': reg.technicalEvent,
             'Non-Technical Event': reg.nonTechnicalEvent,
             'Team Name': reg.teamName || 'N/A',
-            'Payment Status': reg.paymentStatus
+            'Payment Status': reg.status
         }));
 
         const worksheet = XLSX.utils.json_to_sheet(exportData);
@@ -176,14 +176,14 @@ const AdminRegistrations = () => {
                                     <div className="text-xs text-gray-300">{reg.department} - Year {reg.year}</div>
                                 </td>
                                 <td className="p-6">
-                                    <span className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${reg.paymentStatus === 'Approved' ? 'text-white' :
-                                        reg.paymentStatus === 'Rejected' ? 'text-white/40' :
+                                    <span className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${reg.status === 'Approved' ? 'text-white' :
+                                        reg.status === 'Rejected' ? 'text-white/40' :
                                             'text-white/60 animate-pulse'
                                         }`}>
-                                        {reg.paymentStatus === 'Pending' && <Clock size={14} />}
-                                        {reg.paymentStatus === 'Approved' && <Check size={14} />}
-                                        {reg.paymentStatus === 'Rejected' && <X size={14} />}
-                                        {reg.paymentStatus}
+                                        {reg.status === 'Pending' && <Clock size={14} />}
+                                        {reg.status === 'Approved' && <Check size={14} />}
+                                        {reg.status === 'Rejected' && <X size={14} />}
+                                        {reg.status}
                                     </span>
                                 </td>
                                 <td className="p-6">
@@ -265,7 +265,7 @@ const AdminRegistrations = () => {
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">STATUS</p>
-                                        <p className="font-bold">{selectedReg.paymentStatus}</p>
+                                        <p className="font-bold">{selectedReg.status}</p>
                                     </div>
                                 </div>
 

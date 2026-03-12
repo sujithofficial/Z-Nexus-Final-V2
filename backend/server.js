@@ -36,7 +36,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/events', eventRoutes);
-app.use('/api/registrations', registrationRoutes);
+app.use('/api', registrationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/association', associationRoutes);
 app.use('/api/staff', staffRoutes);

@@ -21,7 +21,7 @@ const registrationSchema = new mongoose.Schema({
     teamMembers: [teamMemberSchema],
     transactionId: { type: String, required: true },
     paymentScreenshot: { type: String, required: true },
-    paymentStatus: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' }
+    status: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' }
 }, { timestamps: true });
 
 export default mongoose.model('Registration', registrationSchema);

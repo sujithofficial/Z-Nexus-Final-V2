@@ -73,7 +73,7 @@ export const registerForEvent = async (req, res) => {
             teamMembers: registrationData.teamMembers,
             transactionId: registrationData.transactionId,
             paymentScreenshot,
-            paymentStatus: 'Pending'
+            status: 'Pending'
         });
 
         // Populate eventId (main event) title
@@ -126,25 +126,16 @@ export const getRegistrations = async (req, res) => {
 
 export const updateRegistrationStatus = async (req, res) => {
     try {
-        const { id } = req.params;
         const { status } = req.body;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: 'Invalid registration ID format' });
-        }
-
-        if (!status) {
-            return res.status(400).json({ message: 'Status is required' });
-        }
-
         const registration = await Registration.findByIdAndUpdate(
-            id,
-            { paymentStatus: status },
+            req.params.id,
+            { status },
             { new: true }
         ).populate('eventId', 'title');
 
         if (!registration) {
-            return res.status(404).json({ message: 'Registration not found' });
+            return res.status(404).json({ message: "Registration not found" });
         }
 
         // Standardize the response structure
@@ -155,19 +146,19 @@ export const updateRegistrationStatus = async (req, res) => {
             nonTechnicalEvent: obj.nonTechnicalEvent || "Not selected"
         };
 
-        console.log(`Updated registration ${id} status to ${status}`);
+        console.log(`Updated registration ${req.params.id} status to ${status}`);
         res.json(flattened);
     } catch (error) {
-        console.error("Update Registration Status Error:", error);
-        res.status(500).json({ message: error.message || 'Failed to update status' });
+        console.error("Status update error:", error);
+        res.status(500).json({ message: error.message });
     }
 };
 
 export const getStats = async (req, res) => {
     try {
         const totalRegistrations = await Registration.countDocuments();
-        const pendingRegistrations = await Registration.countDocuments({ paymentStatus: 'Pending' });
-        const approvedRegistrations = await Registration.countDocuments({ paymentStatus: 'Approved' });
+        const pendingRegistrations = await Registration.countDocuments({ status: 'Pending' });
+        const approvedRegistrations = await Registration.countDocuments({ status: 'Approved' });
         res.json({ totalRegistrations, pendingRegistrations, approvedRegistrations });
     } catch (error) {
         console.error("Get Stats Error:", error);
