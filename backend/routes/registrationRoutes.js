@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/', upload.single('screenshot'), registerForEvent);
 router.get('/', protect, getRegistrations);
-router.put('/:id/status', protect, updateRegistrationStatus);
+router.patch('/:id/status', protect, updateRegistrationStatus);
+router.put('/:id/status', protect, updateRegistrationStatus); // Maintain PUT for compatibility
 
 export default router;

@@ -127,28 +127,39 @@ export const getRegistrations = async (req, res) => {
 export const updateRegistrationStatus = async (req, res) => {
     try {
         const { id } = req.params;
+        const { status } = req.body;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid registration ID format' });
         }
 
-        if (!req.body || !req.body.status) {
+        if (!status) {
             return res.status(400).json({ message: 'Status is required' });
         }
 
-        const { status } = req.body;
-        const registration = await Registration.findById(id);
+        const registration = await Registration.findByIdAndUpdate(
+            id,
+            { paymentStatus: status },
+            { new: true }
+        ).populate('eventId', 'title');
 
         if (!registration) {
             return res.status(404).json({ message: 'Registration not found' });
         }
 
-        registration.paymentStatus = status;
-        const updatedRegistration = await registration.save();
-        res.json(updatedRegistration);
+        // Standardize the response structure
+        const obj = registration.toObject();
+        const flattened = {
+            ...obj,
+            technicalEvent: obj.technicalEvent || "Not selected",
+            nonTechnicalEvent: obj.nonTechnicalEvent || "Not selected"
+        };
+
+        console.log(`Updated registration ${id} status to ${status}`);
+        res.json(flattened);
     } catch (error) {
         console.error("Update Registration Status Error:", error);
-        res.status(500).json({ message: 'Failed to update status', error: error.message });
+        res.status(500).json({ message: error.message || 'Failed to update status' });
     }
 };
 

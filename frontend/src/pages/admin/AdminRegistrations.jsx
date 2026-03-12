@@ -51,10 +51,12 @@ const AdminRegistrations = () => {
 
     const handleStatusUpdate = async (id, status) => {
         try {
-            await registrationService.updateStatus(id, status);
+            const { data } = await registrationService.updateStatus(id, status);
+            console.log("Status Updated Response:", data);
             fetchRegistrations();
             setSelectedReg(null);
         } catch (error) {
+            console.error("Update status error:", error);
             alert('Error updating status');
         }
     };

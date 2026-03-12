@@ -33,7 +33,7 @@ export const registrationService = {
         headers: { 'Content-Type': 'multipart/form-data' }
     }),
     getAll: () => API.get('/registrations'),
-    updateStatus: (id, status) => API.put(`/registrations/${id}/status`, { status }),
+    updateStatus: (id, status) => API.patch(`/registrations/${id}/status`, { status }),
 };
 
 export const associationService = {
