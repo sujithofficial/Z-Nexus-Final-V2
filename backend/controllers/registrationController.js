@@ -59,7 +59,20 @@ export const registerForEvent = async (req, res) => {
             paymentScreenshot,
         });
 
-        res.status(201).json(createdRegistration);
+        // Populate titles so we can return the same flat structure as getRegistrations
+        const populatedReg = await Registration.findById(createdRegistration._id)
+            .populate('eventId', 'title')
+            .populate('technicalEventId', 'title')
+            .populate('nonTechnicalEventId', 'title');
+
+        const obj = populatedReg.toObject();
+        const flattened = {
+            ...obj,
+            technicalEvent: obj.technicalEventId?.title || "Technical",
+            nonTechnicalEvent: obj.nonTechnicalEventId?.title || "Non-Technical"
+        };
+
+        res.status(201).json(flattened);
     } catch (error) {
         console.error("Registration Error:", error);
         res.status(500).json({ message: error.message || 'Registration failed' });
@@ -72,7 +85,18 @@ export const getRegistrations = async (req, res) => {
             .populate('eventId', 'title')
             .populate('technicalEventId', 'title')
             .populate('nonTechnicalEventId', 'title');
-        res.json(registrations);
+
+        // Transform data to flat structure for the frontend as requested
+        const flattenedRegistrations = registrations.map(reg => {
+            const obj = reg.toObject();
+            return {
+                ...obj,
+                technicalEvent: obj.technicalEventId?.title || "Technical",
+                nonTechnicalEvent: obj.nonTechnicalEventId?.title || "Non-Technical"
+            };
+        });
+
+        res.json(flattenedRegistrations);
     } catch (error) {
         console.error("Get Registrations Error:", error);
         res.status(500).json({ message: 'Failed to fetch registrations', error: error.message });

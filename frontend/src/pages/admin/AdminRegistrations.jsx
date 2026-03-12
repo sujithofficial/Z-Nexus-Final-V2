@@ -53,8 +53,8 @@ const AdminRegistrations = () => {
     };
 
     const filteredRegistrations = registrations.filter(reg => {
-        const technicalTitle = reg.technicalEventId?.title || '';
-        const nonTechnicalTitle = reg.nonTechnicalEventId?.title || '';
+        const technicalTitle = reg.technicalEvent || '';
+        const nonTechnicalTitle = reg.nonTechnicalEvent || '';
         const combinedEvents = `${technicalTitle} ${nonTechnicalTitle}`.toLowerCase();
 
         return (
@@ -73,8 +73,8 @@ const AdminRegistrations = () => {
             'College Name': reg.college,
             'Department': reg.department,
             'Year of Study': reg.year,
-            'Technical Event': reg.technicalEventId?.title || '',
-            'Non-Technical Event': reg.nonTechnicalEventId?.title || '',
+            'Technical Event': reg.technicalEvent,
+            'Non-Technical Event': reg.nonTechnicalEvent,
             'Team Name': reg.teamName || 'N/A',
             'Payment Status': reg.paymentStatus
         }));
@@ -159,7 +159,7 @@ const AdminRegistrations = () => {
                                 <td className="p-6">
                                     <div className="font-bold text-lg uppercase tracking-tight">{reg.name}</div>
                                     <div className="text-[10px] text-gray-300 font-black tracking-widest uppercase">
-                                        {reg.technicalEventId?.title || "Technical"} / {reg.nonTechnicalEventId?.title || "Non-Technical"}
+                                        {reg.technicalEvent} / {reg.nonTechnicalEvent}
                                     </div>
                                 </td>
                                 <td className="p-6">
@@ -240,11 +240,11 @@ const AdminRegistrations = () => {
                                 <div className="grid grid-cols-2 gap-8 text-sm">
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TECHNICAL EVENT</p>
-                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.technicalEventId?.title || "Technical"}</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.technicalEvent}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">NON-TECHNICAL EVENT</p>
-                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.nonTechnicalEventId?.title || "Non-Technical"}</p>
+                                        <p className="font-black text-white/80 tracking-tight">{selectedReg.nonTechnicalEvent}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TEAM TYPE</p>

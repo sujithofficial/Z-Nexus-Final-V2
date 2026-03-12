@@ -104,10 +104,15 @@ export const contactService = {
 
 export const getImageUrl = (image) => {
     if (!image) return "";
+    
+    // 1. If it's already a full Cloudinary/External URL, return it as-is
     if (image.startsWith("http")) {
         return image;
     }
-    return `${import.meta.env.VITE_API_URL}${image.startsWith('/') ? '' : '/'}${image}`;
+    
+    // 2. If it's a legacy local path, prepend the backend API URL
+    const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    return `${baseUrl}${image.startsWith('/') ? '' : '/'}${image}`;
 };
 
 export default API;
