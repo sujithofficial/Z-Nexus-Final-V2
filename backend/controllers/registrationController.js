@@ -68,8 +68,8 @@ export const registerForEvent = async (req, res) => {
         const obj = populatedReg.toObject();
         const flattened = {
             ...obj,
-            technicalEvent: obj.technicalEventId?.title || "Technical",
-            nonTechnicalEvent: obj.nonTechnicalEventId?.title || "Non-Technical"
+            technicalEvent: obj.technicalEvent || obj.technicalEventId?.title || "Technical",
+            nonTechnicalEvent: obj.nonTechnicalEvent || obj.nonTechnicalEventId?.title || "Non-Technical"
         };
 
         res.status(201).json(flattened);
@@ -91,8 +91,8 @@ export const getRegistrations = async (req, res) => {
             const obj = reg.toObject();
             return {
                 ...obj,
-                technicalEvent: obj.technicalEventId?.title || "Technical",
-                nonTechnicalEvent: obj.nonTechnicalEventId?.title || "Non-Technical"
+                technicalEvent: obj.technicalEvent || obj.technicalEventId?.title || "Technical",
+                nonTechnicalEvent: obj.nonTechnicalEvent || obj.nonTechnicalEventId?.title || "Non-Technical"
             };
         });
 

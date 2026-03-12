@@ -17,6 +17,8 @@ const registrationSchema = new mongoose.Schema({
     eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
     technicalEventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
     nonTechnicalEventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
+    technicalEvent: { type: String, required: true },
+    nonTechnicalEvent: { type: String, required: true },
     teamName: { type: String },
     teamMembers: [teamMemberSchema],
     upiId: { type: String, required: true },

@@ -28,6 +28,8 @@ const Register = () => {
         eventId: preSelectedEventId || '',
         technicalEventId: '',
         nonTechnicalEventId: '',
+        technicalEvent: '',
+        nonTechnicalEvent: '',
         teamName: '',
         upiId: '',
     });
@@ -45,10 +47,10 @@ const Register = () => {
                     const event = data.find(e => e._id === preSelectedEventId);
                     if (event?.category === 'Technical') {
                         setSelectedTechnicalEvent(event);
-                        setFormData(prev => ({ ...prev, technicalEventId: preSelectedEventId, eventId: preSelectedEventId }));
+                        setFormData(prev => ({ ...prev, technicalEventId: preSelectedEventId, eventId: preSelectedEventId, technicalEvent: event.title }));
                     } else if (event?.category === 'Non-Technical') {
                         setSelectedNonTechnicalEvent(event);
-                        setFormData(prev => ({ ...prev, nonTechnicalEventId: preSelectedEventId, eventId: preSelectedEventId }));
+                        setFormData(prev => ({ ...prev, nonTechnicalEventId: preSelectedEventId, eventId: preSelectedEventId, nonTechnicalEvent: event.title }));
                     }
                 }
 
@@ -72,7 +74,7 @@ const Register = () => {
         const id = e.target.value;
         const event = events.find(ev => ev._id === id);
         setSelectedTechnicalEvent(event);
-        setFormData({ ...formData, technicalEventId: id, eventId: id });
+        setFormData({ ...formData, technicalEventId: id, eventId: id, technicalEvent: event?.title || '' });
         // Only reset team if neither event is team-based
         if (event?.eventType !== 'Team' && selectedNonTechnicalEvent?.eventType !== 'Team') {
             setIsTeam(false);
@@ -84,7 +86,7 @@ const Register = () => {
         const id = e.target.value;
         const event = events.find(ev => ev._id === id);
         setSelectedNonTechnicalEvent(event);
-        setFormData({ ...formData, nonTechnicalEventId: id, eventId: id });
+        setFormData({ ...formData, nonTechnicalEventId: id, eventId: id, nonTechnicalEvent: event?.title || '' });
         // Only reset team if neither event is team-based
         if (event?.eventType !== 'Team' && selectedTechnicalEvent?.eventType !== 'Team') {
             setIsTeam(false);
