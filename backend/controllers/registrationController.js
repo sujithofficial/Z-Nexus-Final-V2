@@ -60,21 +60,31 @@ export const registerForEvent = async (req, res) => {
 
         // 2 & 3. Create database record ONLY after Cloudinary upload completes
         const createdRegistration = await Registration.create({
-            ...registrationData,
+            name: registrationData.name,
+            email: registrationData.email,
+            phone: registrationData.phone,
+            college: registrationData.college,
+            department: registrationData.department,
+            year: registrationData.year,
+            eventId: registrationData.eventId,
+            technicalEvent: registrationData.technicalEvent,
+            nonTechnicalEvent: registrationData.nonTechnicalEvent,
+            teamName: registrationData.teamName,
+            teamMembers: registrationData.teamMembers,
+            transactionId: registrationData.transactionId,
             paymentScreenshot,
+            paymentStatus: 'Pending'
         });
 
-        // Populate titles so we can return the same flat structure as getRegistrations
+        // Populate eventId (main event) title
         const populatedReg = await Registration.findById(createdRegistration._id)
-            .populate('eventId', 'title')
-            .populate('technicalEventId', 'title')
-            .populate('nonTechnicalEventId', 'title');
+            .populate('eventId', 'title');
 
         const obj = populatedReg.toObject();
         const flattened = {
             ...obj,
-            technicalEvent: obj.technicalEvent || obj.technicalEventId?.title || "Technical",
-            nonTechnicalEvent: obj.nonTechnicalEvent || obj.nonTechnicalEventId?.title || "Non-Technical"
+            technicalEvent: obj.technicalEvent || "Technical",
+            nonTechnicalEvent: obj.nonTechnicalEvent || "Non-Technical"
         };
 
         res.status(201).json(flattened);
@@ -88,8 +98,6 @@ export const getRegistrations = async (req, res) => {
     try {
         const registrations = await Registration.find({})
             .populate('eventId', 'title')
-            .populate('technicalEventId', 'title')
-            .populate('nonTechnicalEventId', 'title')
             .sort({ createdAt: -1 });
 
         // Transform data to flat structure for the frontend as requested
@@ -97,8 +105,8 @@ export const getRegistrations = async (req, res) => {
             const obj = reg.toObject();
             return {
                 ...obj,
-                technicalEvent: obj.technicalEvent || obj.technicalEventId?.title || "Technical",
-                nonTechnicalEvent: obj.nonTechnicalEvent || obj.nonTechnicalEventId?.title || "Non-Technical"
+                technicalEvent: obj.technicalEvent || "Technical",
+                nonTechnicalEvent: obj.nonTechnicalEvent || "Non-Technical"
             };
         });
 

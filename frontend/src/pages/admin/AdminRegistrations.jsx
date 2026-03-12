@@ -252,7 +252,8 @@ const AdminRegistrations = () => {
                                         <p className="font-bold">{selectedReg.teamName ? 'TEAM' : 'INDIVIDUAL'}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="font-black text-gray-300 tracking-widest">{selectedReg.upiId}</p>
+                                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">TRANSACTION ID</p>
+                                        <p className="font-black text-gray-300 tracking-widest">{selectedReg.transactionId}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-gray-300 font-black uppercase text-[10px] tracking-widest">STATUS</p>

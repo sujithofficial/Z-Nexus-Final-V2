@@ -15,13 +15,11 @@ const registrationSchema = new mongoose.Schema({
     department: { type: String, required: true },
     year: { type: String, required: true },
     eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
-    technicalEventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
-    nonTechnicalEventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
     technicalEvent: { type: String, required: true },
     nonTechnicalEvent: { type: String, required: true },
     teamName: { type: String },
     teamMembers: [teamMemberSchema],
-    upiId: { type: String, required: true },
+    transactionId: { type: String, required: true },
     paymentScreenshot: { type: String, required: true },
     paymentStatus: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' }
 }, { timestamps: true });

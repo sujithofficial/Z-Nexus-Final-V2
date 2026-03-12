@@ -31,7 +31,7 @@ const Register = () => {
         technicalEvent: '',
         nonTechnicalEvent: '',
         teamName: '',
-        upiId: '',
+        transactionId: '',
     });
 
     const [teamMembers, setTeamMembers] = useState([]);
@@ -457,7 +457,7 @@ const Register = () => {
                                 <label className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] ml-1">UPI TRANSACTION ID</label>
                                 <input
                                     type="text" required className="w-full bg-white/[0.02] border border-white/5 focus:border-white/20 rounded-2xl px-6 py-5 text-sm text-white outline-none transition-all placeholder:text-white/5 uppercase tracking-[0.2em]" placeholder="E.G. TXN8945723165"
-                                    value={formData.upiId} onChange={(e) => setFormData({ ...formData, upiId: e.target.value })}
+                                    value={formData.transactionId} onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
                                 />
                             </div>
                         </div>
