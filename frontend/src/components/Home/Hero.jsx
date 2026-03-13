@@ -51,12 +51,14 @@ const Hero = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-8 px-4 sm:px-0">
-                        <button
-                            onClick={() => navigate('/register')}
-                            className="px-12 py-5 bg-white text-black font-black text-[10px] uppercase tracking-[0.3em] rounded-2xl hover:scale-[1.05] active:scale-[0.95] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_20px_50px_rgba(255,255,255,0.1)]"
+                        <a
+                            href="https://forms.gle/xyWFHC5fbjeftLMr7"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-12 py-5 bg-white text-black font-black text-[10px] uppercase tracking-[0.3em] rounded-2xl hover:scale-[1.05] active:scale-[0.95] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_20px_50px_rgba(255,255,255,0.1)] text-center flex items-center justify-center"
                         >
                             REGISTER NOW
-                        </button>
+                        </a>
                         <button
                             onClick={() => navigate('/events')}
                             className="px-12 py-5 bg-white/5 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-2xl border border-white/5 hover:bg-white/10 hover:scale-[1.05] active:scale-[0.95] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-md"

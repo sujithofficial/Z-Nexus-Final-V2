@@ -11,7 +11,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Home', path: '/', id: 'home-top' },
         { name: 'Events', path: '/events', id: 'events-top' },
-        { name: 'Register', path: '/register', id: 'register-top' },
+        { name: 'Register', path: 'https://forms.gle/xyWFHC5fbjeftLMr7', id: 'register-top' },
         { name: 'Association', path: '/association', id: 'association-top' },
         { name: 'Staff', path: '/staff', id: 'staff-top' },
         { name: 'Gallery', path: '/gallery', id: 'gallery-top' },
@@ -72,16 +72,33 @@ const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-10">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 relative group ${location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'}`}
-                            >
-                                {link.name}
-                                <span className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const isExternal = link.path.startsWith('http');
+                            if (isExternal) {
+                                return (
+                                    <a
+                                        key={link.path}
+                                        href={link.path}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 relative group text-gray-300 hover:text-white"
+                                    >
+                                        {link.name}
+                                        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full"></span>
+                                    </a>
+                                );
+                            }
+                            return (
+                                <Link
+                                    key={link.path}
+                                    to={link.path}
+                                    className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-110 active:scale-95 relative group ${location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'}`}
+                                >
+                                    {link.name}
+                                    <span className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
+                                </Link>
+                            );
+                        })}
                     </div>
 
                     {/* Mobile Toggle */}
@@ -105,16 +122,33 @@ const Navbar = () => {
                         className="fixed inset-0 bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 z-[60] md:hidden shadow-2xl overflow-y-auto"
                     >
                         <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                className={`text-4xl font-black uppercase tracking-tighter transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95 ${location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'}`}
-                                onClick={() => handleMobileNavClick(link.path, link.id)}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const isExternal = link.path.startsWith('http');
+                            if (isExternal) {
+                                return (
+                                    <a
+                                        key={link.path}
+                                        href={link.path}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-4xl font-black uppercase tracking-tighter transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95 text-gray-300 hover:text-white"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {link.name}
+                                    </a>
+                                );
+                            }
+                            return (
+                                <Link
+                                    key={link.path}
+                                    to={link.path}
+                                    className={`text-4xl font-black uppercase tracking-tighter transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95 ${location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'}`}
+                                    onClick={() => handleMobileNavClick(link.path, link.id)}
+                                >
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
 
                         <button
                             className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors"

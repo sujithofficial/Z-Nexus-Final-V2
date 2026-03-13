@@ -52,7 +52,14 @@ const Footer = () => {
                                 <a href="/events" className="hover:text-white transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:translate-x-2 inline-block">EVENTS</a>
                             </li>
                             <li>
-                                <a href="/register" className="hover:text-white transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:translate-x-2 inline-block">REGISTER</a>
+                                <a
+                                    href="https://forms.gle/xyWFHC5fbjeftLMr7"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-white transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:translate-x-2 inline-block"
+                                >
+                                    REGISTER
+                                </a>
                             </li>
                             <li>
                                 <a href="/gallery" className="hover:text-white transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:translate-x-2 inline-block">GALLERY</a>

@@ -121,12 +121,14 @@ const Events = () => {
                                     >
                                         VIEW DETAILS
                                     </Link>
-                                    <Link
-                                        to={`/register?eventId=${event._id}`}
+                                    <a
+                                        href="https://forms.gle/xyWFHC5fbjeftLMr7"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="flex-1 py-5 bg-white text-black text-[9px] font-black tracking-[0.2em] text-center rounded-2xl hover:bg-white/90 transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:scale-[1.03] active:scale-[0.97] shadow-xl"
                                     >
                                         REGISTER NOW
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>

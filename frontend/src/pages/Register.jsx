@@ -8,6 +8,14 @@ const Register = () => {
     const query = new URLSearchParams(useLocation().search);
     const preSelectedEventId = query.get('eventId');
     const navigate = useNavigate();
+    const googleFormUrl = "https://forms.gle/xyWFHC5fbjeftLMr7";
+
+    useEffect(() => {
+        // Automatically redirect to Google Form in a new tab
+        window.open(googleFormUrl, "_blank");
+        // Navigate back to the events page in the current tab
+        navigate('/events');
+    }, [navigate]);
 
     const [events, setEvents] = useState([]);
     const [selectedTechnicalEvent, setSelectedTechnicalEvent] = useState(null);

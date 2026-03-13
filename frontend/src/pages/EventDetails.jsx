@@ -105,12 +105,14 @@ const EventDetails = () => {
                             </div>
                         </div>
 
-                        <Link
-                            to={`/register?eventId=${event._id}`}
+                        <a
+                            href="https://forms.gle/xyWFHC5fbjeftLMr7"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="mt-20 block w-full py-6 bg-white text-black text-center font-black text-xs rounded-2xl hover:scale-[1.03] active:scale-[0.97] transition-all duration-700 ease-[0.16, 1, 0.3, 1] shadow-2xl uppercase tracking-[0.4em]"
                         >
                             REGISTER NOW
-                        </Link>
+                        </a>
                     </div>
                 </motion.div>
 
