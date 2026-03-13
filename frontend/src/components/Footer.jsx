@@ -53,9 +53,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="https://forms.gle/xyWFHC5fbjeftLMr7"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    href="/register"
                                     className="hover:text-white transition-all duration-700 ease-[0.16, 1, 0.3, 1] hover:translate-x-2 inline-block"
                                 >
                                     REGISTER

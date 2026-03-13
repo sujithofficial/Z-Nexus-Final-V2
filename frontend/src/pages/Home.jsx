@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Countdown from '../components/Home/Countdown';
 import Hero from '../components/Home/Hero';
 import About from '../components/Home/About';
@@ -249,14 +249,12 @@ const Home = () => {
                             SHOWCASE YOUR TALENT AND INNOVATE WITH THE BEST MINDS IN THE SYMPOSIUM.
                         </p>
                         <div className="flex flex-wrap justify-center gap-10 relative z-10">
-                            <a
-                                href="https://forms.gle/xyWFHC5fbjeftLMr7"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <Link
+                                to="/register"
                                 className="px-12 py-6 bg-white text-black font-black text-xs uppercase tracking-[0.4em] rounded-2xl hover:scale-110 active:scale-95 transition-all duration-700 ease-[0.16, 1, 0.3, 1] shadow-2xl text-center flex items-center justify-center"
                             >
                                 REGISTER NOW
-                            </a>
+                            </Link>
                             <button
                                 onClick={() => navigate('/events')}
                                 className="px-12 py-6 bg-white/5 text-gray-300 font-black text-xs uppercase tracking-[0.4em] rounded-2xl hover:bg-white/10 hover:text-white border border-white/5 transition-all duration-700 ease-[0.16, 1, 0.3, 1] active:scale-95"

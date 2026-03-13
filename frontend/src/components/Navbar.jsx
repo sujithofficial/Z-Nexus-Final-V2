@@ -11,7 +11,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Home', path: '/', id: 'home-top' },
         { name: 'Events', path: '/events', id: 'events-top' },
-        { name: 'Register', path: 'https://forms.gle/xyWFHC5fbjeftLMr7', id: 'register-top' },
+        { name: 'Register', path: '/register', id: 'register-top' },
         { name: 'Association', path: '/association', id: 'association-top' },
         { name: 'Staff', path: '/staff', id: 'staff-top' },
         { name: 'Gallery', path: '/gallery', id: 'gallery-top' },
